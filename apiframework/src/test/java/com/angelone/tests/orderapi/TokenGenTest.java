@@ -14,7 +14,8 @@ class TokenGenTest extends BaseTest{
 
   @Test
   void placeOrder() throws IOException {
-    PlaceOrderDetails orderData = PlaceOrderTestData.placeOrder();
+	String pLtp= getLTPPrice("1491");
+    PlaceOrderDetails orderData = PlaceOrderTestData.placeOrder("MARKET",pLtp,"DELIVERY","1491","AMO");
     Response response = setupApi.placeOrder(orderData);
     Assert.assertTrue(response.getStatusCode()==200, "Place order not successful");
   }

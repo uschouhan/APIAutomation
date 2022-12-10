@@ -52,5 +52,38 @@ public final class PlaceOrderTestData {
 				
 	}
 	
+	@SneakyThrows
+	public static PlaceOrderDetails placeOrder(String exchange,String ordertype,String price,String producttype,
+			String quantity,String stoploss,String symboltoken,String tradingsymbol,String transactiontype,String triggerprice,String variety) {
+		return new ObjectMapper()
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/placeOrder.json"),
+						PlaceOrderDetails.class)
+				.setExchange(exchange)
+				.setOrdertype(ordertype)
+				.setPrice(price)
+				.setProducttype(producttype)
+				.setQuantity(quantity)
+				.setStoploss(stoploss)
+				.setSymboltoken(symboltoken)
+				.setTradingsymbol(tradingsymbol)
+				.setTransactiontype(transactiontype)
+				.setVariety(variety);
+				
+	}
+	
+	@SneakyThrows
+	public static PlaceOrderDetails placeOrder(String ordertype,String price,String producttype,
+			String symboltoken,String variety) {
+		return new ObjectMapper()
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/placeOrder.json"),
+						PlaceOrderDetails.class)
+				.setOrdertype(ordertype)
+				.setPrice(price)
+				.setProducttype(producttype)
+				.setSymboltoken(symboltoken)
+				.setVariety(variety);
+				
+	}
+	
 	
 }

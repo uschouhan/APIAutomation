@@ -1,8 +1,11 @@
 package com.angelone.api;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import com.angelone.api.pojo.LTPPrice;
 import com.angelone.api.pojo.PlaceOrderDetails;
 import com.angelone.api.pojo.UserDetails;
 import com.angelone.config.factory.ApiConfigFactory;
@@ -13,8 +16,10 @@ import io.restassured.response.Response;
 public final class ReqresApi {
 
 	public String token;
+	public String ltpPrice; 
 	private static final String USER_TOKEN_ENDPOINT = ApiConfigFactory.getConfig().tokenEndpoint();
 	private static final String CREATE_ORDER_ENDPOINT = ApiConfigFactory.getConfig().orderEndpoint();
+	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPrice();
 
 	/**
 	 * Method for calling create user Token
@@ -37,7 +42,7 @@ public final class ReqresApi {
 	 * Method to construct headers for userToken api
 	 * @return headers as map
 	 */
-	private static Map getHeaders() {
+	private static Map<String,Object> getHeaders() {
 
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("X-SourceID", "5");
@@ -72,7 +77,7 @@ public final class ReqresApi {
 	 * Method to construct headers for placeOrder api
 	 * @return headers as map
 	 */
-	private  Map getHeadersForOrder() {
+	private  Map<String,Object> getHeadersForOrder() {
 
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("X-SourceID", "aliqua ad");
@@ -88,5 +93,33 @@ public final class ReqresApi {
 		m.put("Authorization", "Bearer "+token);
 		return m;
 	}
+	
+	public Response getLTPPrice(LTPPrice ltprice) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LTP_PRICE_ENDPOINT);
+		System.out.println(ltprice);
+		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+				.headers(getHeaderForLtpPrice())
+				.body(ltprice)
+				.post(LTP_PRICE_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+
+	private Map<String, ?> getHeaderForLtpPrice() {
+		// TODO Auto-generated method stub
+		Map<String, Object> m = new HashMap<String, Object>();
+		if(Objects.nonNull(token)&&token.length()>1)
+		m.put("Authorization", "Bearer "+token);
+		else
+		{
+		 new BaseTest().genUserToken();	
+		}
+		
+		m.put("Content-Type", "application/json");
+		return m;
+	}
+	
+	
 	
 }
