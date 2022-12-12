@@ -113,7 +113,7 @@ public final class ReqresApi {
 		m.put("Authorization", "Bearer "+token);
 		else
 		{
-		 new BaseTest().genUserToken();	
+		 new BaseTestApi().genUserToken();	
 		}
 		
 		m.put("Content-Type", "application/json");

@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.angelone.apiframework</groupId>
 	<artifactId>apiframework</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>apiframework</name>
 	<description>creating framework for api</description>
 
@@ -25,8 +25,16 @@
 		<reflection.version>0.10.2</reflection.version>
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
 		<testng.version>7.4.0</testng.version>
+		<joda.version>2.10.13</joda.version>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -126,6 +134,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>apiframework</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -137,28 +146,37 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>3.2.0</version>
-				<configuration>
-					<consoleOutput>true</consoleOutput>
-					<includeTestSourceDirectory>true</includeTestSourceDirectory>
-					<failOnViolation>true</failOnViolation>
-					<failsOnError>true</failsOnError>
-					<configLocation>config/checkstyle/checkstyle.xml</configLocation>
-					<suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation>
-					<suppressionsFileExpression>suppressions.xml</suppressionsFileExpression>
-				</configuration>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-shade-plugin</artifactId>
+		  <version>	3.0.0</version>
+		  <executions>
+		     <!-- Run shade goal on package phase -->
+		    <execution>
+			<phase>package</phase>
+			<goals>
+				<goal>shade</goal>
+			</goals>
+			<configuration>
+			  <transformers>
+				<!-- add Main-Class to manifest file -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+					<mainClass>com.angelone.api.BaseTest</mainClass>
+				</transformer>
+			  </transformers>
+			  <filters>
+                    <filter>
+                        <artifact>*:*</artifact>
+                        <excludes>
+                            <exclude>META-INF/*.SF</exclude>
+                            <exclude>META-INF/*.DSA</exclude>
+                            <exclude>META-INF/*.RSA</exclude>
+                        </excludes>
+                    </filter>
+                </filters>
+			</configuration>
+		      </execution>
+		  </executions>
+		</plugin>
 		</plugins>
 	</build>
 </project>
