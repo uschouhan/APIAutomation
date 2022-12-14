@@ -5,28 +5,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import com.angelone.api.pojo.LTPPrice;
-import com.angelone.api.pojo.PlaceOrderDetails;
-import com.angelone.api.pojo.UserDetails;
+import com.angelone.api.pojo.CancelOrderPOJO;
+import com.angelone.api.pojo.LTPPricePOJO;
+import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
+import com.angelone.api.pojo.UserDetailsPOJO;
 import com.angelone.config.factory.ApiConfigFactory;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public final class ReqresApi {
+public final class InvokeApis {
 
 	public String token;
-	public String ltpPrice; 
+	//public String ltpPrice; 
 	private static final String USER_TOKEN_ENDPOINT = ApiConfigFactory.getConfig().tokenEndpoint();
 	private static final String CREATE_ORDER_ENDPOINT = ApiConfigFactory.getConfig().orderEndpoint();
-	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPrice();
+	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPriceEndpoint();
+	private static final String CANCEL_ORDER_ENDPOINT = ApiConfigFactory.getConfig().cancelOrderEndpoint();
 
 	/**
 	 * Method for calling create user Token
 	 * @param userDetails
 	 * @return userDetals
 	 */
-	public Response getUserToken(UserDetails userDetails) {
+	public Response getUserToken(UserDetailsPOJO userDetails) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + USER_TOKEN_ENDPOINT);
 		System.out.println(userDetails);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
@@ -61,7 +63,7 @@ public final class ReqresApi {
 	 * @param placeOrderDetails
 	 * @return orderDetails
 	 */
-	public  Response placeOrder(PlaceOrderDetails placeOrderDetails) {
+	public  Response placeOrder(PlaceOrderDetailsPOJO placeOrderDetails) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CREATE_ORDER_ENDPOINT);
 		System.out.println(placeOrderDetails);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
@@ -94,7 +96,13 @@ public final class ReqresApi {
 		return m;
 	}
 	
-	public Response getLTPPrice(LTPPrice ltprice) {
+	
+	/**
+	 * this Method is to get LTP price
+	 * @param ltprice
+	 * @return
+	 */
+	public Response getLTPPrice(LTPPricePOJO ltprice) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LTP_PRICE_ENDPOINT);
 		System.out.println(ltprice);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
@@ -120,6 +128,16 @@ public final class ReqresApi {
 		return m;
 	}
 	
-	
+	public  Response cancelOrder(CancelOrderPOJO cancelOrderDetails) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CANCEL_ORDER_ENDPOINT);
+		System.out.println(cancelOrderDetails);
+		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+				.headers(getHeadersForOrder())
+				.body(cancelOrderDetails)
+				.post(CANCEL_ORDER_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
 	
 }

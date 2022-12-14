@@ -1,7 +1,7 @@
 package com.angelone.testdataMapper;
 
-import com.angelone.api.pojo.LTPPrice;
-import com.angelone.api.pojo.UserDetails;
+import com.angelone.api.pojo.LTPPricePOJO;
+import com.angelone.api.pojo.UserDetailsPOJO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 
@@ -14,31 +14,31 @@ public final class LTPPriceData {
 	}
 
 	@SneakyThrows
-	public static LTPPrice getLTPPrice() {
+	public static LTPPricePOJO getLTPPrice() {
 		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/LTPPrice.json"),
-						LTPPrice.class);
+						LTPPricePOJO.class);
 
 	}
 
 	@SneakyThrows
-	public static LTPPrice getLTPPrice(String exchange, List<String> scriptId) {
+	public static LTPPricePOJO getLTPPrice(String exchange, List<String> scriptId) {
 		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/LTPPrice.json"),
-						LTPPrice.class)
+						LTPPricePOJO.class)
 				.setExchange(exchange)
 				.setTokens(scriptId);
 	}
 
 	@SneakyThrows
-	public static LTPPrice getLTPPrice(String scriptId) {
+	public static LTPPricePOJO getLTPPrice(String scriptId) {
 		// TODO Auto-generated method stub
 		
 		List<String> symbolId = new ArrayList<>();
 		symbolId.add(scriptId);
  		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/LTPPrice.json"),
-						LTPPrice.class)
+						LTPPricePOJO.class)
 				.setTokens(symbolId);
 
 	}

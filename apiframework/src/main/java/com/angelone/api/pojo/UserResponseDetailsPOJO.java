@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class UserResponseDetails {
+public class UserResponseDetailsPOJO {
 
     public boolean status;
     public String message;
     public String errorcode;
-    public Data data;
+    public DataPOJO data;
 }

@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-public class PlaceOrderDetails {
+public class PlaceOrderDetailsPOJO {
 
 	 private String basketID;
 	 private String disclosedquantity;

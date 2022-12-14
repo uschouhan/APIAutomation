@@ -2,7 +2,7 @@ package com.angelone.testdataMapper;
 
 import java.io.File;
 
-import com.angelone.api.pojo.PlaceOrderDetails;
+import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.SneakyThrows;
@@ -12,21 +12,21 @@ public final class PlaceOrderTestData {
 	}
 
 	@SneakyThrows
-	public static PlaceOrderDetails placeOrder() {
+	public static PlaceOrderDetailsPOJO placeOrder() {
 		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/placeOrder.json"),
-						PlaceOrderDetails.class);
+						PlaceOrderDetailsPOJO.class);
 
 	}
 
 	@SneakyThrows
-	public static PlaceOrderDetails placeOrder(String basketID, String disclosedquantity,String duration,String exchange,String multiplier,
+	public static PlaceOrderDetailsPOJO placeOrder(String basketID, String disclosedquantity,String duration,String exchange,String multiplier,
 			String orderValidityDate,String ordertag,String ordertype,String precision,String price,String producttype,
 			String quantity,String squareoff,String stoploss,String strategyCode,String symboltoken,String tickSize,String tradingsymbol,
 			String trailTickYesNo,String trailingStopLoss,String transactiontype,String triggerprice,String variety) {
 		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/placeOrder.json"),
-						PlaceOrderDetails.class)
+						PlaceOrderDetailsPOJO.class)
 				.setBasketID(basketID)
 				.setDisclosedquantity(disclosedquantity)
 				.setDuration(duration)
@@ -53,11 +53,11 @@ public final class PlaceOrderTestData {
 	}
 	
 	@SneakyThrows
-	public static PlaceOrderDetails placeOrder(String exchange,String ordertype,String price,String producttype,
+	public static PlaceOrderDetailsPOJO placeOrder(String exchange,String ordertype,String price,String producttype,
 			String quantity,String stoploss,String symboltoken,String tradingsymbol,String transactiontype,String triggerprice,String variety) {
 		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/placeOrder.json"),
-						PlaceOrderDetails.class)
+						PlaceOrderDetailsPOJO.class)
 				.setExchange(exchange)
 				.setOrdertype(ordertype)
 				.setPrice(price)
@@ -72,11 +72,11 @@ public final class PlaceOrderTestData {
 	}
 	
 	@SneakyThrows
-	public static PlaceOrderDetails placeOrder(String ordertype,String price,String producttype,
+	public static PlaceOrderDetailsPOJO placeOrder(String ordertype,String price,String producttype,
 			String symboltoken,String variety) {
 		return new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/placeOrder.json"),
-						PlaceOrderDetails.class)
+						PlaceOrderDetailsPOJO.class)
 				.setOrdertype(ordertype)
 				.setPrice(price)
 				.setProducttype(producttype)

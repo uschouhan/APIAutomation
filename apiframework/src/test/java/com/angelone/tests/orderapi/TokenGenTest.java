@@ -4,19 +4,24 @@ import java.io.IOException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.angelone.api.BaseTest;
-import com.angelone.api.pojo.PlaceOrderDetails;
+import com.angelone.api.BaseTestApi;
+import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
 import com.angelone.testdataMapper.PlaceOrderTestData;
 
 import io.restassured.response.Response;
 
-class TokenGenTest extends BaseTest{
+class TokenGenTest extends BaseTestApi{
 
-  @Test
+  @Test(enabled=false)
   void placeOrder() throws IOException {
 	String pLtp= getLTPPrice("1491");
-    PlaceOrderDetails orderData = PlaceOrderTestData.placeOrder("MARKET",pLtp,"DELIVERY","1491","AMO");
-    Response response = setupApi.placeOrder(orderData);
-    Assert.assertTrue(response.getStatusCode()==200, "Place order not successful");
+	System.out.println("LTP price ="+ pLtp);
+    Response response =   placeStockOrder("MARKET",pLtp,"DELIVERY","1491","AMO");
+    String OrderId= response.jsonPath().getString("data.orderid");
+    
+	//String OrderId="221214000901644";
+    Response cancelOrderResponse = cancelOrder(OrderId,"AMO");
+    Assert.assertTrue(cancelOrderResponse.getStatusCode()==200, "Place order not successful");
+    
   }
 }

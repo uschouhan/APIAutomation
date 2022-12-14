@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Data {
+public class DataPOJO {
 
 	 public String userid;
 	    public String username;

@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Accessors(chain = true)
 @Data
-public class UserDetails {
+public class UserDetailsPOJO {
 
   private String userid;
   private String passorpin;

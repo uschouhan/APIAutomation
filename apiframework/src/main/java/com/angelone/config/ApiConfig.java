@@ -20,5 +20,9 @@ public interface ApiConfig extends Config {
   String orderEndpoint();
   
   @Key("LTP_PRICE_ENDPOINT")
-  String ltpPrice();
+  String ltpPriceEndpoint();
+  
+  @Key("CANCEL_ORDER_ENDPOINT")
+  String cancelOrderEndpoint();
+  
 }
