@@ -88,10 +88,17 @@ public class BaseTestApi {
 	
 	public void generateUserToken(String userCredentials) {
 		String[] creden = userCredentials.split(":");
-		String userId= creden[3];
-		String password = creden[4];
-		genUserToken(userId, password);
+		try {
+			String userId= creden[3];
+			String password = creden[4];
+			genUserToken(userId, password);
+		} 
+		catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("UserId and Password Missing in testng xml file .Please provide if willing to use api call");
+		}
+		catch (Exception e) {
+			System.out.println("Issue while generating token.");
+		}
 	}
-	
 	
 }
