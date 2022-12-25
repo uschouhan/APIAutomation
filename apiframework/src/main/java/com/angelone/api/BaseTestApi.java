@@ -101,4 +101,8 @@ public class BaseTestApi {
 		}
 	}
 	
+	public Response callOrdersApi() 
+	{
+		return setupApi.getAllOrderDetails();
+	}
 }

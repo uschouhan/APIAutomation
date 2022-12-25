@@ -25,4 +25,7 @@ public interface ApiConfig extends Config {
   @Key("CANCEL_ORDER_ENDPOINT")
   String cancelOrderEndpoint();
   
+  @Key("GET_ORDER_BOOK_ENDPOINT")
+  String getOrderBookEndpoint();
+  
 }

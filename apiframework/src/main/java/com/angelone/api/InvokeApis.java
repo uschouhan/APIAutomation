@@ -22,6 +22,7 @@ public final class InvokeApis {
 	private static final String CREATE_ORDER_ENDPOINT = ApiConfigFactory.getConfig().orderEndpoint();
 	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPriceEndpoint();
 	private static final String CANCEL_ORDER_ENDPOINT = ApiConfigFactory.getConfig().cancelOrderEndpoint();
+	private static final String GET_ORDER_BOOK_ENDPOINT = ApiConfigFactory.getConfig().getOrderBookEndpoint();
 
 	/**
 	 * Method for calling create user Token
@@ -30,10 +31,11 @@ public final class InvokeApis {
 	 */
 	public Response getUserToken(UserDetailsPOJO userDetails) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + USER_TOKEN_ENDPOINT);
-		System.out.println(userDetails);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
 				.headers(getHeaders())
 				.body(userDetails)
+				.log()
+				.all()
 				.post(USER_TOKEN_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
@@ -65,10 +67,11 @@ public final class InvokeApis {
 	 */
 	public  Response placeOrder(PlaceOrderDetailsPOJO placeOrderDetails) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CREATE_ORDER_ENDPOINT);
-		System.out.println(placeOrderDetails);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
 				.headers(getHeadersForOrder())
 				.body(placeOrderDetails)
+				.log()
+				.all()
 				.post(CREATE_ORDER_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
@@ -104,10 +107,11 @@ public final class InvokeApis {
 	 */
 	public Response getLTPPrice(LTPPricePOJO ltprice) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LTP_PRICE_ENDPOINT);
-		System.out.println(ltprice);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
 				.headers(getHeaderForLtpPrice())
 				.body(ltprice)
+				.log()
+				.all()
 				.post(LTP_PRICE_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
@@ -130,11 +134,24 @@ public final class InvokeApis {
 	
 	public  Response cancelOrder(CancelOrderPOJO cancelOrderDetails) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CANCEL_ORDER_ENDPOINT);
-		System.out.println(cancelOrderDetails);
 		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
 				.headers(getHeadersForOrder())
 				.body(cancelOrderDetails)
+				.log()
+				.all()
 				.post(CANCEL_ORDER_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	public Response getAllOrderDetails() {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + GET_ORDER_BOOK_ENDPOINT);
+		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+				.headers(getHeadersForOrder())
+				.log()
+				.all()
+				.get(GET_ORDER_BOOK_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
 		return response;
