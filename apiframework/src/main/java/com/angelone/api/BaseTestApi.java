@@ -1,5 +1,6 @@
 package com.angelone.api;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 import org.testng.SkipException;
@@ -34,6 +35,8 @@ public class BaseTestApi {
 			ltpPrice = response.jsonPath().getString("data[0].tradePrice");
 			Double ltp = Double.valueOf(ltpPrice);
 			ltp = ltp / 100;
+			DecimalFormat df = new DecimalFormat("#.##");
+			df.format(ltp);
 			ltpPrice = String.valueOf(ltp);
 		} else
 			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
@@ -71,6 +74,14 @@ public class BaseTestApi {
 		return response;
 	}
 
+	public Response placeStockOrder(String ordertype, String price, String producttype, String symboltoken,String tradingsymbol,
+			String variety) {
+		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(ordertype, price, producttype, symboltoken,tradingsymbol,
+				variety);
+		Response response = setupApi.placeOrder(orderData);
+		return response;
+	}
+	
 	public Response placeStockOrder(String exchange, String ordertype, String price, String producttype,
 			String quantity, String stoploss, String symboltoken, String tradingsymbol, String transactiontype,
 			String triggerprice, String variety) {
