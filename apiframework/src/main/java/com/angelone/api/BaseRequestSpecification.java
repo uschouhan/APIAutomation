@@ -12,7 +12,9 @@ public final class BaseRequestSpecification {
   }
 
   public static final String BASE_URL = ApiConfigFactory.getConfig().apiBaseUrl();
-
+  public static final String TRADE_BASE_URL = ApiConfigFactory.getConfig().tradeBaseUrl();
+  public static final String DISCOVERY_BASE_URL = ApiConfigFactory.getConfig().discoveryBaseUrl();
+  
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
       .given()
@@ -20,5 +22,20 @@ public final class BaseRequestSpecification {
       .baseUri(BASE_URL);
   }
   
+  public static RequestSpecification getTradeRequestSpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(TRADE_BASE_URL);
+	  }
+  
+  public static RequestSpecification getDiscoveryRequestSpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(DISCOVERY_BASE_URL);
+	  }
+
+ 
   
 }

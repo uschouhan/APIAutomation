@@ -15,8 +15,6 @@
 		<restassured.version>5.2.0</restassured.version>
 		<jackson.version>2.14.1</jackson.version>
 		<assertjcore.version>3.21.0</assertjcore.version>
-		<webdrivermanager.version>5.0.3</webdrivermanager.version>
-		<selenium.version>3.141.59</selenium.version>
 		<lombok.version>1.18.20</lombok.version>
 		<noexception.version>1.7.1</noexception.version>
 		<reflection.version>0.10.2</reflection.version>
@@ -59,13 +57,6 @@
 		</dependency>
 
 
-		<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-		<dependency>
-			<groupId>io.appium</groupId>
-			<artifactId>java-client</artifactId>
-			<version>${appium.java.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
@@ -99,19 +90,6 @@
 			<version>${assertjcore.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-		<dependency>
-			<groupId>io.github.bonigarcia</groupId>
-			<artifactId>webdrivermanager</artifactId>
-			<version>${webdrivermanager.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>${selenium.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -120,6 +98,40 @@
 		</dependency>
 
 
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.7.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.epam.reportportal</groupId>
+			<artifactId>agent-java-testng</artifactId>
+			<version>5.1.3</version>
+		</dependency>
+		<!-- TODO Leave only one dependency, depends on what logger you use: -->
+		<dependency>
+			<groupId>com.epam.reportportal</groupId>
+			<artifactId>logger-java-logback</artifactId>
+			<version>5.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.epam.reportportal</groupId>
+			<artifactId>logger-java-log4j</artifactId>
+			<version>5.1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

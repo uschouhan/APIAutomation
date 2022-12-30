@@ -28,4 +28,20 @@ public interface ApiConfig extends Config {
   @Key("GET_ORDER_BOOK_ENDPOINT")
   String getOrderBookEndpoint();
   
+  @Key("TRADE_BASE_URL")
+  String tradeBaseUrl();
+  
+  @Key("LOGIN_OTP_ENDPOINT")
+  String getLoginOTPEndpoint();
+  
+  @Key("VERIFY_OTP_ENDPOINT")
+  String verifyOTPEndpoint();
+  
+  @Key("DISCOVERY_BASE_URL")
+  String discoveryBaseUrl();
+  
+  @Key("FUTURE_BUILTUP_HEATMAP_ENDPOINT")
+  String futureBuiltupHeatMapEndpoint();
+  
+  
 }

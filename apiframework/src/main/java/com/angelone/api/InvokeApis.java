@@ -7,9 +7,13 @@ import java.util.Objects;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
+import com.angelone.api.pojo.LoginOtpPOJO;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
 import com.angelone.api.pojo.UserDetailsPOJO;
+import com.angelone.api.pojo.VerifyLoginOtpPOJO;
 import com.angelone.config.factory.ApiConfigFactory;
+import com.angelone.testdataMapper.GetLoginOTP;
+import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -17,12 +21,18 @@ import io.restassured.response.Response;
 public final class InvokeApis {
 
 	public String token;
+	public String request_id;
+	public String otp;
+	public String nonTradingAccessTokenId;
 	//public String ltpPrice; 
 	private static final String USER_TOKEN_ENDPOINT = ApiConfigFactory.getConfig().tokenEndpoint();
 	private static final String CREATE_ORDER_ENDPOINT = ApiConfigFactory.getConfig().orderEndpoint();
 	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPriceEndpoint();
 	private static final String CANCEL_ORDER_ENDPOINT = ApiConfigFactory.getConfig().cancelOrderEndpoint();
 	private static final String GET_ORDER_BOOK_ENDPOINT = ApiConfigFactory.getConfig().getOrderBookEndpoint();
+	private static final String GET_LOGIN_OTP_ENDPOINT = ApiConfigFactory.getConfig().getLoginOTPEndpoint();
+	private static final String VERIFY_OTP_ENDPOINT = ApiConfigFactory.getConfig().verifyOTPEndpoint();
+	private static final String FUTURE_BUILTUP_HEATMAP_ENDPOINT = ApiConfigFactory.getConfig().futureBuiltupHeatMapEndpoint();
 
 	/**
 	 * Method for calling create user Token
@@ -156,5 +166,81 @@ public final class InvokeApis {
 		response.then().log().all(true);
 		return response;
 	}
+	
+	
+	//##################### Trade related APIs    ######################
+	
+	public Response getLoginToken(LoginOtpPOJO otpRequestDetails) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + GET_LOGIN_OTP_ENDPOINT);
+		Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
+				.headers(getOTPHeaders())
+				.body(otpRequestDetails)
+				.log()
+				.all()
+				.post(GET_LOGIN_OTP_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+
+	/**
+	 * Method to construct headers for loginOtp api
+	 * @return headers as map
+	 */
+	private static Map<String,Object> getOTPHeaders() {
+
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("x-clientlocalip", "1.2.3.4");
+		m.put("x-clientpublicip", "1.2.3.4");
+		m.put("x-deviceid", "1234");
+		m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
+		m.put("X-operatingsystem", "Ubuntu");
+		m.put("x-sourceid", "5");
+		m.put("x-usertype", "1");
+		m.put("x-source", "mutualfund");
+		m.put("x-source-v2", "abma");
+		return m;
+	}
+	
+	public Response verifyLoginToken(VerifyLoginOtpPOJO verifyOtpDetails) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + VERIFY_OTP_ENDPOINT);
+		Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
+				.headers(getVerifyOTPHeaders() )
+				.body(verifyOtpDetails)
+				.log()
+				.all()
+				.post(VERIFY_OTP_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	/**
+	 * Method to construct headers for VerifyloginOtp api
+	 * @return headers as map
+	 */
+	private static Map<String,Object> getVerifyOTPHeaders() {
+
+		Map<String, Object> m = getOTPHeaders();
+		m.put("X-ProductVersion", "v4.0.1");
+		m.put("X-Location", "India");
+		return m;
+	}
+
+	
+	// ###################### Market Place APIs #####################
+	
+	public Response call_marketPlace_futureBuiltupHeatmap(String nonTradeAccessToken,Map<String,Object> queryParams) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.DISCOVERY_BASE_URL + FUTURE_BUILTUP_HEATMAP_ENDPOINT);
+		Response response = BaseRequestSpecification.getDiscoveryRequestSpec().contentType(ContentType.JSON)
+				.headers("AccessToken",nonTradeAccessToken)
+				.queryParams(queryParams)
+				.log()
+				.all()
+				.get(FUTURE_BUILTUP_HEATMAP_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}		
 	
 }
