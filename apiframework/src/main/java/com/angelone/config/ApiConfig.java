@@ -16,6 +16,9 @@ public interface ApiConfig extends Config {
   @Key("TOKEN_ENDPOINT")
   String tokenEndpoint();
 
+  @Key("LOGIN_MPIN")
+  String loginMpinEndpoint();
+  
   @Key("PLACE_ORDER_ENDPOINT")
   String orderEndpoint();
   

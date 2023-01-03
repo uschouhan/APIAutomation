@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
+import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
 import com.angelone.api.pojo.UserDetailsPOJO;
@@ -26,6 +27,7 @@ public final class InvokeApis {
 	public String nonTradingAccessTokenId;
 	//public String ltpPrice; 
 	private static final String USER_TOKEN_ENDPOINT = ApiConfigFactory.getConfig().tokenEndpoint();
+	private static final String LOGIN_MPIN_ENDPOINT = ApiConfigFactory.getConfig().loginMpinEndpoint();
 	private static final String CREATE_ORDER_ENDPOINT = ApiConfigFactory.getConfig().orderEndpoint();
 	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPriceEndpoint();
 	private static final String CANCEL_ORDER_ENDPOINT = ApiConfigFactory.getConfig().cancelOrderEndpoint();
@@ -34,6 +36,56 @@ public final class InvokeApis {
 	private static final String VERIFY_OTP_ENDPOINT = ApiConfigFactory.getConfig().verifyOTPEndpoint();
 	private static final String FUTURE_BUILTUP_HEATMAP_ENDPOINT = ApiConfigFactory.getConfig().futureBuiltupHeatMapEndpoint();
 
+	
+	/**
+	 * Method for calling create user Token via MPIN
+	 * @param userDetails
+	 * @return userDetals
+	 */
+	public Response getUserTokenViaMPIN(LoginMpinPOJO userDetails,String jwtToken) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LOGIN_MPIN_ENDPOINT);
+		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+				.headers(getHeadersMpin(jwtToken))
+				.body(userDetails)
+				.log()
+				.all()
+				.post(LOGIN_MPIN_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	/**
+	 * Method to construct headers for userToken api via MPIN
+	 * @return headers as map
+	 */
+	private Map<String,Object> getHeadersMpin(String jwtToken) {
+
+		Map<String, Object> m = getHeaders();
+		m.put("Accept", "application/json");
+		m.put("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8");
+		m.put("ApplicationName", "Spark-Web");
+		m.put("Connection", "keep-alive");
+		m.put("Origin", "http://uattrade.angelbroking.com");
+		m.put("Referer", "http://uattrade.angelbroking.com/");
+		m.put("Content-Type", "application/json");
+		m.put("X-AppID", "");
+		m.put("X-ClientLocalIP", "172.29.24.126");
+		m.put("X-ClientPublicIP", "172.29.24.126");
+		m.put("X-DeviceID", "ad8d9516-5244-497d-9c3b-f0d0e6d2c17c");
+		m.put("X-GM-ID", "undefined");
+		m.put("X-SystemInfo", "aliqua ad");
+		m.put("X-Location", "aliqua ad");
+		m.put("X-SourceID", "3");
+		m.put("X-UserType", "1");
+		m.put("X-MACAddress", "00:25:96:FF:FE:12:34:56");
+		m.put("X-OperatingSystem", "Ubuntu");
+		m.put("X-ProductVersion", "");
+		m.put("X-Request-Id", "");
+		m.put("Authorization", "Bearer "+jwtToken);
+		return m;
+	}
+	
+	
 	/**
 	 * Method for calling create user Token
 	 * @param userDetails
@@ -59,6 +111,11 @@ public final class InvokeApis {
 	private static Map<String,Object> getHeaders() {
 
 		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("X-SourceID", "5");
+		
+		
+		
+		
 		m.put("X-SourceID", "5");
 		m.put("X-UserType", "1");
 		m.put("X-ClientLocalIP", "172.29.24.126");
@@ -227,6 +284,8 @@ public final class InvokeApis {
 		return m;
 	}
 
+	
+	
 	
 	// ###################### Market Place APIs #####################
 	

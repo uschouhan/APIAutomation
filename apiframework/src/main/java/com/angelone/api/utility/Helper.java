@@ -2,13 +2,20 @@ package com.angelone.api.utility;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.Authenticator;
 import javax.mail.Flags;
 import javax.mail.Folder;
@@ -24,6 +31,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.angelone.api.pojo.UserDataJWT_POJO;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.InvalidKeyException;
 
 public class Helper {
 
@@ -167,5 +180,43 @@ public class Helper {
 		return subStrOTP;
 
 	}
+	
+	public String genJTWToken(UserDataJWT_POJO data ,String secret) {
+		//String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		String jwtToken="";
+		try {
+			SecretKeySpec hmacKey = new SecretKeySpec(secret.getBytes("UTF-8"), 
+			                            SignatureAlgorithm.HS256.getJcaName());
+			Instant now = Instant.now();
+			long futureTime = now.plus(365l, ChronoUnit.DAYS).toEpochMilli();
+			long pastTime = now.minus(1l, ChronoUnit.DAYS).toEpochMilli();
+			System.out.println("exp time = "+futureTime);
+			System.out.println("iat time = "+pastTime);
+			//UserDataJWT data = new UserDataJWT();
+			Map<String,Object> userData = new HashMap<>();
+			userData.put("userData", data);
+			jwtToken = Jwts.builder()
+					.addClaims(userData)
+			        .claim("iss", "angel")
+			        .claim("exp", futureTime)
+			        .claim("iat", pastTime)
+			        .setSubject("JWT key")
+			        .setId(UUID.randomUUID().toString())
+			        .setIssuedAt(Date.from(now))
+			        .setExpiration(Date.from(now.plus(2l, ChronoUnit.DAYS)))
+			        .signWith(hmacKey)
+			        .compact();
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("JWT token === > "+jwtToken);
+		return jwtToken;
+	}
+	
 
 }

@@ -10,15 +10,19 @@ import org.testng.annotations.BeforeTest;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
+import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
+import com.angelone.api.pojo.UserDataJWT_POJO;
 import com.angelone.api.pojo.UserDetailsPOJO;
 import com.angelone.api.pojo.VerifyLoginOtpPOJO;
 import com.angelone.api.utility.Helper;
 import com.angelone.testdataMapper.CancelOrderData;
 import com.angelone.testdataMapper.GetLoginOTP;
 import com.angelone.testdataMapper.LTPPriceData;
+import com.angelone.testdataMapper.LoginMpinMapper;
 import com.angelone.testdataMapper.PlaceOrderTestData;
+import com.angelone.testdataMapper.UserDATAJWTMapper;
 import com.angelone.testdataMapper.UserTestData;
 import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
@@ -105,21 +109,37 @@ public class BaseTestApi {
 		return response;
 	}
 	
-	public void generateUserToken(String userCredentials) {
+	public void generateUserToken(String userCredentials,String secret) {
 		String[] creden = userCredentials.split(":");
 		try {
 			String userId= creden[3];
 			String password = creden[4];
-			genUserToken(userId, password);
+			if(secret==null || secret=="")
+			secret="db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+			genUserToken(userId, password,secret);
 		} 
 		catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("UserId and Password Missing in testng xml file .Please provide if willing to use api call");
+			System.out.println("UserId/Password/Secretkey Missing in testng xml file .Please provide if willing to use api call");
 		}
 		catch (Exception e) {
 			System.out.println("Issue while generating token.");
 		}
 	}
 	
+	private String genUserToken(String userId, String password, String secret) {
+		
+		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
+		String jwtToken = helper.genJTWToken(userDetails, secret);
+		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId);
+		Response response = setupApi.getUserTokenViaMPIN(userMpin,jwtToken);
+		if (response.statusCode() == 200 && Objects.nonNull(response))
+			setupApi.token = response.jsonPath().getString("data.accesstoken");
+		else
+			throw new SkipException("Couldnt generate MPIN Access Token for User .Hence skipping tests");
+		System.out.println("User Mpin Token = " + setupApi.token);
+		return setupApi.token;
+	}
+
 	public Response getOrderBook() 
 	{
 		return setupApi.getAllOrderDetails();
@@ -191,5 +211,6 @@ public class BaseTestApi {
 		String decodedJson=helper.decodeData(data);
 		return decodedJson;
 	}
+	
 	
 }
