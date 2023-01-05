@@ -28,5 +28,14 @@ public final class LoginMpinMapper {
 				.setRequestid(requestId);
 	}
 	
+
+	@SneakyThrows
+	public static LoginMpinPOJO getUserDetails(String requestId,String mpin) {
+		return new ObjectMapper()
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/loginMpin.json"),
+						LoginMpinPOJO.class)
+				.setRequestid(requestId)
+				.setPassorpin(mpin);
+	}
 	
 }

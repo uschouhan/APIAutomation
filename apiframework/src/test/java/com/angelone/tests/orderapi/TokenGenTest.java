@@ -1,6 +1,7 @@
 package com.angelone.tests.orderapi;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -26,13 +27,17 @@ import io.restassured.response.Response;
 class TokenGenTest extends BaseTestApi {
 	
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	void placeOrder() throws IOException {
-		//String pLtp = getLTPPrice("10666");
+		String userdetails = "9741636854:chouhan.upendra@gmail.com:nbktqbmmbqqkzdaq:U50049267:2222";
+		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		
+		generateUserToken(userdetails,secKey);
+		String pLtp = getLTPPrice("10666");
 		//System.out.println("LTP price =" + pLtp);
-		//Response response = placeStockOrder("MARKET", pLtp, "DELIVERY", "10666","PNB-EQ", "NORMAL");
-		Response response = placeStockOrder("BSE", "MARKET", "0.0","DELIVERY",
-				"1", "0","500113", "SAIL", "BUY","0.0","NORMAL");
+		Response response = placeStockOrder("MARKET", pLtp, "DELIVERY", "10666","PNB-EQ", "NORMAL");
+		//Response response = placeStockOrder("BSE", "MARKET", "0.0","DELIVERY",
+				//"1", "0","500113", "SAIL", "BUY","0.0","NORMAL");
 		String OrderId = response.jsonPath().getString("data.orderid");
 
 		// String OrderId="221214000901644";
@@ -63,17 +68,62 @@ class TokenGenTest extends BaseTestApi {
 		decodeJsonResponse(data);
 	}
 	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void testMpinAccessToken() throws IOException {
-		String userdetails = "9741636854:chouhan.upendra@gmail.com:nbktqbmmbqqkzdaq:U50049267:KD9Vh0";
+		String userdetails = "9741636854:chouhan.upendra@gmail.com:nbktqbmmbqqkzdaq:U50049267:2222";
 		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		
 		generateUserToken(userdetails,secKey);
-		Response response = placeStockOrder("BSE", "MARKET", "0.0","DELIVERY",
-				"1", "0","500113", "SAIL", "BUY","0.0","AMO");
-		String OrderId = response.jsonPath().getString("data.orderid");
+		String pLtp = getLTPPrice("500113","bse_cm");
+		String ltpPrice =   BuyroundoffValueToCancelOrder(pLtp); 
+		//Response response = placeStockOrder("BSE", "LIMIT", ltpPrice,"DELIVERY",
+				//"1", "0","500113", "SAIL", "BUY","0.0","AMO");
+		//Response response = placeStockOrder("NSE", "LIMIT", pLtp,"DELIVERY",
+				//"1", "0","1491", "IFCI-EQ", "BUY","0.0","AMO");
+		//String ltoPrice = buyValueCustomPriceForCurrency(pLtp) ;
+		//Response response = placeStockOrder("CDS", "LIMIT", ltoPrice,"CARRYFORWARD",
+				//"1", "0","8741", "USDINR23106FUT", "BUY","0.0","AMO");
+		//String OrderId = response.jsonPath().getString("data.orderid");
+		
+	}
+	
+	public String BuyroundoffValueToCancelOrder(String ltp1) {
+		double lt = Double.parseDouble(ltp1);
+		double per = lt * 2 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		System.out.print(FinalBuyPrice);
+		return String.valueOf(FinalBuyPrice);
+	}
+	 
+	public  String buyValueCustomPriceForCurrency(String ltp) 
+	{
+		double lt = Double.parseDouble(ltp);
+		double per = lt * 2/ 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		return String.valueOf(FinalBuyPrice);
+	}
+	
+	
+	@Test
+	public void checkPrecision() throws Exception {
+		
+		//String text = "824825000";
+		String text = "549300";
+		Double ltp = Double.valueOf(text);
+		//ltp = ltp / 10000000;
+		ltp = ltp / 100;
+		//DecimalFormat df = new DecimalFormat("#.##");
+		//df.format(ltp);
+		String ltpPrice = String.valueOf(ltp);
+		System.out.println(ltpPrice);
 		
 	}
 
+	
 	@Test(enabled=false)
 	public void watchlist() throws Exception {
 		

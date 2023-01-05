@@ -1,7 +1,9 @@
 package com.angelone.api;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +41,26 @@ public class BaseTestApi {
 		genUserToken();
 	}
 
+	public String getLTPPrice(String scriptId,String segment) {
+		String ltpPrice;
+		List<String> symbolId = new ArrayList<>();
+		symbolId.add(scriptId);
+		LTPPricePOJO ltpprice = LTPPriceData.getLTPPrice(segment,symbolId);
+		Response response = setupApi.getLTPPrice(ltpprice);
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			ltpPrice = response.jsonPath().getString("data[0].tradePrice");
+			Double ltp = Double.valueOf(ltpPrice);
+			if(segment.equalsIgnoreCase("cde_fo"))
+				ltp=ltp/10000000;
+			else
+				ltp = ltp / 100;
+			ltpPrice = String.valueOf(ltp);
+		} else
+			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
+		System.out.println("LTP price fetched from api === " + ltpPrice);
+		return ltpPrice;
+	}
+
 	public String getLTPPrice(String scriptId) {
 		String ltpPrice;
 		LTPPricePOJO ltpprice = LTPPriceData.getLTPPrice(scriptId);
@@ -47,8 +69,8 @@ public class BaseTestApi {
 			ltpPrice = response.jsonPath().getString("data[0].tradePrice");
 			Double ltp = Double.valueOf(ltpPrice);
 			ltp = ltp / 100;
-			DecimalFormat df = new DecimalFormat("#.##");
-			df.format(ltp);
+			//DecimalFormat df = new DecimalFormat("#.##");
+			//df.format(ltp);
 			ltpPrice = String.valueOf(ltp);
 		} else
 			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
@@ -66,17 +88,17 @@ public class BaseTestApi {
 		System.out.println("User Token = " + setupApi.token);
 		return setupApi.token;
 	}
-
-	public String genUserToken(String userid, String pwd) {
-		UserDetailsPOJO userDetails = UserTestData.getUserDetails(userid, pwd);
-		Response response = setupApi.getUserToken(userDetails);
-		if (response.statusCode() == 200 && Objects.nonNull(response))
-			setupApi.token = response.jsonPath().getString("data.accesstoken");
-		else
-			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
-		System.out.println("User Token = " + setupApi.token);
-		return setupApi.token;
-	}
+//  Below method was for login by Password which is deprecated 
+//	public String genUserToken(String userid, String pwd) {
+//		UserDetailsPOJO userDetails = UserTestData.getUserDetails(userid, pwd);
+//		Response response = setupApi.getUserToken(userDetails);
+//		if (response.statusCode() == 200 && Objects.nonNull(response))
+//			setupApi.token = response.jsonPath().getString("data.accesstoken");
+//		else
+//			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
+//		System.out.println("User Token = " + setupApi.token);
+//		return setupApi.token;
+//	}
 
 	public Response placeStockOrder(String ordertype, String price, String producttype, String symboltoken,
 			String variety) {
@@ -113,24 +135,25 @@ public class BaseTestApi {
 		String[] creden = userCredentials.split(":");
 		try {
 			String userId= creden[3];
-			String password = creden[4];
+			String mpin = creden[4];
 			if(secret==null || secret=="")
 			secret="db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
-			genUserToken(userId, password,secret);
+			genUserToken(userId,mpin,secret);
 		} 
 		catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("UserId/Password/Secretkey Missing in testng xml file .Please provide if willing to use api call");
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Issue while generating token.");
 		}
 	}
 	
-	private String genUserToken(String userId, String password, String secret) {
+	private String genUserToken(String userId, String mpin, String secret) {
 		
 		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
 		String jwtToken = helper.genJTWToken(userDetails, secret);
-		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId);
+		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId,mpin);
 		Response response = setupApi.getUserTokenViaMPIN(userMpin,jwtToken);
 		if (response.statusCode() == 200 && Objects.nonNull(response))
 			setupApi.token = response.jsonPath().getString("data.accesstoken");
