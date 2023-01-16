@@ -112,6 +112,14 @@ public class BaseTestApi {
 	}
 
 	public Response placeStockOrder(String exchange, String ordertype, String price, String producttype,
+			String symboltoken, String tradingsymbol, String variety) {
+		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(exchange, ordertype, price, producttype,
+				symboltoken, tradingsymbol, variety);
+		Response response = setupApi.placeOrder(orderData);
+		return response;
+	}
+
+	public Response placeStockOrder(String exchange, String ordertype, String price, String producttype,
 			String quantity, String stoploss, String symboltoken, String tradingsymbol, String transactiontype,
 			String triggerprice, String variety) {
 		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(exchange, ordertype, price, producttype,
