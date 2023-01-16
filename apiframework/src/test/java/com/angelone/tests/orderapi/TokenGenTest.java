@@ -9,16 +9,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
 import javax.crypto.spec.SecretKeySpec;
 
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import com.angelone.api.BaseTestApi;
 import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
 import com.angelone.api.pojo.OrdersDetailsData;
+import com.machinezoo.noexception.Exceptions;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,13 +36,13 @@ class TokenGenTest extends BaseTestApi {
 		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 		
 		generateUserToken(userdetails,secKey);
-		String pLtp = getLTPPrice("10666");
+		//String pLtp = getLTPPrice("10666");
 		//System.out.println("LTP price =" + pLtp);
-		Response response = placeStockOrder("MARKET", pLtp, "DELIVERY", "10666","PNB-EQ", "NORMAL");
+		Response response = placeStockOrder("MARKET", "0.0", "DELIVERY", "10666","PNB-EQ", "NORMAL");
 		//Response response = placeStockOrder("BSE", "MARKET", "0.0","DELIVERY",
 				//"1", "0","500113", "SAIL", "BUY","0.0","NORMAL");
 		String OrderId = response.jsonPath().getString("data.orderid");
-
+		exitPositions(); 
 		// String OrderId="221214000901644";
 		//Response cancelOrderResponse = cancelOrder(OrderId, "AMO");
 		//Assert.assertTrue(cancelOrderResponse.getStatusCode() == 200, "Place order not successful");
@@ -59,6 +62,27 @@ class TokenGenTest extends BaseTestApi {
 		});
 	}
 	
+	@Test(enabled = true)
+	void testExitPositions() throws IOException {
+		String userdetails = "9741636854:chouhan.upendra@gmail.com:nbktqbmmbqqkzdaq:U50049267:2222";
+		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		generateUserToken(userdetails,secKey);
+		Response callOrdersApi = getOrderBook();//OrderBookAPi 
+		GetOrdersDetailsResponsePOJO as = callOrdersApi.getBody().as(GetOrdersDetailsResponsePOJO.class);
+		List<OrdersDetailsData> data = as.getData();
+		List<OrdersDetailsData> datafiltered = data.stream()
+				.filter(x -> (x.getOrderstatus().contains("complete") && x.getTransactiontype().equalsIgnoreCase("BUY") && !x.getProducttype().equalsIgnoreCase("CARRYFORWARD")))
+				.collect(Collectors.toList());
+
+		System.out.println(" $$$$$$$$$$$ completed orders $$$$$$$$$$$ \n") ;
+		datafiltered.forEach(orderId->System.out.println(orderId.getOrderid()));
+		
+		datafiltered.forEach(orderId -> {
+			Response response = placeStockOrder(orderId.getExchange(),orderId.getOrdertype() ,orderId.getPrice(),orderId.getProducttype(),
+			orderId.getQuantity(), orderId.getStoploss(),orderId.getSymboltoken(), orderId.getTradingsymbol(),"SELL","0.0","NORMAL");
+		});
+	}
+	
 	@Test(enabled = false)
 	void testNonTradedAccessToken() throws IOException {
 		String userdetails = "9741636854:chouhan.upendra@gmail.com:nbktqbmmbqqkzdaq:U50049267:KD9Vh0";
@@ -68,21 +92,25 @@ class TokenGenTest extends BaseTestApi {
 		decodeJsonResponse(data);
 	}
 	
-	@Test(enabled = false)
+	@Test(enabled = true)
 	void testMpinAccessToken() throws IOException {
 		String userdetails = "9741636854:chouhan.upendra@gmail.com:nbktqbmmbqqkzdaq:U50049267:2222";
+		//String userdetails = "9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222";
 		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 		
 		generateUserToken(userdetails,secKey);
 		String pLtp = getLTPPrice("500113","bse_cm");
-		String ltpPrice =   BuyroundoffValueToCancelOrder(pLtp); 
+		//String pLtp = getLTPPrice("247934","mcx_fo");
+		//String pLtp = getLTPPrice("8741","cde_fo");
+		
+		//String ltpPrice =   BuyroundoffValueToCancelOrder(pLtp); 
 		//Response response = placeStockOrder("BSE", "LIMIT", ltpPrice,"DELIVERY",
 				//"1", "0","500113", "SAIL", "BUY","0.0","AMO");
 		//Response response = placeStockOrder("NSE", "LIMIT", pLtp,"DELIVERY",
 				//"1", "0","1491", "IFCI-EQ", "BUY","0.0","AMO");
 		//String ltoPrice = buyValueCustomPriceForCurrency(pLtp) ;
-		//Response response = placeStockOrder("CDS", "LIMIT", ltoPrice,"CARRYFORWARD",
-				//"1", "0","8741", "USDINR23106FUT", "BUY","0.0","AMO");
+		Response response = placeStockOrder("MCX", "MARKET", "0.0","DELIVERY",
+				"1", "0","247934", "GOLDPETAL28APRFUT", "BUY","0.0","NORMAL");
 		//String OrderId = response.jsonPath().getString("data.orderid");
 		
 	}
@@ -167,4 +195,10 @@ class TokenGenTest extends BaseTestApi {
 		System.out.println("JWT token === > "+jwtToken);
 	}
 	
+	@Test
+	public void exception() throws Exception {
+		
+		BooleanSupplier b = ()->true;
+		Exceptions.silence().getAsBoolean(b).orElseThrow(()->new SkipException("checking test"));
+	}
 }

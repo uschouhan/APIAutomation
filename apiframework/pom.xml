@@ -16,7 +16,7 @@
 		<jackson.version>2.14.1</jackson.version>
 		<assertjcore.version>3.21.0</assertjcore.version>
 		<lombok.version>1.18.20</lombok.version>
-		<noexception.version>1.7.1</noexception.version>
+		<noexception.version>1.6.2</noexception.version>
 		<reflection.version>0.10.2</reflection.version>
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
 		<testng.version>7.4.0</testng.version>
