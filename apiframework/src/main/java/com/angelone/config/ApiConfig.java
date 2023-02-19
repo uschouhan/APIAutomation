@@ -31,6 +31,9 @@ public interface ApiConfig extends Config {
   @Key("GET_ORDER_BOOK_ENDPOINT")
   String getOrderBookEndpoint();
   
+  @Key("GET_POSITIONS_ENDPOINT")
+  String getPositionEndpoint();
+  
   @Key("TRADE_BASE_URL")
   String tradeBaseUrl();
   
@@ -46,5 +49,28 @@ public interface ApiConfig extends Config {
   @Key("FUTURE_BUILTUP_HEATMAP_ENDPOINT")
   String futureBuiltupHeatMapEndpoint();
   
+  @Key("WATCHLIST_BASE_URL")
+  String watchlistEndpoint();
+  
+  @Key("GET_WATCHLIST")
+  String getWatchlistEndpoint();
+  
+  @Key("CHARTS_EQUITY_BASE_URL")
+  String chartsEquityBaseURL();
+  
+  @Key("BSE_EQUITY_CHARTS")
+  String getBSEequityEndpoint();
+  
+  @Key("NSE_EQUITY_CHARTS")
+  String getNSEequityEndpoint();
+  
+  @Key("NSE_CURRENCY_CHARTS")
+  String getNSECurrencyEndpoint();
+  
+  @Key("PORTFOLIO_BASE_URL")
+  String getPortfolioBaseURL();
+  
+  @Key("GET_HOLDING_ENDPOINT")
+  String getHoldingEndpoint();
   
 }

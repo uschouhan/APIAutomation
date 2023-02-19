@@ -218,5 +218,22 @@ public class Helper {
 		return jwtToken;
 	}
 	
+	public String BuyroundoffValueToCancelOrder(String ltp1) {
+		double lt = Double.parseDouble(ltp1);
+		double per = lt * 2 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		return String.valueOf(FinalBuyPrice);
+	}
+
+	public String buyValueCustomPriceForCurrency(String ltp) {
+		double lt = Double.parseDouble(ltp);
+		double per = lt * 2 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		return String.valueOf(FinalBuyPrice);
+	}
 
 }

@@ -15,11 +15,11 @@
     "stoploss": "0",
     "strategyCode": "0",
     "symboltoken": "1491",
-    "tickSize": "0.05",
+    "tickSize": "1",
     "tradingsymbol": "IFCI-EQ",
     "trailTickYesNo": "NO",
     "trailingStopLoss": "0",
     "transactiontype": "BUY",
-    "triggerprice": "1700.0",
+    "triggerprice": "0.0",
     "variety": "AMO"
 }

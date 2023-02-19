@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
+import com.angelone.api.pojo.ChartsAPIPOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
 import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
@@ -32,11 +33,15 @@ public final class InvokeApis {
 	private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPriceEndpoint();
 	private static final String CANCEL_ORDER_ENDPOINT = ApiConfigFactory.getConfig().cancelOrderEndpoint();
 	private static final String GET_ORDER_BOOK_ENDPOINT = ApiConfigFactory.getConfig().getOrderBookEndpoint();
+	private static final String GET_POSITION_ENDPOINT = ApiConfigFactory.getConfig().getPositionEndpoint();
 	private static final String GET_LOGIN_OTP_ENDPOINT = ApiConfigFactory.getConfig().getLoginOTPEndpoint();
 	private static final String VERIFY_OTP_ENDPOINT = ApiConfigFactory.getConfig().verifyOTPEndpoint();
 	private static final String FUTURE_BUILTUP_HEATMAP_ENDPOINT = ApiConfigFactory.getConfig().futureBuiltupHeatMapEndpoint();
-
-	
+	private static final String GET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().getWatchlistEndpoint();
+	private static final String GET_BSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getBSEequityEndpoint();
+	private static final String GET_NSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSEequityEndpoint();
+	private static final String GET_NSE_CURRENCY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSECurrencyEndpoint();
+	private static final String GET_HOLDING_ENDPOINT = ApiConfigFactory.getConfig().getHoldingEndpoint();
 	/**
 	 * Method for calling create user Token via MPIN
 	 * @param userDetails
@@ -224,6 +229,17 @@ public final class InvokeApis {
 		return response;
 	}
 	
+	public Response getAllPostions() {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + GET_POSITION_ENDPOINT);
+		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+				.headers(getHeadersForOrder())
+				.log()
+				.all()
+				.get(GET_POSITION_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
 	
 	//##################### Trade related APIs    ######################
 	
@@ -302,4 +318,85 @@ public final class InvokeApis {
 		return response;
 	}		
 	
+	// #################### Watchlist API ############################
+	public Response call_getWatchlistAPI(String nonTradeAccessToken) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.WATCHLIST_BASE_URL + GET_WATCHLIST_ENDPOINT);
+		Response response = BaseRequestSpecification.getWatchlistSpec().contentType(ContentType.JSON)
+				.headers("AccessToken",nonTradeAccessToken)
+				.log()
+				.all()
+				.get(GET_WATCHLIST_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}	
+	
+	// #################### CHARTS API ############################
+	
+	/**
+	 * Method to construct headers for Charts api
+	 * @return headers as map
+	 */
+	private static Map<String,Object> getHeadersForCharts() {
+
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("Accept", "application/json");
+		m.put("X-consumer", "postman");
+		m.put("X-correlation-id", "uuid4");
+		m.put("X-access-token", "abcd");
+		return m;
+	}
+	
+	public  Response getBSEEquityCharts(ChartsAPIPOJO chartspojo) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.CHARTS_EQUITY_BASE_URL + GET_BSE_EQUITY_CHARTS_ENDPOINT);
+		Response response = BaseRequestSpecification.getChartsEquitySpec().contentType(ContentType.JSON)
+				.headers( getHeadersForCharts())
+				.body(chartspojo)
+				.log()
+				.all()
+				.post(GET_BSE_EQUITY_CHARTS_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	public  Response getNSEEquityCharts(ChartsAPIPOJO chartspojo) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.CHARTS_EQUITY_BASE_URL + GET_NSE_EQUITY_CHARTS_ENDPOINT);
+		Response response = BaseRequestSpecification.getChartsEquitySpec().contentType(ContentType.JSON)
+				.headers( getHeadersForCharts())
+				.body(chartspojo)
+				.log()
+				.all()
+				.post(GET_NSE_EQUITY_CHARTS_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	public  Response getNSECurrencyCharts(ChartsAPIPOJO chartspojo) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.CHARTS_EQUITY_BASE_URL + GET_NSE_CURRENCY_CHARTS_ENDPOINT);
+		Response response = BaseRequestSpecification.getChartsEquitySpec().contentType(ContentType.JSON)
+				.headers( getHeadersForCharts())
+				.body(chartspojo)
+				.log()
+				.all()
+				.post(GET_NSE_CURRENCY_CHARTS_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	// #################### Portfolio API ############################
+	
+	public  Response getHolding(String nonTradeAccessToken) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.PORTFOLIO_BASE_URL + GET_HOLDING_ENDPOINT);
+		Response response = BaseRequestSpecification.getPortfolioSpec().contentType(ContentType.JSON)
+				.headers("token",nonTradeAccessToken)
+				.log()
+				.all()
+				.post(GET_HOLDING_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
 }

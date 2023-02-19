@@ -12,6 +12,7 @@ import org.testng.SkipException;
 import org.testng.annotations.BeforeTest;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
+import com.angelone.api.pojo.ChartsAPIPOJO;
 import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
 import com.angelone.api.pojo.LoginMpinPOJO;
@@ -23,6 +24,7 @@ import com.angelone.api.pojo.UserDetailsPOJO;
 import com.angelone.api.pojo.VerifyLoginOtpPOJO;
 import com.angelone.api.utility.Helper;
 import com.angelone.testdataMapper.CancelOrderData;
+import com.angelone.testdataMapper.ChartsTestData;
 import com.angelone.testdataMapper.GetLoginOTP;
 import com.angelone.testdataMapper.LTPPriceData;
 import com.angelone.testdataMapper.LoginMpinMapper;
@@ -133,7 +135,35 @@ public class BaseTestApi {
 		Response response = setupApi.cancelOrder(orderData);
 		return response;
 	}
+	
+	public Response getBSEChartsEquity(int seqno, String action,String topic,String rtype,String period,
+			String type,int duration,String from,String to) {
+		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
+		Response response = setupApi.getBSEEquityCharts(chartsData);
+		return response;
+	}
+	
+	public Response getNSEChartsEquity(int seqno, String action,String topic,String rtype,String period,
+			String type,int duration,String from,String to) {
+		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
+		Response response = setupApi.getNSEEquityCharts(chartsData);
+		return response;
+	}
+	
+	public Response getNSEChartsCurrency(int seqno, String action,String topic,String rtype,String period,
+			String type,int duration,String from,String to) {
+		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
+		Response response = setupApi.getNSECurrencyCharts(chartsData);
+		return response;
+	}
 
+	public Response getHolding() {
+		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
+		Response response = setupApi.getHolding(setupApi.nonTradingAccessTokenId);
+		return response;
+	}
+	
+	
 	public void generateUserToken(String userCredentials, String secret) {
 		String[] creden = userCredentials.split(":");
 		try {
@@ -169,6 +199,11 @@ public class BaseTestApi {
 		return setupApi.getAllOrderDetails();
 	}
 
+	public Response getPositions() {
+		return setupApi.getAllPostions();
+	}
+	
+	
 	public String genLoginToken(String mobileNum, String emailId, String password) {
 
 		LoginOtpPOJO otpDetails = GetLoginOTP.getOtp(mobileNum);
@@ -225,7 +260,14 @@ public class BaseTestApi {
 				params);
 		return marketResponse;
 	}
-
+	
+	public Response getWatchLists() {
+		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
+		return setupApi.call_getWatchlistAPI(setupApi.nonTradingAccessTokenId);
+		
+	}
+	
+	
 	public String decodeJsonResponse(String data) {
 		String decodedJson = helper.decodeData(data);
 		return decodedJson;

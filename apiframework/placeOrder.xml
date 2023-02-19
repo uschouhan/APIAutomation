@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
+<parameter name="testng.metrics.report.logo" value = "/Users/upendra.chouhan/git/SparkAutomationIOS/src/main/resources/angelOne.jpg"/>
+<parameter name="testng.metrics.report.name" value = "SyntheticMonitoringApiRun.html"/>
   <test thread-count="1" name="User1">
   	<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222"/>
     <classes>
@@ -8,10 +10,5 @@
     </classes>
   </test> <!-- Test -->
   
-   <test thread-count="1" name="User2">
-  	<parameter name="UserCredentials" value="9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222"/>
-    <classes>
-      <class name="com.angelone.tests.orderapi.PlaceOrderAndVerify"/>
-    </classes>
-  </test> 
+  
 </suite> <!-- Suite -->
