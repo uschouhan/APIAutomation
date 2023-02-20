@@ -130,6 +130,17 @@ public class BaseTestApi {
 		return response;
 	}
 
+	public Response placeStockOrder(String basketID, String disclosedquantity,String duration,String exchange,String multiplier,
+			String orderValidityDate,String ordertag,String ordertype,String precision,String price,String producttype,
+			String quantity,String squareoff,String stoploss,String strategyCode,String symboltoken,String tickSize,String tradingsymbol,
+			String trailTickYesNo,String trailingStopLoss,String transactiontype,String triggerprice,String variety)
+	{
+		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(basketID,disclosedquantity,duration,exchange,multiplier,orderValidityDate,ordertag,
+				ordertype,precision,price,producttype,quantity,squareoff,stoploss,strategyCode,symboltoken,tickSize,tradingsymbol,trailTickYesNo,trailingStopLoss,transactiontype,triggerprice,variety);
+		Response response = setupApi.placeOrder(orderData);
+		return response;
+	}
+	
 	public Response cancelOrder(String orderId, String variety) {
 		CancelOrderPOJO orderData = CancelOrderData.cancelOrder(orderId, variety);
 		Response response = setupApi.cancelOrder(orderData);
@@ -154,6 +165,13 @@ public class BaseTestApi {
 			String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.getNSECurrencyCharts(chartsData);
+		return response;
+	}
+	
+	public Response getNSEChartsFNO(int seqno, String action,String topic,String rtype,String period,
+			String type,int duration,String from,String to) {
+		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
+		Response response = setupApi.getNSE_FNO_Charts(chartsData);
 		return response;
 	}
 
@@ -260,6 +278,16 @@ public class BaseTestApi {
 				params);
 		return marketResponse;
 	}
+	
+	public Response getMarketMoversByMost(String Category) {
+		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		Map<String, Object> params = new HashMap<>();
+		params.put("Category", Category);
+		Response marketResponse = setupApi.call_MartketMoversByMost(setupApi.nonTradingAccessTokenId,
+				params);
+		return marketResponse;
+	}
+	
 	
 	public Response getWatchLists() {
 		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";

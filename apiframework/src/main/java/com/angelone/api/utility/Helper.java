@@ -3,6 +3,8 @@ package com.angelone.api.utility;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -235,5 +237,37 @@ public class Helper {
 		double FinalBuyPrice = roundOff / 10;
 		return String.valueOf(FinalBuyPrice);
 	}
+	
+	public  String buyValueTriggerPriceForCommodity(String ltp) {
+		double lt = Double.parseDouble(ltp);
+		double per = lt * 2 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		double roundOffFinal = Math.round(FinalBuyPrice);
+		return String.valueOf (roundOffFinal);
+	}
 
+	public String getCurrenctTime()
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		Date date = new Date();
+		System.out.println(dateFormat.format(date));
+		return dateFormat.format(date);
+	}
+	
+	public String getCurrenctTimeMinus(String type,int value)
+	{
+		Date dateNew = new Date() ;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		if(type.equalsIgnoreCase("h"))
+		dateNew = new Date(System.currentTimeMillis() - value * 3600 * 1000);
+		else if (type.equalsIgnoreCase("m"))
+		dateNew = new Date(System.currentTimeMillis() - value * 60 * 1000);
+		else
+			System.out.println("Please provide correct type and value");
+		System.out.println(dateFormat.format(dateNew));
+		return dateFormat.format(dateNew);
+	}
+	
 }

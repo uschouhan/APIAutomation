@@ -22,6 +22,8 @@ import org.testng.annotations.Test;
 import com.angelone.api.BaseTestApi;
 import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
 import com.angelone.api.pojo.OrdersDetailsData;
+import com.angelone.api.utility.Helper;
+import com.angelone.config.factory.ApiConfigFactory;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -99,7 +101,20 @@ class TokenGenTest extends BaseTestApi {
 		String data = marketBuiltupResponse.jsonPath().getString("data");
 		decodeJsonResponse(data);
 	}
-
+	
+	@Test(enabled = true)
+	void testMarketMoversByMost() throws IOException {
+		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+		//getNonTradingAccessToken(userdetails);
+		Response marketMovers = getMarketMoversByMost("MOST_ACT_VALUE");
+		Assert.assertEquals(marketMovers.getStatusCode(),200,"Error in marketMovers api ");
+		Assert.assertEquals(marketMovers.jsonPath().getString("status"),"success","Status doesnt match in marketMovers api ");
+		Assert.assertTrue(!marketMovers.jsonPath().getString("data").isEmpty(),"data is empty in marketMovers api ");
+		//String data = marketBuiltupResponse.jsonPath().getString("data");
+		//decodeJsonResponse(data);
+	}
+	
+	
 	@Test(enabled = false)
 	public void testGetWatchlist() throws Exception {
 		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
@@ -115,15 +130,30 @@ class TokenGenTest extends BaseTestApi {
 	
 	@Test(enabled = true)
 	public void testBSE_EquityCharts() throws Exception {
+		String bSE_Equity_Topic_value = ApiConfigFactory.getConfig().bSE_Equity_Topic_value();
+		String nSE_Equity_Topic_value = ApiConfigFactory.getConfig().nSE_Equity_Topic_value();
+		String nSE_CURRENCY_Topic_value = ApiConfigFactory.getConfig().nSE_CURRENCY_Topic_value();
+		String nSE_FNO_Topic_value = ApiConfigFactory.getConfig().nSE_FNO_Topic_value();
+		String durationType = ApiConfigFactory.getConfig().durationType();
 		
-		//Response bseChartsEquity = getBSEChartsEquity(1,"Req","18.505200","OHLCV","I","h",1,"2023-02-01T11:00:00+05:30","2023-02-02T11:00:00+05:30");
-		//Assert.assertTrue(bseChartsEquity.getStatusCode()==200,"Invalid Response");
+		Helper helper = new Helper();
+		String endTime= helper.getCurrenctTime();
+		String startTime = helper.getCurrenctTimeMinus(durationType, 1);
 		
-		//Response nseChartsEquity = getNSEChartsEquity(1,"Req","17.10604","OHLCV","I","h",1,"2023-02-01T11:00:00+05:30","2023-02-02T11:00:00+05:30");
-		//Assert.assertTrue(nseChartsEquity.getStatusCode()==200,"Invalid Response");
+		Response bseChartsEquity = getBSEChartsEquity(1, "Req", bSE_Equity_Topic_value, "OHLCV", "I", "h", 1,
+				startTime, endTime);
+		Assert.assertTrue(bseChartsEquity.getStatusCode() == 200, "Invalid Response");
+
+		Response nseChartsEquity = getNSEChartsEquity(1, "Req", nSE_Equity_Topic_value, "OHLCV", "I", "h", 1,
+				startTime, endTime);
+		Assert.assertTrue(nseChartsEquity.getStatusCode() == 200, "Invalid Response");
+
+		Response nseChartsCurrency = getNSEChartsCurrency(1, "Req", nSE_CURRENCY_Topic_value, "OHLCV", "I", "h", 1,
+				startTime, endTime);
+		Assert.assertTrue(nseChartsCurrency.getStatusCode() == 200, "Invalid Response");
 		
-		Response nseChartsCurrency = getNSEChartsCurrency(1,"Req","12.1292","OHLCV","I","h",1,"2023-02-01T11:00:00+05:30","2023-02-02T11:00:00+05:30");
-		Assert.assertTrue(nseChartsCurrency.getStatusCode()==200,"Invalid Response");
+		Response nseChartsFNO = getNSEChartsFNO(17,"Req",nSE_FNO_Topic_value,"OHLCV","I","h",1,startTime,endTime);
+		Assert.assertTrue(nseChartsFNO.getStatusCode()==200,"Invalid Response");
 		
 	}
 	
@@ -194,6 +224,53 @@ class TokenGenTest extends BaseTestApi {
 
 	}
 	
+	@Test(enabled = true)
+	void testPlaceFNOOrder() throws IOException {
+		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+		// String userdetails =
+		// "9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222";
+		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+
+		generateUserToken(userdetails, secKey);
+		//String pLtp = getLTPPrice("500113", "bse_cm");
+		String pLtp = getLTPPrice("58488","nse_fo");
+		// String pLtp = getLTPPrice("8741","cde_fo");
+
+		// String ltpPrice = BuyroundoffValueToCancelOrder(pLtp);
+		// Response response = placeStockOrder("BSE", "LIMIT", ltpPrice,"DELIVERY",
+		// "1", "0","500113", "SAIL", "BUY","0.0","AMO");
+		// Response response = placeStockOrder("NSE", "LIMIT", pLtp,"DELIVERY",
+		// "1", "0","1491", "IFCI-EQ", "BUY","0.0","AMO");
+		 String ltoPrice = buyValueCustomPriceForCurrency(pLtp) ;
+		Response response = placeStockOrder("NFO", "LIMIT", ltoPrice, "INTRADAY", "1", "0", "58488", "NIFTY23FEB2318650CE",
+				"BUY", "0.0", "NORMAL");
+		// String OrderId = response.jsonPath().getString("data.orderid");
+
+	}
+	
+	@Test(enabled = true)
+	void testPlaceComodityOrder() throws IOException {
+		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+		// String userdetails =
+		// "9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222";
+		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+
+		generateUserToken(userdetails, secKey);
+		//String pLtp = getLTPPrice("500113", "bse_cm");
+		String pLtp = getLTPPrice("252905","mcx_fo");
+		// String pLtp = getLTPPrice("8741","cde_fo");
+
+		// String ltpPrice = BuyroundoffValueToCancelOrder(pLtp);
+		// Response response = placeStockOrder("BSE", "LIMIT", ltpPrice,"DELIVERY",
+		// "1", "0","500113", "SAIL", "BUY","0.0","AMO");
+		// Response response = placeStockOrder("NSE", "LIMIT", pLtp,"DELIVERY",
+		// "1", "0","1491", "IFCI-EQ", "BUY","0.0","AMO");
+		String ltpPrice = buyValueTriggerPriceForCommodity(pLtp) ;
+		Response response = placeStockOrder("0","0","DAY","MCX","1","","",
+				"LIMIT","2",ltpPrice,"INTRADAY","1","0","0","0","252905","100.0","GOLDPETAL23MAYFUT","NO","0","BUY","0.0","NORMAL");
+		// String OrderId = response.jsonPath().getString("data.orderid");
+
+	}
 	
 	
 	@Test(enabled = false)
@@ -234,6 +311,16 @@ class TokenGenTest extends BaseTestApi {
 		return String.valueOf(FinalBuyPrice);
 	}
 
+	public  String buyValueTriggerPriceForCommodity(String ltp) {
+		double lt = Double.parseDouble(ltp);
+		double per = lt * 2 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		double roundOffFinal = Math.round(FinalBuyPrice);
+		return String.valueOf (roundOffFinal);
+	}
+	
 	@Test
 	public void checkPrecision() throws Exception {
 

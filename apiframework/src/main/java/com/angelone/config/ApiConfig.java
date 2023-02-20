@@ -6,7 +6,8 @@ import org.aeonbits.owner.Config;
 @Config.Sources({
   "system:properties",
   "system:env",
-  "file:${user.dir}/src/test/resources/api-config.properties"
+  "file:${user.dir}/src/test/resources/api-config.properties",
+  "file:${user.dir}/src/test/resources/api-data.properties"
 })
 public interface ApiConfig extends Config {
 
@@ -49,6 +50,9 @@ public interface ApiConfig extends Config {
   @Key("FUTURE_BUILTUP_HEATMAP_ENDPOINT")
   String futureBuiltupHeatMapEndpoint();
   
+  @Key("MARKET_MOVERS_BY_MOST")
+  String marketMoversByMost();
+  
   @Key("WATCHLIST_BASE_URL")
   String watchlistEndpoint();
   
@@ -67,10 +71,55 @@ public interface ApiConfig extends Config {
   @Key("NSE_CURRENCY_CHARTS")
   String getNSECurrencyEndpoint();
   
+  @Key("NSE_FNO_CHARTS")
+  String getNseFnoEndpoint();
+  
   @Key("PORTFOLIO_BASE_URL")
   String getPortfolioBaseURL();
   
   @Key("GET_HOLDING_ENDPOINT")
   String getHoldingEndpoint();
+  
+  //######### Test Data #########
+  
+  @Key("SECRET_KEY")
+  String secretKey();
+  
+  @Key("BSE_Equity_Topic")
+  String bSE_Equity_Topic_value();
+  
+  @Key("NSE_Equity_Topic")
+  String nSE_Equity_Topic_value();
+  
+  @Key("NSE_FNO_Topic")
+  String nSE_FNO_Topic_value();
+  
+  @Key("NSE_CURRENCY_Topic")
+  String nSE_CURRENCY_Topic_value();
+  
+  @Key("DURATION_TYPE")
+  String durationType();
+  
+  @Key("DURATION")
+  Integer duration();
+  
+  @Key("CURRENCY_SYMBOL")
+  String currencySymbol();
+  
+  @Key("CURRENCY_SYMBOL_TOKEN")
+  String currencySymbolToken();
+  
+  @Key("FNO_SYMBOL")
+  String fnoSymbol();
+  
+  @Key("FNO_SYMBOL_TOKEN")
+  String fnoSymbolToken();
+  
+  @Key("COMODITY_SYMBOL")
+  String comoditySymbol();
+  
+  @Key("COMODITY_SYMBOL_TOKEN")
+  String comoditySymbolToken();
+  
   
 }

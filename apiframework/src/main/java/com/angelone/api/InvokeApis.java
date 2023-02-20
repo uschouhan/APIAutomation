@@ -37,10 +37,12 @@ public final class InvokeApis {
 	private static final String GET_LOGIN_OTP_ENDPOINT = ApiConfigFactory.getConfig().getLoginOTPEndpoint();
 	private static final String VERIFY_OTP_ENDPOINT = ApiConfigFactory.getConfig().verifyOTPEndpoint();
 	private static final String FUTURE_BUILTUP_HEATMAP_ENDPOINT = ApiConfigFactory.getConfig().futureBuiltupHeatMapEndpoint();
+	private static final String MARKET_MOVERS_BY_MOST_ENDPOINT = ApiConfigFactory.getConfig().marketMoversByMost();
 	private static final String GET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().getWatchlistEndpoint();
 	private static final String GET_BSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getBSEequityEndpoint();
 	private static final String GET_NSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSEequityEndpoint();
 	private static final String GET_NSE_CURRENCY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSECurrencyEndpoint();
+	private static final String GET_NSE_FNO_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNseFnoEndpoint();
 	private static final String GET_HOLDING_ENDPOINT = ApiConfigFactory.getConfig().getHoldingEndpoint();
 	/**
 	 * Method for calling create user Token via MPIN
@@ -318,6 +320,19 @@ public final class InvokeApis {
 		return response;
 	}		
 	
+	public Response call_MartketMoversByMost(String nonTradeAccessToken,Map<String,Object> queryParams) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.DISCOVERY_BASE_URL + MARKET_MOVERS_BY_MOST_ENDPOINT);
+		Response response = BaseRequestSpecification.getDiscoveryRequestSpec().contentType(ContentType.JSON)
+				.headers("AccessToken",nonTradeAccessToken)
+				.queryParams(queryParams)
+				.log()
+				.all()
+				.get(MARKET_MOVERS_BY_MOST_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}	
+	
 	// #################### Watchlist API ############################
 	public Response call_getWatchlistAPI(String nonTradeAccessToken) {
 		System.out.println(" ########## API Called : " + BaseRequestSpecification.WATCHLIST_BASE_URL + GET_WATCHLIST_ENDPOINT);
@@ -381,6 +396,19 @@ public final class InvokeApis {
 				.log()
 				.all()
 				.post(GET_NSE_CURRENCY_CHARTS_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	public  Response getNSE_FNO_Charts(ChartsAPIPOJO chartspojo) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.CHARTS_EQUITY_BASE_URL + GET_NSE_FNO_CHARTS_ENDPOINT);
+		Response response = BaseRequestSpecification.getChartsEquitySpec().contentType(ContentType.JSON)
+				.headers( getHeadersForCharts())
+				.body(chartspojo)
+				.log()
+				.all()
+				.post(GET_NSE_FNO_CHARTS_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
 		return response;
