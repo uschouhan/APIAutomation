@@ -6,7 +6,7 @@
   <test thread-count="1" name="User1">
   	<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222"/>
     <classes>
-      <class name="com.angelone.tests.orderapi.PlaceOrderAndVerify"/>
+      <class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring"/>
     </classes>
   </test> <!-- Test -->
   

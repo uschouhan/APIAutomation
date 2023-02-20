@@ -13,7 +13,7 @@ import com.angelone.config.factory.ApiConfigFactory;
 
 import io.restassured.response.Response;
 
-class PlaceOrderAndVerify {
+class ApiSyntheticMonitoring {
 	BaseTestApi baseAPI;
 	Helper helper = new Helper();
 	private static final String SECRET_KEY = ApiConfigFactory.getConfig().secretKey();
