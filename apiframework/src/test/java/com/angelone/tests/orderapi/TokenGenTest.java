@@ -24,6 +24,9 @@ import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
 import com.angelone.api.pojo.OrdersDetailsData;
 import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -66,8 +69,7 @@ class TokenGenTest extends BaseTestApi {
 	
 	
 	
-	
-	
+
 
 
 	@Test(enabled = true)
@@ -165,6 +167,16 @@ class TokenGenTest extends BaseTestApi {
 		Assert.assertTrue(holding.getStatusCode()==200,"Invalid Response for getHolding API");
 	}
 	
+	@Test(enabled=true)
+	public void testOptionsAPI() throws Exception {
+		//String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+		//getNonTradingAccessToken(userdetails);
+		Response optionResult = callOptionsAPI("TCS","feb 23 2023");
+		Assert.assertTrue(optionResult.getStatusCode()==200,"Invalid Response for getHolding API");
+		String list = optionResult.jsonPath().getString("Result.Data");
+		System.out.println(); 
+		  
+	}
 	
 	@Test
 	public void testGetPositions() throws Exception {
@@ -174,6 +186,8 @@ class TokenGenTest extends BaseTestApi {
 		generateUserToken(userdetails, secKey);
 		Response positions = getPositions();
 		Assert.assertTrue(positions.getStatusCode()==200,"Invalid Response for getPostion API");
+		
+		
 	}
 	
 	@Test(enabled = true)

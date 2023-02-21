@@ -60,7 +60,7 @@ public class Helper {
 
 	public String getOTPmail(String emailID, String emailPass) throws InterruptedException {
 		// BasePage conf = new BasePage();
-		String otpNum = gMailReaderForSparkLoginNewForOTPViaEmail(emailID, emailPass, "Inbox", "Login OTP",
+		String otpNum = gMailReaderForSparkLoginNewForOTPViaEmail(emailID, emailPass, "Inbox", "OTP for Login",
 				"Hello, your OTP is:<br />", 8);
 		return otpNum;
 

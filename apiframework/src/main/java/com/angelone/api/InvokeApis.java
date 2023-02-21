@@ -10,6 +10,7 @@ import com.angelone.api.pojo.ChartsAPIPOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
 import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
+import com.angelone.api.pojo.OptionsPOJO;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
 import com.angelone.api.pojo.UserDetailsPOJO;
 import com.angelone.api.pojo.VerifyLoginOtpPOJO;
@@ -44,6 +45,7 @@ public final class InvokeApis {
 	private static final String GET_NSE_CURRENCY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSECurrencyEndpoint();
 	private static final String GET_NSE_FNO_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNseFnoEndpoint();
 	private static final String GET_HOLDING_ENDPOINT = ApiConfigFactory.getConfig().getHoldingEndpoint();
+	private static final String GET_OPTIONS_ENDPOINT = ApiConfigFactory.getConfig().getOptionEndpoint();
 	/**
 	 * Method for calling create user Token via MPIN
 	 * @param userDetails
@@ -427,4 +429,19 @@ public final class InvokeApis {
 		response.then().log().all(true);
 		return response;
 	}
+	
+	//################### Options API ##########################
+	
+	public  Response getOptions(OptionsPOJO chartspojo) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.OPTIONS_BASE_URL + GET_OPTIONS_ENDPOINT);
+		Response response = BaseRequestSpecification.getOptionsSpec().contentType(ContentType.JSON)
+				.body(chartspojo)
+				.log()
+				.all()
+				.post(GET_OPTIONS_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
 }

@@ -17,6 +17,7 @@ import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
 import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
+import com.angelone.api.pojo.OptionsPOJO;
 import com.angelone.api.pojo.OrdersDetailsData;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
 import com.angelone.api.pojo.UserDataJWT_POJO;
@@ -28,6 +29,7 @@ import com.angelone.testdataMapper.ChartsTestData;
 import com.angelone.testdataMapper.GetLoginOTP;
 import com.angelone.testdataMapper.LTPPriceData;
 import com.angelone.testdataMapper.LoginMpinMapper;
+import com.angelone.testdataMapper.OptionsDataMapper;
 import com.angelone.testdataMapper.PlaceOrderTestData;
 import com.angelone.testdataMapper.UserDATAJWTMapper;
 import com.angelone.testdataMapper.UserTestData;
@@ -172,6 +174,12 @@ public class BaseTestApi {
 			String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.getNSE_FNO_Charts(chartsData);
+		return response;
+	}
+	
+	public Response callOptionsAPI(String stockxchangecode, String expirydate) {
+		OptionsPOJO chartsData = OptionsDataMapper.getOptionsData(stockxchangecode,expirydate);
+		Response response = setupApi.getOptions(chartsData);
 		return response;
 	}
 

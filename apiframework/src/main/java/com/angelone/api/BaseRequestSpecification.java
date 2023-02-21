@@ -17,7 +17,7 @@ public final class BaseRequestSpecification {
   public static final String WATCHLIST_BASE_URL = ApiConfigFactory.getConfig().watchlistEndpoint();
   public static final String CHARTS_EQUITY_BASE_URL = ApiConfigFactory.getConfig().chartsEquityBaseURL();
   public static final String PORTFOLIO_BASE_URL = ApiConfigFactory.getConfig().getPortfolioBaseURL();
-  
+  public static final String OPTIONS_BASE_URL = ApiConfigFactory.getConfig().getOptionBaseURL();
   
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
@@ -59,5 +59,11 @@ public final class BaseRequestSpecification {
 	      .given()
 	      .contentType(ContentType.JSON)
 	      .baseUri(PORTFOLIO_BASE_URL);
+	  }
+  public static RequestSpecification getOptionsSpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(OPTIONS_BASE_URL);
 	  }
 }

@@ -80,6 +80,14 @@ public interface ApiConfig extends Config {
   @Key("GET_HOLDING_ENDPOINT")
   String getHoldingEndpoint();
   
+  @Key("OPTIONS_BASE_URL")
+  String getOptionBaseURL();
+  
+  @Key("OPTIONS_ENDPOINT")
+  String getOptionEndpoint();
+  
+  
+  
   //######### Test Data #########
   
   @Key("SECRET_KEY")
