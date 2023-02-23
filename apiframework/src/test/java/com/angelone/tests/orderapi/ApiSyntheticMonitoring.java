@@ -115,7 +115,7 @@ class ApiSyntheticMonitoring {
 		// Generate User Mpin Token
 
 		String pLtp = baseAPI.getLTPPrice("5948", "nse_cm");
-		String ltpPrice = helper.BuyroundoffValueToCancelOrder(pLtp);
+		String ltpPrice = helper.SellTriggerPriceGreater(pLtp);
 		System.out.println("Post rounding off LTP value = " + ltpPrice);
 		// Place Market Orders
 		Response response = baseAPI.placeStockOrder("NSE", "LIMIT", ltpPrice, "INTRADAY", "1", "0", "5948",

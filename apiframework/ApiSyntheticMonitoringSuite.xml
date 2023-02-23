@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
+<suite name="Suite" parallel="tests">
 <parameter name="testng.metrics.report.logo" value = "/Users/upendra.chouhan/git/SparkAutomationIOS/src/main/resources/angelOne.jpg"/>
 <parameter name="testng.metrics.report.name" value = "SyntheticMonitoringApiRun.html"/>
   <test thread-count="1" name="User1">
@@ -10,5 +10,11 @@
     </classes>
   </test> <!-- Test -->
   
+  <test thread-count="1" name="User2">
+  	<parameter name="UserCredentials" value="8079047894:nikita21tewari@gmail.com:heufxnzeyzulaqjx:N273269:2222"/>
+    <classes>
+      <class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring"/>
+    </classes>
+  </test> <!-- Test -->
   
 </suite> <!-- Suite -->

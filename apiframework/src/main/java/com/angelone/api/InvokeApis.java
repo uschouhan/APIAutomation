@@ -201,7 +201,8 @@ public final class InvokeApis {
 		m.put("Authorization", "Bearer "+token);
 		else
 		{
-		 new BaseTestApi().genUserToken();	
+		 //new BaseTestApi().genUserToken();	
+		 System.out.println("$$$$$$$$$$$ Access Token is null. Please check $$$$$$$");
 		}
 		
 		m.put("Content-Type", "application/json");

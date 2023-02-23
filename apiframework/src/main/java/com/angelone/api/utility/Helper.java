@@ -247,6 +247,17 @@ public class Helper {
 		double roundOffFinal = Math.round(FinalBuyPrice);
 		return String.valueOf (roundOffFinal);
 	}
+	
+	public  String SellTriggerPriceGreater(String ltp1) {
+		double lt = Double.parseDouble(ltp1);
+		double per = lt * 2/100;
+		double buyPrice = (lt + per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		System.out.print(FinalBuyPrice);
+		return String.valueOf (FinalBuyPrice);
+		
+	}
 
 	public String getCurrenctTime()
 	{

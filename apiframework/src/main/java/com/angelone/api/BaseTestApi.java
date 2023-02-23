@@ -43,11 +43,6 @@ public class BaseTestApi {
 	private final InvokeApis setupApi = new InvokeApis();
 	private final Helper helper = new Helper();
 
-	@BeforeTest(enabled = false)
-	public void setup() throws Exception {
-		genUserToken();
-	}
-
 	public String getLTPPrice(String scriptId, String segment) {
 		String ltpPrice;
 		List<String> symbolId = new ArrayList<>();
@@ -85,16 +80,16 @@ public class BaseTestApi {
 		return ltpPrice;
 	}
 
-	public String genUserToken() {
-		UserDetailsPOJO userDetails = UserTestData.getUserDetails();
-		Response response = setupApi.getUserToken(userDetails);
-		if (response.statusCode() == 200 && Objects.nonNull(response))
-			setupApi.token = response.jsonPath().getString("data.accesstoken");
-		else
-			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
-		System.out.println("User Token = " + setupApi.token);
-		return setupApi.token;
-	}
+	/*
+	 * public String genUserToken() { UserDetailsPOJO userDetails =
+	 * UserTestData.getUserDetails(); Response response =
+	 * setupApi.getUserToken(userDetails); if (response.statusCode() == 200 &&
+	 * Objects.nonNull(response)) setupApi.token =
+	 * response.jsonPath().getString("data.accesstoken"); else throw new
+	 * SkipException("Couldnt generate Access Token for User .Hence skipping tests"
+	 * ); System.out.println("User Token = " + setupApi.token); return
+	 * setupApi.token; }
+	 */
 //  Below method was for login by Password which is deprecated 
 //	public String genUserToken(String userid, String pwd) {
 //		UserDetailsPOJO userDetails = UserTestData.getUserDetails(userid, pwd);

@@ -30,6 +30,7 @@ import com.google.gson.JsonObject;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 class TokenGenTest extends BaseTestApi {
@@ -173,9 +174,17 @@ class TokenGenTest extends BaseTestApi {
 		//getNonTradingAccessToken(userdetails);
 		Response optionResult = callOptionsAPI("TCS","feb 23 2023");
 		Assert.assertTrue(optionResult.getStatusCode()==200,"Invalid Response for getHolding API");
-		String list = optionResult.jsonPath().getString("Result.Data");
-		System.out.println(); 
-		  
+		JsonPath j = new JsonPath(optionResult.asString());
+	    
+		List<String> list = optionResult.jsonPath().getList("Result.Data");
+		System.out.println("Data Size = "+list.size()); 
+		int s = list.size();
+	      for(int i = 0; i < s; i++) {
+	         String StkPrice = j.getString("Result.Data["+i+"].StkPrice");
+	         String Expiry = j.getString("Result.Data["+i+"].Expiry");
+	         System.out.println(StkPrice);
+	         System.out.println(Expiry);
+	      } 
 	}
 	
 	@Test
