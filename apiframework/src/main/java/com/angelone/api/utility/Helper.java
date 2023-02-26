@@ -259,6 +259,11 @@ public class Helper {
 		
 	}
 
+	public static String dateTime() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
 	public String getCurrenctTime()
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");

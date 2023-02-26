@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Spark-Automation" parallel="tests">
+<listeners>
+			<listener class-name="com.angelone.listeners.TestListener" />
+		</listeners>
+	<test name="spark">
+
+		<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222" />
+
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+	<test name="spark1">
+
+		<parameter name="UserCredentials" value="9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222" />
+
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+
+</suite> <!-- Suite -->

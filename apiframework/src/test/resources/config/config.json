@@ -1,0 +1,15 @@
+{
+	"config": 
+	{
+		"global": 
+		{
+			
+			"url"		:		 "https://google.com/",
+			"username" : "amuthan",
+			"screenshotrequired" : "yes",
+			"screenshotforpass":"yes",
+			"screenshotforfail":"yes",
+			"screenshotforskip":"no"
+		}
+	}
+}

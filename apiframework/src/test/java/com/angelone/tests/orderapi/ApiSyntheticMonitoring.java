@@ -1,41 +1,68 @@
 package com.angelone.tests.orderapi;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.angelone.api.BaseTestApi;
+import com.angelone.api.pojo.ClientDetails;
 import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
+import com.angelone.reports.ExtentLogger;
+import com.angelone.reports.ExtentReport;
 
 import io.restassured.response.Response;
 
 class ApiSyntheticMonitoring {
 	BaseTestApi baseAPI;
+	ClientDetails cDetails ;
 	Helper helper = new Helper();
 	private static final String SECRET_KEY = ApiConfigFactory.getConfig().secretKey();
 
 	@Parameters({ "UserCredentials" })
-	@BeforeClass
+	@BeforeTest
 	public void Setup(String userDetails) {
 		baseAPI = new BaseTestApi();
 		// Generate User Mpin Token
 		baseAPI.generateUserToken(userDetails, SECRET_KEY);
 		// Generate NonTraded Access Token
 		baseAPI.getNonTradingAccessToken(userDetails);
+		ExtentReport.initReports();
+		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());
+		cDetails= new ClientDetails(userDetails);
 	}
 
+	
+	@BeforeMethod
+	public void beforeMethod(Method m) {
+		ExtentReport.createTest(cDetails.getMobileNumber()+":"+m.getName());
+		ExtentReport.assignAuthor(cDetails.getClientId());
+	}
+	
+	@AfterMethod
+	public void cleanUp() {
+		ExtentReport.flushReports();
+	}
+	
 	@Test(enabled = true)
 	void placeBuyEquityOrder() throws IOException {
 
 		String pLtp = baseAPI.getLTPPrice("10666", "nse_cm");
 		String ltpPrice = helper.BuyroundoffValueToCancelOrder(pLtp);
 		System.out.println("Post rounding off LTP value = " + ltpPrice);
+		ExtentLogger.info("Post rounding off LTP value = " + ltpPrice);
 		// Place Market Orders
 		Response response = baseAPI.placeStockOrder("LIMIT", ltpPrice, "DELIVERY", "10666", "PNB-EQ", "NORMAL");
+		if(response.getStatusCode() == 200)
+		ExtentLogger.info(response.asPrettyString());
+		else
+		ExtentLogger.fail(response.asPrettyString());	
 		Assert.assertTrue(response.getStatusCode() == 200, "some error in placeOrder api ");
 		Assert.assertEquals(response.jsonPath().getString("message"), "SUCCESS", "Error in PlaceOrderAPI ");
 		String orderNum = response.jsonPath().getString("data.orderid");
@@ -53,9 +80,11 @@ class ApiSyntheticMonitoring {
 		String pLtp = baseAPI.getLTPPrice(currencySymbolToken, "cde_fo");
 		String ltpPrice = helper.buyValueCustomPriceForCurrency(pLtp);
 		System.out.println("Post rounding off LTP value = " + ltpPrice);
+		ExtentLogger.info("Post rounding off LTP value = " + ltpPrice);
 		// Place Market Orders
 		Response response = baseAPI.placeStockOrder("CDS", "LIMIT", ltpPrice, "DELIVERY", "1", "0", "1151",
 				currencySymbol, "BUY", "0.0", "NORMAL");
+		ExtentLogger.info(response.asPrettyString());
 		Assert.assertTrue(response.getStatusCode() == 200, "some error in placeOrderCurrency api ");
 		Assert.assertEquals(response.jsonPath().getString("message"), "SUCCESS", "Error in placeOrderCurrency api ");
 		String orderNum = response.jsonPath().getString("data.orderid");
@@ -73,9 +102,11 @@ class ApiSyntheticMonitoring {
 		String pLtp = baseAPI.getLTPPrice(fnoSymbolToken, "nse_fo");
 		String ltpPrice = helper.buyValueCustomPriceForCurrency(pLtp);
 		System.out.println("Post rounding off LTP value = " + ltpPrice);
+		ExtentLogger.info("Post rounding off LTP value = " + ltpPrice);
 		// Place Market Orders
 		Response response = baseAPI.placeStockOrder("NFO", "LIMIT", ltpPrice, "INTRADAY", "1", "0", fnoSymbolToken, fnoSymbol,
 				"BUY", "0.0", "NORMAL");
+		ExtentLogger.info(response.asPrettyString());
 		Assert.assertTrue(response.getStatusCode() == 200, "some error in placeOrderFNO api ");
 		Assert.assertEquals(response.jsonPath().getString("message"), "SUCCESS", "Error in placeOrderFNO api ");
 		String orderNum = response.jsonPath().getString("data.orderid");
@@ -98,7 +129,7 @@ class ApiSyntheticMonitoring {
 		// Place Market Orders
 		Response response = baseAPI.placeStockOrder("0","0","DAY","MCX","1","","",
 				"LIMIT","2",ltpPrice,"INTRADAY","1","0","0","0",comoditySymbolToken,"100.0",comoditySymbol,"NO","0","BUY","0.0","NORMAL");
-		
+		ExtentLogger.info(response.asPrettyString());
 		Assert.assertTrue(response.getStatusCode() == 200, "some error in placeBuyComodityOrder api ");
 		Assert.assertEquals(response.jsonPath().getString("message"), "SUCCESS", "Error in placeBuyComodityOrder api ");
 		String orderNum = response.jsonPath().getString("data.orderid");
@@ -120,6 +151,7 @@ class ApiSyntheticMonitoring {
 		// Place Market Orders
 		Response response = baseAPI.placeStockOrder("NSE", "LIMIT", ltpPrice, "INTRADAY", "1", "0", "5948",
 				"SOUTHBANK-EQ", "SELL", "0.0", "NORMAL");
+		ExtentLogger.info(response.asPrettyString());
 		Assert.assertTrue(response.getStatusCode() == 200, "some error in placeOrder api ");
 		Assert.assertEquals(response.jsonPath().getString("message"), "SUCCESS", "Error in PlaceOrderAPI ");
 		String orderNum = response.jsonPath().getString("data.orderid");
@@ -133,6 +165,7 @@ class ApiSyntheticMonitoring {
 	public void testGetHolding() throws Exception {
 
 		Response holding = baseAPI.getHolding();
+		ExtentLogger.info(holding.asPrettyString());
 		Assert.assertTrue(holding.getStatusCode() == 200, "Invalid Response for getHolding API");
 	}
 
@@ -140,12 +173,14 @@ class ApiSyntheticMonitoring {
 	public void testGetPositions() throws Exception {
 
 		Response positions = baseAPI.getPositions();
+		ExtentLogger.info(positions.asPrettyString());
 		Assert.assertTrue(positions.getStatusCode() == 200, "Invalid Response for getPostion API");
 	}
 
 	@Test(enabled = true)
 	void testMarketMoversByMost() throws IOException {
 		Response marketMovers = baseAPI.getMarketMoversByMost("MOST_ACT_VALUE");
+		ExtentLogger.info(marketMovers.asPrettyString());
 		Assert.assertEquals(marketMovers.getStatusCode(),200,"Error in marketMovers api ");
 		Assert.assertEquals(marketMovers.jsonPath().getString("status"),"success","Status doesnt match in marketMovers api ");
 		Assert.assertTrue(!marketMovers.jsonPath().getString("data").isEmpty(),"data is empty in marketMovers api ");
@@ -154,7 +189,7 @@ class ApiSyntheticMonitoring {
 	}
 	
 	@Test(enabled = true)
-	public void testBSE_EquityCharts() throws Exception {
+	public void testChartsApi() throws Exception {
 		
 		String bSE_Equity_Topic_value = ApiConfigFactory.getConfig().bSE_Equity_Topic_value();
 		String nSE_Equity_Topic_value = ApiConfigFactory.getConfig().nSE_Equity_Topic_value();
@@ -168,25 +203,30 @@ class ApiSyntheticMonitoring {
 	
 		Response bseChartsEquity = baseAPI.getBSEChartsEquity(1, "Req", bSE_Equity_Topic_value, "OHLCV", "I", durationType, 1,
 				startTime, endTime);
+		ExtentLogger.info(bseChartsEquity.asPrettyString());
 		Assert.assertTrue(bseChartsEquity.getStatusCode() == 200, "Invalid Response");
-
+		ExtentLogger.pass("bseChartsEquity api test passed");
 		Response nseChartsEquity = baseAPI.getNSEChartsEquity(1, "Req", nSE_Equity_Topic_value, "OHLCV", "I", durationType, 1,
 				startTime, endTime);
+		ExtentLogger.info(nseChartsEquity.asPrettyString());
 		Assert.assertTrue(nseChartsEquity.getStatusCode() == 200, "Invalid Response");
-
+		ExtentLogger.pass("nseChartsEquity api test passed");
 		Response nseChartsCurrency = baseAPI.getNSEChartsCurrency(1, "Req", nSE_CURRENCY_Topic_value, "OHLCV", "I", durationType, 1,
 				startTime, endTime);
+		ExtentLogger.info(nseChartsCurrency.asPrettyString());
 		Assert.assertTrue(nseChartsCurrency.getStatusCode() == 200, "Invalid Response");
-		
+		ExtentLogger.pass("nseChartsCurrency api test passed");
 		Response nseChartsFNO = baseAPI.getNSEChartsFNO(17,"Req",nSE_FNO_Topic_value,"OHLCV","I",durationType,1,startTime,endTime);
+		ExtentLogger.info(nseChartsFNO.asPrettyString());
 		Assert.assertTrue(nseChartsFNO.getStatusCode()==200,"Invalid Response");
-		
+		ExtentLogger.pass("nseChartsFNO api test passed");
 	}
 
 	@Test(enabled = true)
 	public void testGetWatchlist() throws Exception {
 
 		Response watchlists = baseAPI.getWatchLists();
+		ExtentLogger.info(watchlists.asPrettyString());
 		Assert.assertEquals(watchlists.getStatusCode(), 200, "Error in watchlists api ");
 		Assert.assertEquals(watchlists.jsonPath().getString("status"), "success",
 				"Status doesnt match in watchlists api ");
