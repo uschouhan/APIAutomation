@@ -2,6 +2,7 @@
 <suite name="Spark-Automation" parallel="tests">
 <listeners>
 			<listener class-name="com.angelone.listeners.TestListener" />
+			<listener class-name="com.angelone.listeners.ReporterListener" />
 		</listeners>
 	<test name="spark">
 

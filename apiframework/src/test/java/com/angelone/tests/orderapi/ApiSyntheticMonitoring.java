@@ -1,54 +1,18 @@
 package com.angelone.tests.orderapi;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.angelone.api.BaseTestApi;
-import com.angelone.api.pojo.ClientDetails;
-import com.angelone.api.utility.Helper;
+import com.angelone.api.BaseClass;
 import com.angelone.config.factory.ApiConfigFactory;
 import com.angelone.reports.ExtentLogger;
-import com.angelone.reports.ExtentReport;
 
 import io.restassured.response.Response;
 
-class ApiSyntheticMonitoring {
-	BaseTestApi baseAPI;
-	ClientDetails cDetails ;
-	Helper helper = new Helper();
-	private static final String SECRET_KEY = ApiConfigFactory.getConfig().secretKey();
-
-	@Parameters({ "UserCredentials" })
-	@BeforeTest
-	public void Setup(String userDetails) {
-		baseAPI = new BaseTestApi();
-		// Generate User Mpin Token
-		baseAPI.generateUserToken(userDetails, SECRET_KEY);
-		// Generate NonTraded Access Token
-		baseAPI.getNonTradingAccessToken(userDetails);
-		ExtentReport.initReports();
-		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());
-		cDetails= new ClientDetails(userDetails);
-	}
-
+class ApiSyntheticMonitoring extends BaseClass{
 	
-	@BeforeMethod
-	public void beforeMethod(Method m) {
-		ExtentReport.createTest(cDetails.getMobileNumber()+":"+m.getName());
-		ExtentReport.assignAuthor(cDetails.getClientId());
-	}
-	
-	@AfterMethod
-	public void cleanUp() {
-		ExtentReport.flushReports();
-	}
 	
 	@Test(enabled = true)
 	void placeBuyEquityOrder() throws IOException {

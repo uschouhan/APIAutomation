@@ -15,7 +15,7 @@ public final class ExtentReport {
     
 
     public static ExtentReports extent;
-    public static ExtentTest extentTest; //loginTest is not thread safe
+    public static ExtentTest extentTest;
 
    
     public static void initReports(){
@@ -26,6 +26,9 @@ public final class ExtentReport {
         }
         ExtentSparkReporter spark = new ExtentSparkReporter(Constants.EXTENTREPORTPATH).viewConfigurer().viewOrder().as(new ViewName[] {ViewName.DASHBOARD,ViewName.TEST,
                 		ViewName.CATEGORY,ViewName.AUTHOR}).apply();
+       
+        spark.config().setDocumentTitle("Spark-ApiAutomation");
+        spark.config().setReportName("ApiSyntheticRun");
         extent.attachReporter(spark);
 
     }

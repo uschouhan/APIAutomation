@@ -16,34 +16,15 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.angelone.api.BaseClass;
 import com.angelone.api.pojo.ClientDetails;
 import com.angelone.reports.ExtentLogger;
 import com.angelone.reports.ExtentReport;
 
 
-public class Demo {
+public class Demo extends BaseClass{
 
-	ClientDetails cDetails ;
 	
-	@Parameters({ "UserCredentials" })
-	@BeforeTest
-	public void Setup(String userDetails) {
-		ExtentReport.initReports();
-		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());
-		cDetails= new ClientDetails(userDetails);
-		
-	}
-	
-	@BeforeMethod
-	public void beforeMethod(Method m) {
-		ExtentReport.createTest(cDetails.getMobileNumber()+":"+m.getName());
-		ExtentReport.assignAuthor(cDetails.getClientId());
-	}
-	
-	@AfterMethod
-	public void cleanUp() {
-		ExtentReport.flushReports();
-	}
 	
 	@Test
 	public void testName(Method m) throws Exception {
@@ -72,7 +53,6 @@ public class Demo {
 		
 	        ExtentLogger.info("testing extent logging in 3 ");
 	 
-		
 	}
 	
 

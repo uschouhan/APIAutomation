@@ -15,9 +15,17 @@
 	</test> <!-- Test -->
 
 	<test thread-count="1" name="User2">
-		<parameter name="UserCredentials" value="9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222" />
+		<parameter name="UserCredentials" value="8220609624:ubendranganesh@gmail.com:srllrsjbjulnefdt:R50015710:2222" />
 		<classes>
 			<class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring" />
 		</classes>
 	</test> <!-- Test -->
+	
+	<test thread-count="1" name="User3">
+		<parameter name="UserCredentials" value="9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring" />
+		</classes>
+	</test> 
+	
 </suite> <!-- Suite -->
