@@ -3,7 +3,7 @@
 <suite name="ApiMonitoringSuite" parallel="tests">
 	<listeners>
 		<listener class-name="com.angelone.listeners.TestListener" />
-		<listener class-name="com.spark.listeners.ReporterListener" />
+		<listener class-name="com.angelone.listeners.ReporterListener" />
 	</listeners>
 	<parameter name="testng.metrics.report.name" value="SyntheticMonitoringApiRun.html" />
 	<parameter name="testng.metrics.report.appendTimestamp" value="True" />
