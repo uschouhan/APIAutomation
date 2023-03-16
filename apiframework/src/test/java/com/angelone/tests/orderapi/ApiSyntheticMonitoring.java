@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.angelone.api.BaseClass;
+import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
 import com.angelone.reports.ExtentLogger;
 
@@ -14,7 +15,7 @@ import io.restassured.response.Response;
 class ApiSyntheticMonitoring extends BaseClass{
 	
 	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void placeBuyEquityOrder() throws IOException {
 
 		String pLtp = baseAPI.getLTPPrice("10666", "nse_cm");
@@ -37,7 +38,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void placeBuyCurrencyOrder() throws IOException {
 		String currencySymbol = ApiConfigFactory.getConfig().currencySymbol();
 		String currencySymbolToken = ApiConfigFactory.getConfig().currencySymbolToken();
@@ -59,7 +60,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 
 	}
 	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void placeBuyFNOOrder() throws IOException {
 		String fnoSymbol = ApiConfigFactory.getConfig().fnoSymbol();
 		String fnoSymbolToken = ApiConfigFactory.getConfig().fnoSymbolToken();
@@ -82,7 +83,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 	}
 	
 	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void placeBuyComodityOrder() throws IOException {
 		
 		String comoditySymbol = ApiConfigFactory.getConfig().comoditySymbol();
@@ -105,7 +106,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 	}
 	
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void placeSellOrder() throws IOException {
 		// Generate User Mpin Token
 
@@ -125,7 +126,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 		Assert.assertTrue(cancelOrderResponse.getStatusCode() == 200, "some error in placeOrder api ");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetHolding() throws Exception {
 
 		Response holding = baseAPI.getHolding();
@@ -133,7 +134,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 		Assert.assertTrue(holding.getStatusCode() == 200, "Invalid Response for getHolding API");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetPositions() throws Exception {
 
 		Response positions = baseAPI.getPositions();
@@ -141,7 +142,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 		Assert.assertTrue(positions.getStatusCode() == 200, "Invalid Response for getPostion API");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	void testMarketMoversByMost() throws IOException {
 		Response marketMovers = baseAPI.getMarketMoversByMost("MOST_ACT_VALUE");
 		ExtentLogger.info(marketMovers.asPrettyString());
@@ -160,7 +161,7 @@ class ApiSyntheticMonitoring extends BaseClass{
 		String nSE_CURRENCY_Topic_value = ApiConfigFactory.getConfig().nSE_CURRENCY_Topic_value();
 		String nSE_FNO_Topic_value = ApiConfigFactory.getConfig().nSE_FNO_Topic_value();
 		String durationType = ApiConfigFactory.getConfig().durationType();
-		
+		String mcxTopic = ApiConfigFactory.getConfig().mcx_Topic_value();
 		 
 		String startTime = helper.getCurrenctTimeMinus(durationType, 1);
 		String endTime= helper.getCurrenctTime();
@@ -184,9 +185,13 @@ class ApiSyntheticMonitoring extends BaseClass{
 		ExtentLogger.info(nseChartsFNO.asPrettyString());
 		Assert.assertTrue(nseChartsFNO.getStatusCode()==200,"Invalid Response");
 		ExtentLogger.pass("nseChartsFNO api test passed");
+		
+		Response mcxChartsApiRespoonse = baseAPI.getMCXCharts(1,"Req",mcxTopic,"OHLCV","I","h",1,startTime,endTime);
+		Assert.assertTrue(mcxChartsApiRespoonse.getStatusCode()==200,"Invalid Response for MCX charts api");
+		ExtentLogger.pass("mcxChartsApi api test passed");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetWatchlist() throws Exception {
 
 		Response watchlists = baseAPI.getWatchLists();

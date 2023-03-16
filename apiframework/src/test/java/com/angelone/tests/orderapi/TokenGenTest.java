@@ -96,13 +96,23 @@ class TokenGenTest extends BaseTestApi {
 		});
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	void testNonTradedAccessToken() throws IOException {
-		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
-		getNonTradingAccessToken(userdetails);
-		Response marketBuiltupResponse = getMarketBuiltup("NEAR", "All", "Short Covering");
-		String data = marketBuiltupResponse.jsonPath().getString("data");
-		decodeJsonResponse(data);
+//		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+//		getNonTradingAccessToken(userdetails);
+//		Response marketBuiltupResponse = getMarketBuiltup("NEAR", "All", "Short Covering");
+//		String data = marketBuiltupResponse.jsonPath().getString("data");
+//		decodeJsonResponse(data);
+		String userdetails = "8079047894:nikita21tewari@gmail.com:heufxnzeyzulaqjx:N273269:2222";
+		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		generateUserToken(userdetails, secKey);
+		//Place two AMO Orders
+		//Response response1 = placeStockOrder("MARKET", "0.0", "DELIVERY", "10666", "PNB-EQ", "AMO");
+		//Assert.assertTrue(response1.getStatusCode()==200,"some error in placeOrder api ");
+		
+		Response response = placeStockOrder("CDS", "MARKET", "0.0", "CARRYFORWARD", "1", "0", "1151",
+				"USDINR23AUGFUT", "BUY", "0.0", "NORMAL");
+		Assert.assertTrue(response.getStatusCode()==200,"some error in placeOrder api ");
 	}
 	
 	@Test(enabled = true)
@@ -156,6 +166,20 @@ class TokenGenTest extends BaseTestApi {
 		Assert.assertTrue(nseChartsCurrency.getStatusCode() == 200, "Invalid Response");
 		
 		Response nseChartsFNO = getNSEChartsFNO(17,"Req",nSE_FNO_Topic_value,"OHLCV","I","h",1,startTime,endTime);
+		Assert.assertTrue(nseChartsFNO.getStatusCode()==200,"Invalid Response");
+		
+	}
+	
+	@Test(enabled = true)
+	public void testMCXChartsAPI() throws Exception {
+		String mcxTopic = ApiConfigFactory.getConfig().mcx_Topic_value();
+		String durationType = ApiConfigFactory.getConfig().durationType();
+		
+		Helper helper = new Helper();
+		String endTime= helper.getCurrenctTime();
+		String startTime = helper.getCurrenctTimeMinus(durationType, 1);
+
+		Response nseChartsFNO = getMCXCharts(1,"Req",mcxTopic,"OHLCV","I","h",1,startTime,endTime);
 		Assert.assertTrue(nseChartsFNO.getStatusCode()==200,"Invalid Response");
 		
 	}

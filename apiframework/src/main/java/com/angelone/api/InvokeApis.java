@@ -41,6 +41,7 @@ public final class InvokeApis {
 	private static final String MARKET_MOVERS_BY_MOST_ENDPOINT = ApiConfigFactory.getConfig().marketMoversByMost();
 	private static final String GET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().getWatchlistEndpoint();
 	private static final String GET_BSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getBSEequityEndpoint();
+	private static final String GET_MCX_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getChartsMCXEndpoint();
 	private static final String GET_NSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSEequityEndpoint();
 	private static final String GET_NSE_CURRENCY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSECurrencyEndpoint();
 	private static final String GET_NSE_FNO_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNseFnoEndpoint();
@@ -373,6 +374,19 @@ public final class InvokeApis {
 				.log()
 				.all()
 				.post(GET_BSE_EQUITY_CHARTS_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	public  Response callMCXChartsApi(ChartsAPIPOJO chartspojo) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.CHARTS_MCX_BASE_URL + GET_MCX_CHARTS_ENDPOINT);
+		Response response = BaseRequestSpecification.getChartsMCXSpec().contentType(ContentType.JSON)
+				.headers( getHeadersForCharts())
+				.body(chartspojo)
+				.log()
+				.all()
+				.post(GET_MCX_CHARTS_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
 		return response;

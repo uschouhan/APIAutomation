@@ -151,6 +151,13 @@ public class BaseTestApi {
 		return response;
 	}
 	
+	public Response getMCXCharts(int seqno, String action,String topic,String rtype,String period,
+			String type,int duration,String from,String to) {
+		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
+		Response response = setupApi.callMCXChartsApi(chartsData);
+		return response;
+	}
+	
 	public Response getNSEChartsEquity(int seqno, String action,String topic,String rtype,String period,
 			String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);

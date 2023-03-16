@@ -74,6 +74,12 @@ public interface ApiConfig extends Config {
   @Key("NSE_FNO_CHARTS")
   String getNseFnoEndpoint();
   
+  @Key("CHARTS_MCX_BASE_URL")
+  String chartsMCXBaseURL();
+  
+  @Key("CHARTS_MCX_ENDPOINT")
+  String getChartsMCXEndpoint();
+  
   @Key("PORTFOLIO_BASE_URL")
   String getPortfolioBaseURL();
   
@@ -104,6 +110,9 @@ public interface ApiConfig extends Config {
   
   @Key("NSE_CURRENCY_Topic")
   String nSE_CURRENCY_Topic_value();
+  
+  @Key("MCX_TOPIC")
+  String mcx_Topic_value();
   
   @Key("DURATION_TYPE")
   String durationType();
