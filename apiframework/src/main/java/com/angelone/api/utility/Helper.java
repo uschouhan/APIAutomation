@@ -8,10 +8,12 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -182,32 +184,24 @@ public class Helper {
 		return subStrOTP;
 
 	}
-	
-	public String genJTWToken(UserDataJWT_POJO data ,String secret) {
-		//String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
-		String jwtToken="";
+
+	public String genJTWToken(UserDataJWT_POJO data, String secret) {
+		// String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		String jwtToken = "";
 		try {
-			SecretKeySpec hmacKey = new SecretKeySpec(secret.getBytes("UTF-8"), 
-			                            SignatureAlgorithm.HS256.getJcaName());
+			SecretKeySpec hmacKey = new SecretKeySpec(secret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
 			Instant now = Instant.now();
 			long futureTime = now.plus(365l, ChronoUnit.DAYS).toEpochMilli();
 			long pastTime = now.minus(1l, ChronoUnit.DAYS).toEpochMilli();
-			System.out.println("exp time = "+futureTime);
-			System.out.println("iat time = "+pastTime);
-			//UserDataJWT data = new UserDataJWT();
-			Map<String,Object> userData = new HashMap<>();
+			System.out.println("exp time = " + futureTime);
+			System.out.println("iat time = " + pastTime);
+			// UserDataJWT data = new UserDataJWT();
+			Map<String, Object> userData = new HashMap<>();
 			userData.put("userData", data);
-			jwtToken = Jwts.builder()
-					.addClaims(userData)
-			        .claim("iss", "angel")
-			        .claim("exp", futureTime)
-			        .claim("iat", pastTime)
-			        .setSubject("JWT key")
-			        .setId(UUID.randomUUID().toString())
-			        .setIssuedAt(Date.from(now))
-			        .setExpiration(Date.from(now.plus(2l, ChronoUnit.DAYS)))
-			        .signWith(hmacKey)
-			        .compact();
+			jwtToken = Jwts.builder().addClaims(userData).claim("iss", "angel").claim("exp", futureTime)
+					.claim("iat", pastTime).setSubject("JWT key").setId(UUID.randomUUID().toString())
+					.setIssuedAt(Date.from(now)).setExpiration(Date.from(now.plus(2l, ChronoUnit.DAYS)))
+					.signWith(hmacKey).compact();
 		} catch (InvalidKeyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,11 +209,11 @@ public class Helper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("JWT token === > "+jwtToken);
+
+		System.out.println("JWT token === > " + jwtToken);
 		return jwtToken;
 	}
-	
+
 	public String BuyroundoffValueToCancelOrder(String ltp1) {
 		double lt = Double.parseDouble(ltp1);
 		double per = lt * 2 / 100;
@@ -237,26 +231,35 @@ public class Helper {
 		double FinalBuyPrice = roundOff / 10;
 		return String.valueOf(FinalBuyPrice);
 	}
-	
-	public  String buyValueTriggerPriceForCommodity(String ltp) {
+
+	public String buyValueTriggerPriceForCommodity(String ltp) {
 		double lt = Double.parseDouble(ltp);
 		double per = lt * 2 / 100;
 		double buyPrice = (lt - per) * 10;
 		double roundOff = Math.round(buyPrice);
 		double FinalBuyPrice = roundOff / 10;
 		double roundOffFinal = Math.round(FinalBuyPrice);
-		return String.valueOf (roundOffFinal);
+		return String.valueOf(roundOffFinal);
 	}
-	
-	public  String SellTriggerPriceGreater(String ltp1) {
+
+	public String SellTriggerPriceGreater(String ltp1) {
 		double lt = Double.parseDouble(ltp1);
-		double per = lt * 2/100;
+		double per = lt * 2 / 100;
 		double buyPrice = (lt + per) * 10;
 		double roundOff = Math.round(buyPrice);
 		double FinalBuyPrice = roundOff / 10;
 		System.out.print(FinalBuyPrice);
-		return String.valueOf (FinalBuyPrice);
-		
+		return String.valueOf(FinalBuyPrice);
+
+	}
+	
+	public  String fnoBuyMarketPending(String ltp) {
+		double lt = Double.parseDouble(ltp);
+		double per = lt * 5 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		return String.valueOf(FinalBuyPrice);
 	}
 
 	public static String dateTime() {
@@ -264,26 +267,94 @@ public class Helper {
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
-	public String getCurrenctTime()
-	{
+
+	public String getCurrenctTime() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 		Date date = new Date();
-		System.out.println(dateFormat.format(date));
+		System.out.println("End Time = " + dateFormat.format(date));
 		return dateFormat.format(date);
 	}
-	
-	public String getCurrenctTimeMinus(String type,int value)
-	{
-		Date dateNew = new Date() ;
+
+	public String getCurrenctTimeMinus(String type, int value) {
+		Date dateNew = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-		if(type.equalsIgnoreCase("h"))
-		dateNew = new Date(System.currentTimeMillis() - value * 3600 * 1000);
+		if (type.equalsIgnoreCase("h"))
+			dateNew = new Date(System.currentTimeMillis() - value * 3600 * 1000);
 		else if (type.equalsIgnoreCase("m"))
-		dateNew = new Date(System.currentTimeMillis() - value * 60 * 1000);
+			dateNew = new Date(System.currentTimeMillis() - value * 60 * 1000);
 		else
 			System.out.println("Please provide correct type and value");
-		System.out.println(dateFormat.format(dateNew));
+		System.out.println("Start Time = " + dateFormat.format(dateNew));
 		return dateFormat.format(dateNew);
 	}
+
+	public String orderTypeCheckForEquity() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		if (hour >= 9 && hour <= 14) {
+			if (hour == 9 && minute < 15)
+				return "AMO";
+			else
+				return "NORMAL";
+		} else if (hour == 15) {
+			if (minute < 30)
+				return "NORMAL";
+			else
+				return "AMO";
+
+		} else
+			return "AMO";
+	}
+
+	public String orderTypeCheckForCurrency() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		if (hour >= 9 && hour <= 16) {
+			if (hour == 9 && minute < 1)
+				return "AMO";
+			else
+				return "NORMAL";
+		} else if (hour == 17) {
+			if (minute < 1)
+				return "NORMAL";
+			else
+				return "AMO";
+
+		} else
+			return "AMO";
+	}
+
+	public String orderTypeCheckForComodity() {
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		int minute = calendar.get(Calendar.MINUTE);
+		if (hour >= 9 && hour <= 22) {
+			if (hour == 9 && minute < 1)
+				return "AMO";
+			else
+				return "NORMAL";
+		} else if (hour == 23) {
+			if (minute < 59)
+				return "NORMAL";
+			else
+				return "AMO";
+
+		} else
+			return "AMO";
+	}
 	
+	public static String generateDeviceId() {
+		 UUID uuid = UUID.randomUUID();
+	        String randomString = uuid.toString().replace("-", "");
+	        String formattedString = String.format("%s-%s-%s-%s-%s",
+	            randomString.substring(0, 8),
+	            randomString.substring(8, 12),
+	            randomString.substring(12, 16),
+	            randomString.substring(16, 20),
+	            randomString.substring(20));
+	        System.out.println(formattedString);
+        return randomString;
+    }
 }

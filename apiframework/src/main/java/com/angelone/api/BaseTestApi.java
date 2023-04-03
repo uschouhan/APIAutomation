@@ -1,6 +1,5 @@
 package com.angelone.api;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,30 +8,39 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.testng.SkipException;
-import org.testng.annotations.BeforeTest;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
 import com.angelone.api.pojo.ChartsAPIPOJO;
+import com.angelone.api.pojo.FundRmsLimitPOJO;
+import com.angelone.api.pojo.FundWithdrawalPOJO;
 import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
 import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
+import com.angelone.api.pojo.MarginAmountPOJO;
+import com.angelone.api.pojo.ModifyOrderPOJO;
 import com.angelone.api.pojo.OptionsPOJO;
 import com.angelone.api.pojo.OrdersDetailsData;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
+import com.angelone.api.pojo.PledgeGetUserSecurityPOJO;
+import com.angelone.api.pojo.PledgeGetWithdrawSecurityPOJO;
 import com.angelone.api.pojo.UserDataJWT_POJO;
-import com.angelone.api.pojo.UserDetailsPOJO;
 import com.angelone.api.pojo.VerifyLoginOtpPOJO;
 import com.angelone.api.utility.Helper;
 import com.angelone.testdataMapper.CancelOrderData;
 import com.angelone.testdataMapper.ChartsTestData;
+import com.angelone.testdataMapper.FundRmsLimitMapper;
+import com.angelone.testdataMapper.FundWithdrawalDataMapper;
 import com.angelone.testdataMapper.GetLoginOTP;
 import com.angelone.testdataMapper.LTPPriceData;
 import com.angelone.testdataMapper.LoginMpinMapper;
+import com.angelone.testdataMapper.MarginAmountMapper;
+import com.angelone.testdataMapper.ModifyOrderMapper;
 import com.angelone.testdataMapper.OptionsDataMapper;
 import com.angelone.testdataMapper.PlaceOrderTestData;
+import com.angelone.testdataMapper.PledgeGetUserSecurity;
+import com.angelone.testdataMapper.PledgeGetWithdrawSecurity;
 import com.angelone.testdataMapper.UserDATAJWTMapper;
-import com.angelone.testdataMapper.UserTestData;
 import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
 import io.restassured.response.Response;
@@ -138,6 +146,16 @@ public class BaseTestApi {
 		return response;
 	}
 	
+	
+	public Response modifyStockOrder(String disclosedquantity,String duration,String exchange,String multiplier,
+			String orderValidityDate,String orderId,String ordertype,String precision,String price,
+			String quantity,String symboltoken,String triggerprice,String variety) {
+		ModifyOrderPOJO orderData = ModifyOrderMapper.modifyOrder(disclosedquantity, duration, exchange, multiplier, orderValidityDate, orderId, ordertype, precision, price,
+				 quantity, symboltoken, triggerprice, variety);
+		Response response = setupApi.modifyOrderApi(orderData);
+		return response;
+	}
+	
 	public Response cancelOrder(String orderId, String variety) {
 		CancelOrderPOJO orderData = CancelOrderData.cancelOrder(orderId, variety);
 		Response response = setupApi.cancelOrder(orderData);
@@ -150,6 +168,7 @@ public class BaseTestApi {
 		Response response = setupApi.getBSEEquityCharts(chartsData);
 		return response;
 	}
+	
 	
 	public Response getMCXCharts(int seqno, String action,String topic,String rtype,String period,
 			String type,int duration,String from,String to) {
@@ -186,7 +205,7 @@ public class BaseTestApi {
 	}
 
 	public Response getHolding() {
-		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
+		//String nonTradedToken="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzgxODU5OTEsImlhdCI6MTY3ODA5NTAyNiwib21uZW1hbmFnZXJpZCI6Mywic291cmNlaWQiOiI1Iiwic3ViIjoiUzgzMzQwMiJ9.wmJl3P3LT9_XeqQEPgc_bAVSn2Uzz3P7W6R4zQ5BqWPaXFzMF60ruWfyC8o5Bjj4hFToXpMiuE6gIyYEJlfFkg";
 		Response response = setupApi.getHolding(setupApi.nonTradingAccessTokenId);
 		return response;
 	}
@@ -298,6 +317,27 @@ public class BaseTestApi {
 		return marketResponse;
 	}
 	
+	public Response callFundWithdrawalDataApi(String name,String value) {
+
+		FundWithdrawalPOJO verifyOtp = FundWithdrawalDataMapper.getFundData(name,value );
+		Response fundWithdrawalResponse = setupApi.getFundWithdrawalData(verifyOtp);
+		return fundWithdrawalResponse;
+	}
+	
+	public Response callFundRMSLimitApi(String exchange,String product,String segment) {
+
+		FundRmsLimitPOJO fundData = FundRmsLimitMapper.getFundData(exchange, product, segment);
+		Response fundRMSResponse = setupApi.getFundRMSLimitData(fundData);
+		return fundRMSResponse;
+	}
+	
+	
+	public Response callMarginAmountApi(String partyCode) {
+
+		MarginAmountPOJO marginData = MarginAmountMapper.getMarginAmountData(partyCode);
+		Response marginDataResponse = setupApi.getMarginAmount(marginData);
+		return marginDataResponse;
+	}
 	
 	public Response getWatchLists() {
 		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
@@ -330,5 +370,19 @@ public class BaseTestApi {
 			System.out.println("Successfully Placed SELL order for " + orderId.getOrderid());
 		});
 	}
+	
+	
+	public Response callGetUserSecurityAPI(String party_code) {
+		PledgeGetUserSecurityPOJO getUserSecurity = PledgeGetUserSecurity.getUserSecurityData(party_code);
+		Response response = setupApi.getUserSecurity(getUserSecurity);
+		return response;
+	}
+	
+	public Response callGetWithdrawSecurityAPI(String party_code) {
+		PledgeGetWithdrawSecurityPOJO getWithdrawSecurity = PledgeGetWithdrawSecurity.getWithdrawSecurityData(party_code);
+		Response response = setupApi.getWithdrawSecurity(getWithdrawSecurity);
+		return response;
+	}
+
 
 }

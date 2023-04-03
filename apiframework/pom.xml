@@ -19,8 +19,10 @@
 		<noexception.version>1.6.2</noexception.version>
 		<reflection.version>0.10.2</reflection.version>
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
-		<testng.version>7.4.0</testng.version>
+		<testng.version>7.1.0</testng.version>
 		<joda.version>2.10.13</joda.version>
+
+
 	</properties>
 
 	<dependencies>
@@ -101,9 +103,14 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.7.2</version>
+			<version>4.8.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.0.1-jre</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.epam.reportportal</groupId>
@@ -156,15 +163,37 @@
 			<artifactId>testng-metrics</artifactId>
 			<version>1.6</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.relevantcodes</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>2.41.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.seratch/jslack -->
+		<dependency>
+			<groupId>com.github.seratch</groupId>
+			<artifactId>jslack</artifactId>
+			<version>3.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20230227</version>
+		</dependency>
+
 	</dependencies>
-	
-	
 
 	<build>
 		<finalName>apiframework</finalName>

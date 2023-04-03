@@ -1,26 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Spark-Automation" parallel="tests">
-<listeners>
-			<listener class-name="com.angelone.listeners.TestListener" />
-			<listener class-name="com.angelone.listeners.ReporterListener" />
-		</listeners>
-	<test name="spark">
-
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ApiMonitoringSuite" parallel="tests" thread-count="10">
+	<listeners>
+		<listener class-name="com.angelone.listeners.TestListener" />
+		<listener class-name="com.angelone.listeners.ReporterListener" />
+	</listeners>
+	<parameter name="testng.metrics.report.name" value="SyntheticMonitoringApiRun.html" />
+	<parameter name="testng.metrics.report.appendTimestamp" value="True" />
+	<test thread-count="1" name="GM2">
 		<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222" />
-
 		<classes>
 			<class name="com.angelone.tests.orderapi.Demo" />
 		</classes>
 	</test>
 
-	<test name="spark1">
-
+	<test thread-count="1" name="GM4">
 		<parameter name="UserCredentials" value="9742000367:sateeshbavana@gmail.com:jwppymyurxuttagh:S304062:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
 
+	<test thread-count="1" name="GM1">
+		<parameter name="UserCredentials" value="7976599836:vidya.bhushan40@gmail.com:mvgtrtcbblzyjody:V99259:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+	<test thread-count="1" name="GM6">
+		<parameter name="UserCredentials" value="8079047894:nikita21tewari@gmail.com:heufxnzeyzulaqjx:N273269:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+	<test thread-count="1" name="GM3">
+		<parameter name="UserCredentials" value="9620052526:sowmya.stuti19@gmail.com:dqvfhbeunzloymaj:S833402:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+	<test thread-count="1" name="GM7">
+		<parameter name="UserCredentials" value="8220609624:ubendranganesh@gmail.com:srllrsjbjulnefdt:R50015710:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+	<test thread-count="1" name="GM9">
+		<parameter name="UserCredentials" value="9538033344:soumyaangelspark@gmail.com:eivneljvujvfwtyj:S834210:2222" />
+		<classes>
+			<class name="com.angelone.tests.orderapi.Demo" />
+		</classes>
+	</test>
+
+	<test thread-count="1" name="GM8">
+		<parameter name="UserCredentials" value="9175933160:pranali.batrakhaye1212@gmail.com:yurvjptaydmieazo:P198785:2222" />
 		<classes>
 			<class name="com.angelone.tests.orderapi.Demo" />
 		</classes>
 	</test>
 
 
-</suite> <!-- Suite -->
+</suite> 

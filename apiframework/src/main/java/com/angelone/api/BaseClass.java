@@ -11,6 +11,7 @@ import com.angelone.api.pojo.ClientDetails;
 import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
 import com.angelone.reports.ExtentReport;
+import com.angelone.reports.TracingPrintStream;
 
 public class BaseClass {
 	
@@ -42,5 +43,9 @@ public class BaseClass {
 	public void cleanUp() {
 		//ExtentReport.flushReports();
 	}
-		
+	
+	static {
+		System.setOut(new TracingPrintStream(System.out));
+    	System.setErr(new TracingPrintStream(System.err));
+	}
 }

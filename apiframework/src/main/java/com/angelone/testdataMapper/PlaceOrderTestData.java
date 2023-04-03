@@ -48,7 +48,7 @@ public final class PlaceOrderTestData {
 				.setTrailTickYesNo(trailTickYesNo)
 				.setTrailingStopLoss(trailingStopLoss)
 				.setTransactiontype(transactiontype)
-				.setTriggerprice(triggerprice)			
+				.setTriggerprice(triggerprice)
 				.setVariety(variety);
 				
 	}

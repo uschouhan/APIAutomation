@@ -1,5 +1,6 @@
 package com.angelone.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +8,20 @@ import java.util.Objects;
 
 import com.angelone.api.pojo.CancelOrderPOJO;
 import com.angelone.api.pojo.ChartsAPIPOJO;
+import com.angelone.api.pojo.FundRmsLimitPOJO;
+import com.angelone.api.pojo.FundWithdrawalPOJO;
 import com.angelone.api.pojo.LTPPricePOJO;
 import com.angelone.api.pojo.LoginMpinPOJO;
 import com.angelone.api.pojo.LoginOtpPOJO;
+import com.angelone.api.pojo.MarginAmountPOJO;
+import com.angelone.api.pojo.ModifyOrderPOJO;
 import com.angelone.api.pojo.OptionsPOJO;
 import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
+import com.angelone.api.pojo.PledgeGetUserSecurityPOJO;
+import com.angelone.api.pojo.PledgeGetWithdrawSecurityPOJO;
 import com.angelone.api.pojo.UserDetailsPOJO;
 import com.angelone.api.pojo.VerifyLoginOtpPOJO;
+import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
 import com.angelone.testdataMapper.GetLoginOTP;
 import com.angelone.testdataMapper.VerifyLoginOtpMapper;
@@ -41,12 +49,18 @@ public final class InvokeApis {
 	private static final String MARKET_MOVERS_BY_MOST_ENDPOINT = ApiConfigFactory.getConfig().marketMoversByMost();
 	private static final String GET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().getWatchlistEndpoint();
 	private static final String GET_BSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getBSEequityEndpoint();
-	private static final String GET_MCX_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getChartsMCXEndpoint();
 	private static final String GET_NSE_EQUITY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSEequityEndpoint();
 	private static final String GET_NSE_CURRENCY_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNSECurrencyEndpoint();
 	private static final String GET_NSE_FNO_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getNseFnoEndpoint();
 	private static final String GET_HOLDING_ENDPOINT = ApiConfigFactory.getConfig().getHoldingEndpoint();
 	private static final String GET_OPTIONS_ENDPOINT = ApiConfigFactory.getConfig().getOptionEndpoint();
+	private static final String GET_FUND_WITHDRAWAL_ENDPOINT = ApiConfigFactory.getConfig().fundWithdrawalEndpoint();
+	private static final String GET_MARGIN_AMOUNT_ENDPOINT = ApiConfigFactory.getConfig().marginAmountEndpoint();
+	private static final String PLEDGE_GETUSERSECURITY_ENDPOINT = ApiConfigFactory.getConfig().getUserSecurityEndpoint();
+	private static final String GET_MCX_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getChartsMCXEndpoint();
+	private static final String PLEDGE_GETWITHDRAWSECURITY_ENDPOINT = ApiConfigFactory.getConfig().getWithdrawSecurityEndpoint();
+	private static final String FUND_RMS_LIMIT_ENDPOINT = ApiConfigFactory.getConfig().getFundRMSLimitEndpoint();
+	private static final String MODIFY_ORDER_ENDPOINT = ApiConfigFactory.getConfig().modifyOrderEndpoint();
 	/**
 	 * Method for calling create user Token via MPIN
 	 * @param userDetails
@@ -81,7 +95,7 @@ public final class InvokeApis {
 		m.put("X-AppID", "");
 		m.put("X-ClientLocalIP", "172.29.24.126");
 		m.put("X-ClientPublicIP", "172.29.24.126");
-		m.put("X-DeviceID", "ad8d9516-5244-497d-9c3b-f0d0e6d2c17c");
+		m.put("X-DeviceID", Helper.generateDeviceId());
 		m.put("X-GM-ID", "undefined");
 		m.put("X-SystemInfo", "aliqua ad");
 		m.put("X-Location", "aliqua ad");
@@ -132,7 +146,7 @@ public final class InvokeApis {
 		m.put("X-ClientPublicIP", "172.29.24.126");
 		m.put("X-MACAddress", "00:25:96:FF:FE:12:34:56");
 		m.put("X-OperatingSystem", "Ubuntu");
-		m.put("X-DeviceID", "1234");
+		m.put("X-DeviceID", Helper.generateDeviceId());
 		m.put("Content-Type", "application/json");
 		return m;
 	}
@@ -150,6 +164,25 @@ public final class InvokeApis {
 				.log()
 				.all()
 				.post(CREATE_ORDER_ENDPOINT);
+		System.out.println("########  Api Response ########");
+		response.then().log().all(true);
+		return response;
+	}
+	
+	
+	/**
+	 * Method for calling placeOrder api
+	 * @param placeOrderDetails
+	 * @return orderDetails
+	 */
+	public  Response modifyOrderApi(ModifyOrderPOJO modifyOrderDetails) {
+		System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + MODIFY_ORDER_ENDPOINT);
+		Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+				.headers(getHeadersForOrder())
+				.body(modifyOrderDetails)
+				.log()
+				.all()
+				.post(MODIFY_ORDER_ENDPOINT);
 		System.out.println("########  Api Response ########");
 		response.then().log().all(true);
 		return response;
@@ -271,7 +304,7 @@ public final class InvokeApis {
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("x-clientlocalip", "1.2.3.4");
 		m.put("x-clientpublicip", "1.2.3.4");
-		m.put("x-deviceid", "1234");
+		m.put("x-deviceid", Helper.generateDeviceId());
 		m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
 		m.put("X-operatingsystem", "Ubuntu");
 		m.put("x-sourceid", "5");
@@ -459,4 +492,82 @@ public final class InvokeApis {
 		return response;
 	}
 	
+	//################### FundWithdrawal API ##########################
+	
+		public  Response getFundWithdrawalData(FundWithdrawalPOJO chartspojo) {
+			List<FundWithdrawalPOJO> requestData = new ArrayList<FundWithdrawalPOJO>();
+			requestData.add(chartspojo);
+			System.out.println(" ########## API Called : " + BaseRequestSpecification.FUND_WITHDRAWAL_BASE_URL + GET_FUND_WITHDRAWAL_ENDPOINT);
+			Response response = BaseRequestSpecification.getFundWithdrawalSpec().contentType(ContentType.JSON)
+					.relaxedHTTPSValidation()
+					.body(requestData)
+					.log()
+					.all()
+					.post(GET_FUND_WITHDRAWAL_ENDPOINT);
+			System.out.println("########  Api Response ########");
+			response.then().log().all(true);
+			return response;
+		}
+		
+		
+		
+		//################### MarginAmount API ##########################
+		
+			public  Response getMarginAmount(MarginAmountPOJO marginPojo) {
+				
+				System.out.println(" ########## API Called : " + BaseRequestSpecification.MARGIN_AMOUNT_BASE_URL + GET_MARGIN_AMOUNT_ENDPOINT);
+				Response response = BaseRequestSpecification.getMarginAmountSpec().contentType(ContentType.JSON)
+						.relaxedHTTPSValidation()
+						.body(marginPojo)
+						.log()
+						.all()
+						.post(GET_MARGIN_AMOUNT_ENDPOINT);
+				System.out.println("########  Api Response ########");
+				response.then().log().all(true);
+				return response;
+			}
+		
+		
+	//################### Pledge API ##########################
+	
+		public  Response getUserSecurity(PledgeGetUserSecurityPOJO usersecuritypojo) {
+			System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETUSERSECURITY_BASE_URL + PLEDGE_GETUSERSECURITY_ENDPOINT);
+			Response response = BaseRequestSpecification.getUserSecuritySpec().contentType(ContentType.JSON)
+					.body(usersecuritypojo)
+					.log()
+					.all()
+					.post(PLEDGE_GETUSERSECURITY_ENDPOINT);
+			System.out.println("########  Api Response ########");
+			response.then().log().all(true);
+			return response;
+		}
+		
+		public  Response getWithdrawSecurity(PledgeGetWithdrawSecurityPOJO withdrawsecuritypojo) {
+			System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETWITHDRAWSECURITY_BASE_URL + PLEDGE_GETWITHDRAWSECURITY_ENDPOINT);
+			Response response = BaseRequestSpecification.getWithdrawSecuritySpec().contentType(ContentType.JSON)
+					.body(withdrawsecuritypojo)
+					.log()
+					.all()
+					.post(PLEDGE_GETWITHDRAWSECURITY_ENDPOINT);
+			System.out.println("########  Api Response ########");
+			response.then().log().all(true);
+			return response;
+		}
+	
+		
+		public  Response getFundRMSLimitData(FundRmsLimitPOJO requestData) {
+		
+			System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + FUND_RMS_LIMIT_ENDPOINT);
+			Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+					.headers(getHeadersForOrder())
+					.relaxedHTTPSValidation()
+					.body(requestData)
+					.log()
+					.all()
+					.post(FUND_RMS_LIMIT_ENDPOINT);
+			System.out.println("########  Api Response ########");
+			response.then().log().all(true);
+			return response;
+		}
+		
 }

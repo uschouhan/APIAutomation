@@ -18,7 +18,11 @@ public final class BaseRequestSpecification {
   public static final String CHARTS_EQUITY_BASE_URL = ApiConfigFactory.getConfig().chartsEquityBaseURL();
   public static final String PORTFOLIO_BASE_URL = ApiConfigFactory.getConfig().getPortfolioBaseURL();
   public static final String OPTIONS_BASE_URL = ApiConfigFactory.getConfig().getOptionBaseURL();
+  public static final String FUND_WITHDRAWAL_BASE_URL = ApiConfigFactory.getConfig().fundWithdrawalBaseUrl();
+  public static final String MARGIN_AMOUNT_BASE_URL = ApiConfigFactory.getConfig().marginAmountBaseURL();
+  public static final String PLEDGE_GETUSERSECURITY_BASE_URL = ApiConfigFactory.getConfig().getUserSecurityBaseURL();
   public static final String CHARTS_MCX_BASE_URL = ApiConfigFactory.getConfig().chartsMCXBaseURL();
+  public static final String PLEDGE_GETWITHDRAWSECURITY_BASE_URL = ApiConfigFactory.getConfig().getWithdrawSecurityBaseURL();
   
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
@@ -67,10 +71,37 @@ public final class BaseRequestSpecification {
 	      .contentType(ContentType.JSON)
 	      .baseUri(OPTIONS_BASE_URL);
 	  }
+  
+  public static RequestSpecification getFundWithdrawalSpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(FUND_WITHDRAWAL_BASE_URL);
+	  }
+  public static RequestSpecification getMarginAmountSpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(MARGIN_AMOUNT_BASE_URL);
+	  }
+  
+  public static RequestSpecification getUserSecuritySpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PLEDGE_GETUSERSECURITY_BASE_URL);
+	  }
   public static RequestSpecification getChartsMCXSpec() {
 	    return RestAssured
 	      .given()
 	      .contentType(ContentType.JSON)
 	      .baseUri(CHARTS_MCX_BASE_URL);
+	  }
+  
+  public static RequestSpecification getWithdrawSecuritySpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PLEDGE_GETWITHDRAWSECURITY_BASE_URL);
 	  }
 }

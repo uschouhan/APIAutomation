@@ -29,6 +29,9 @@ public interface ApiConfig extends Config {
   @Key("CANCEL_ORDER_ENDPOINT")
   String cancelOrderEndpoint();
   
+  @Key("MODIFY_ORDER_ENDPOINT")
+  String modifyOrderEndpoint();
+  
   @Key("GET_ORDER_BOOK_ENDPOINT")
   String getOrderBookEndpoint();
   
@@ -92,7 +95,32 @@ public interface ApiConfig extends Config {
   @Key("OPTIONS_ENDPOINT")
   String getOptionEndpoint();
   
+  @Key("FUND_WITHDRAWAL_BASE_URL")
+  String fundWithdrawalBaseUrl();
   
+  @Key("FUND_WITHDRAWAL_ENDPOINT")
+  String fundWithdrawalEndpoint();
+  
+  @Key("MARGIN_AMOUNT_BASE_URL")
+  String marginAmountBaseURL();
+  
+  @Key("MARGIN_AMOUNT_ENDPOINT")
+  String marginAmountEndpoint();
+  
+  @Key("PLEDGE_GETUSERSECURITY_BASE_URL")
+  String getUserSecurityBaseURL();
+  
+  @Key("PLEDGE_GETUSERSECURITY_ENDPOINT")
+  String getUserSecurityEndpoint();
+  
+  @Key("PLEDGE_GETWITHDRAWSECURITY_BASE_URL")
+  String getWithdrawSecurityBaseURL();
+  
+  @Key("PLEDGE_GETWITHDRAWSECURITY_ENDPOINT")
+  String getWithdrawSecurityEndpoint();
+  
+  @Key("FUND_RMS_LIMIT_ENDPOINT")
+  String getFundRMSLimitEndpoint();
   
   //######### Test Data #########
   
@@ -108,11 +136,11 @@ public interface ApiConfig extends Config {
   @Key("NSE_FNO_Topic")
   String nSE_FNO_Topic_value();
   
-  @Key("NSE_CURRENCY_Topic")
-  String nSE_CURRENCY_Topic_value();
-  
   @Key("MCX_TOPIC")
   String mcx_Topic_value();
+  
+  @Key("NSE_CURRENCY_Topic")
+  String nSE_CURRENCY_Topic_value();
   
   @Key("DURATION_TYPE")
   String durationType();
@@ -138,5 +166,10 @@ public interface ApiConfig extends Config {
   @Key("COMODITY_SYMBOL_TOKEN")
   String comoditySymbolToken();
   
+  @Key("COMODITY_SYMBOL_NCDEX")
+  String comodityNcdexSymbol();
+  
+  @Key("COMODITY_SYMBOL_NCDEX_TOKEN")
+  String comodityNcdexSymbolToken();
   
 }

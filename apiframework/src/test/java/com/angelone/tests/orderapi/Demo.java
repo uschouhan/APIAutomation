@@ -20,16 +20,39 @@ import com.angelone.api.BaseClass;
 import com.angelone.api.pojo.ClientDetails;
 import com.angelone.reports.ExtentLogger;
 import com.angelone.reports.ExtentReport;
+import com.angelone.reports.TracingPrintStream;
 
 
-public class Demo extends BaseClass{
+public class Demo {
 
+	ClientDetails cDetails ;
 	
+	@Parameters({ "UserCredentials" })
+	@BeforeTest
+	public void Setup(String userDetails) {
+		ExtentReport.initReports();
+		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());
+		cDetails= new ClientDetails(userDetails);
+		
+	}
+	
+	@BeforeMethod
+	public void beforeMethod(Method m) {
+		ExtentReport.createTest(cDetails.getMobileNumber()+":"+m.getName());
+		ExtentReport.assignAuthor(cDetails.getClientId());
+	}
+	
+	@AfterMethod
+	public void cleanUp() {
+		ExtentReport.flushReports();
+	}
 	
 	@Test
 	public void testName(Method m) throws Exception {
+	
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 		Date date = new Date();
+		System.out.println("Checking Custom Print in Extent Report");
 		System.out.println(dateFormat.format(date));
 		ExtentLogger.info("testing extent logging in 1 ");
 		Date dateNew = new Date(System.currentTimeMillis() - 3600 * 1000);
@@ -53,6 +76,7 @@ public class Demo extends BaseClass{
 		
 	        ExtentLogger.info("testing extent logging in 3 ");
 	 
+		
 	}
 	
 
