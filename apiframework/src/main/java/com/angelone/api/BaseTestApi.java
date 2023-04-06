@@ -44,6 +44,7 @@ import com.angelone.testdataMapper.UserDATAJWTMapper;
 import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
 
 public class BaseTestApi {
 	// protected static ThreadLocal <ReqresApi> ReqresApi = new
@@ -228,10 +229,12 @@ public class BaseTestApi {
 		}
 	}
 
+	@SneakyThrows
 	private String genUserToken(String userId, String mpin, String secret) {
 
 		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
 		String jwtToken = helper.genJTWToken(userDetails, secret);
+		Thread.sleep(5000);
 		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
 		Response response = setupApi.getUserTokenViaMPIN(userMpin, jwtToken);
 		if (response.statusCode() == 200 && Objects.nonNull(response))

@@ -169,12 +169,7 @@
 			<artifactId>extentreports</artifactId>
 			<version>2.41.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.seratch/jslack -->
-		<dependency>
-			<groupId>com.github.seratch</groupId>
-			<artifactId>jslack</artifactId>
-			<version>3.4.2</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>

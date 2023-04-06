@@ -355,6 +355,6 @@ public class Helper {
 	            randomString.substring(16, 20),
 	            randomString.substring(20));
 	        System.out.println(formattedString);
-        return randomString;
+        return formattedString;
     }
 }

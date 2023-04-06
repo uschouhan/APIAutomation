@@ -53,9 +53,9 @@ public class ReporterListener implements IReporter {
 			System.out.println(result);
 			//System.out.println("final result is : "+apiMsg);
 			try {
-				SlackIntegration slack = new SlackIntegration();
+				//SlackIntegration slack = new SlackIntegration();
 				//slack.sendExecutionStatusToSlack(apiMsg);
-		        slack.sendFileToslack(result, "reports/ApiSyntheticRun.html");
+		        //slack.sendFileToslack(result, "reports/ApiSyntheticRun.html");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
