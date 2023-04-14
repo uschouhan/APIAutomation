@@ -30,6 +30,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
@@ -53,7 +54,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 class TokenGenTest extends BaseTestApi {
-
+	Helper helper = new Helper();
 	@Test(enabled = true)
 	void placeOrder() throws IOException {
 		//Generate User Mpin Token
@@ -143,6 +144,26 @@ class TokenGenTest extends BaseTestApi {
 		
     }
 
+	@Test(enabled = true)
+	public void testSetWatchlist() throws Exception {
+		String jsonFilePath = "requests/setWatchlistData.json";
+		String scriptId = "10666";
+		Response watchlists = getWatchLists();
+		ExtentLogger.info(watchlists.asPrettyString());
+		Assert.assertEquals(watchlists.getStatusCode(), 200, "Error in watchlists api ");
+		Assert.assertEquals(watchlists.jsonPath().getString("status"), "success",
+				"Status doesnt match in watchlists api ");
+		Assert.assertEquals(watchlists.jsonPath().getString("error_code"), "",
+				"error_code doesnt match in watchlists api ");
+		Assert.assertTrue(!watchlists.jsonPath().getString("data").isEmpty(), "data is empty in watchlists api ");
+		Assert.assertTrue(!watchlists.jsonPath().getString("data.watchlistData").isEmpty(),
+				"watchlistData is empty in watchlists api ");
+		String versionId = watchlists.jsonPath().getString("data.version");
+		String setWatchListData = helper.modifyJsonData(jsonFilePath, scriptId);
+		String encodedWatchListData = encodeJsonData(setWatchListData);
+		Response response = callSetWatchListApi(Integer.valueOf(versionId), encodedWatchListData);
+		Assert.assertEquals(response.getStatusCode(), 200, "Error in watchlists api ");
+	}
 
 	@Test(enabled = true)
 	void testExitPositions() throws IOException {
@@ -815,9 +836,18 @@ class TokenGenTest extends BaseTestApi {
 		
 	}
 	
+	@Test(enabled=true)
+	public void decryptData() throws Exception {
+		String text = "eJzcmNtv2zYUxv8V4bxOJXjV7WmyLbdqUzmzFQzBMAhMzLnEdKulZDCK/u8DY3uJFBnLkMCzm7ccSORH8YfvO8ffoGmr2z+zXDctBL99g8/Vjc5VltwVEIDvcooxZo4LNkSF1DkE0MhWqebLjbyXpfx5ZarotirAhmWtlxAAoZgxijGlQrgCY7ChuV3rupSFggCS9HJsXaQTBDboRpcQQJxELmMRJpiYp/9YK5V9bTdmLYTNH9hQ52q52pfxP+WlbFWrC9W0sqghAIope4f5O8wsLAJBAuoh38ivbnK9kq2uzIbmzbtyu+Tu37qSRhzYUKo2q/Pl6sleYMOjHrDhNq8ala1la94mrkBkq6atWpl3S2WjMlnX6+pemY8zyu/U7Rddgw33cp0Vcv0gGu2OY/aWRWuW4Bhh76mcbX0nJ17ESZZuaiMg+nqn2w3YkIym42yUmwv9ZasdbBjnWpXt/tlZUapm0zzWd7ey2N6qNXq4VrDhs16Z8xnN19vjZ7kudEuMtqcFuttnrZa6ictGrc1HnshWpfph6adX4gaYBdhH1Pex7/2ERcDMu0mjmk1xU+U7PuC7fQwU4/nIipPpPFyk86txejWPrEmHSo+SGBNMaZdKdmJUsgEqqUBEdKB0BeJiiMn3VbXs8kgRdXo8Cg854jRxZK/DkXqIM9fjdBDHeD46Fo3lUsvSmkud/yU31lSXsuzQiAWbnqlHUgc5XYt8rPRoDO/VWq7UvxokJYj+wP7o+b5zAMjpsfxxkUbRhRVepR9m8zi9tmZTK+4QSQgPDZGkSyQ9MSLpAJEeRW4vtB2B+CtDm1HE6GlCSd8itIkvBqFchPHFsWxyOo6f94+Y+eGQN/JhFMkRUSQdc+QDLPrI66HIXERf7o4UYdEnETvI589JdJHD/m8SieijSP57YHPqucP+OB3Hx/LH2VX6wYqTSRwm1ihMPlkXaYdKx2OGSsrOL7EJR063f3ysvCyxCe8zSZDjn6Y5vslEQ30ybI4GE4PHkbC8vEo+hiMrCdN4loQXD2R2Y9vB4cBYcw6xzZ81kj47YJUvTm2XI+GcJpevDO3taOPy4Un7MjnWaDOJEiuJ0l9n808Lk90dGn3ufjTRLc5wyHb6ye3hAz3kS8cahyNGThPGN5mzfTY81kyi5EgwXkeLfVj3mkhBvfeYYCbOzxeJ2PeAexIZPvAT5AESXdYfsBnyfmBb5MwbJvE6WmzD+vfvfwcAAP//5auv4Q==";
+		decodeData(text);
+	}
+	
+	
 	public String decodeData(String data) {
 
-		WebDriver driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.setHeadless(true);
+		WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://www.zickty.com/gziptotext/");
 		driver.findElement(By.id("input")).sendKeys(data);
@@ -826,7 +856,7 @@ class TokenGenTest extends BaseTestApi {
 		// System.out.println(" ##### Decoded Text ### \n"+decodedJson);
 		String decodedData = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].value;",
 				driver.findElement(By.id("output")));
-		System.out.println("## using javascript#\n " + decodedData);
+		System.out.println("Decoded data " + decodedData);
 		driver.quit();
 		return decodedData;
 	}

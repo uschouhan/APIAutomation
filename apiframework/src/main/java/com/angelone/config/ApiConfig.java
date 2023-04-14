@@ -41,6 +41,9 @@ public interface ApiConfig extends Config {
   @Key("TRADE_BASE_URL")
   String tradeBaseUrl();
   
+  @Key("GET_INSTA_TRADEDETAILS_ENDPOINT")
+  String getInstaTradeDetailsEndpoint();
+  
   @Key("LOGIN_OTP_ENDPOINT")
   String getLoginOTPEndpoint();
   
@@ -55,6 +58,15 @@ public interface ApiConfig extends Config {
   
   @Key("MARKET_MOVERS_BY_MOST")
   String marketMoversByMost();
+
+  @Key("SECTOR_HEATMAP_ENDPOINT")
+  String sectorHeatmapEndpoint();
+
+  @Key("FUTURE_MARKET_IND_ENDPOINT")
+  String futureMarketIndEndpoint();
+
+  @Key("FUNDAMENTAL_RATIO")
+  String fundamentalRatioEndpoint();
   
   @Key("WATCHLIST_BASE_URL")
   String watchlistEndpoint();
@@ -121,7 +133,24 @@ public interface ApiConfig extends Config {
   
   @Key("FUND_RMS_LIMIT_ENDPOINT")
   String getFundRMSLimitEndpoint();
-  
+
+  @Key("IPO_BASE_URL")
+  String getIpoBaseURL();
+
+  @Key("IPO_MASTER_ENDPOINT")
+  String getIpoMasterEndpoint();
+
+  @Key("PORTFOLIO_ADVISORY_BASE_URL")
+  String getPortfolioAdvisoryBaseURL();
+
+  @Key("PORTFOLIO_LIST_ENDPOINT")
+  String getPortfolioListEndpoint();
+
+  @Key("TOPGAINER_AND_LOSERS")
+  String topgaineAndLosers();
+  @Key("SET_WATCHLIST")
+  String setWatchlist();
+
   //######### Test Data #########
   
   @Key("SECRET_KEY")

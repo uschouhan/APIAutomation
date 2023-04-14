@@ -23,6 +23,9 @@ public final class BaseRequestSpecification {
   public static final String PLEDGE_GETUSERSECURITY_BASE_URL = ApiConfigFactory.getConfig().getUserSecurityBaseURL();
   public static final String CHARTS_MCX_BASE_URL = ApiConfigFactory.getConfig().chartsMCXBaseURL();
   public static final String PLEDGE_GETWITHDRAWSECURITY_BASE_URL = ApiConfigFactory.getConfig().getWithdrawSecurityBaseURL();
+  public static final String IPO_BASE_URL = ApiConfigFactory.getConfig().getIpoBaseURL();
+  public static final String PORTFOLIO_ADVISORY_BASE_URL = ApiConfigFactory.getConfig().getPortfolioAdvisoryBaseURL();
+
   
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
@@ -30,8 +33,22 @@ public final class BaseRequestSpecification {
       .contentType(ContentType.JSON)
       .baseUri(BASE_URL);
   }
-  
-  public static RequestSpecification getTradeRequestSpec() {
+
+	public static RequestSpecification getIpoRequestSpec() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(IPO_BASE_URL);
+	}
+
+	public static RequestSpecification getPortfolioAdvisorySpec() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(PORTFOLIO_ADVISORY_BASE_URL);
+	}
+
+	public static RequestSpecification getTradeRequestSpec() {
 	    return RestAssured
 	      .given()
 	      .contentType(ContentType.JSON)

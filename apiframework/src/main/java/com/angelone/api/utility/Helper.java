@@ -1,6 +1,7 @@
 package com.angelone.api.utility;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -31,10 +32,14 @@ import javax.mail.search.ComparisonTerm;
 import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONTokener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.angelone.api.pojo.UserDataJWT_POJO;
 
@@ -46,7 +51,9 @@ public class Helper {
 
 	public String decodeData(String data) {
 
-		WebDriver driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.setHeadless(true);
+		WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://www.zickty.com/gziptotext/");
 		driver.findElement(By.id("input")).sendKeys(data);
@@ -55,9 +62,27 @@ public class Helper {
 		// System.out.println(" ##### Decoded Text ### \n"+decodedJson);
 		String decodedData = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].value;",
 				driver.findElement(By.id("output")));
-		System.out.println("## using javascript#\n " + decodedData);
+		System.out.println("Decoded Data \n " + decodedData);
 		driver.quit();
 		return decodedData;
+	}
+
+	public String encodeData(String data) {
+
+		ChromeOptions options = new ChromeOptions();
+		options.setHeadless(true);
+		WebDriver driver = new ChromeDriver(options);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("https://www.zickty.com/gziptotext/");
+		driver.findElement(By.id("output")).sendKeys(data);
+		driver.findElement(By.id("button2")).click();
+		// String decodedJson = driver.findElement(By.id("output")).getText();
+		// System.out.println(" ##### Decoded Text ### \n"+decodedJson);
+		String encodedData = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].value;",
+				driver.findElement(By.id("input")));
+		System.out.println("enCoded Data \n " + encodedData);
+		driver.quit();
+		return encodedData;
 	}
 
 	public String getOTPmail(String emailID, String emailPass) throws InterruptedException {
@@ -253,6 +278,17 @@ public class Helper {
 
 	}
 	
+	public String SellTriggerPriceGreaterT2T(String ltp1) {
+		double lt = Double.parseDouble(ltp1);
+		double per = lt * (0.5) / 100;
+		double buyPrice = (lt + per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		System.out.print(FinalBuyPrice);
+		return String.valueOf(FinalBuyPrice);
+
+	}
+	
 	public  String fnoBuyMarketPending(String ltp) {
 		double lt = Double.parseDouble(ltp);
 		double per = lt * 5 / 100;
@@ -355,6 +391,26 @@ public class Helper {
 	            randomString.substring(16, 20),
 	            randomString.substring(20));
 	        System.out.println(formattedString);
-        return formattedString;
-    }
+       return formattedString;
+   }
+
+	public String modifyJsonData(String jsonFilePath , String value) throws Exception {
+		InputStream resourceAsStream = null;
+		String text="";
+		try {
+			//String dataFileName = "requests/setWatchlistData.json";
+			resourceAsStream = getClass().getClassLoader().getResourceAsStream(jsonFilePath);
+			JSONTokener tokener = new JSONTokener(resourceAsStream);
+			JSONArray testData = new JSONArray(tokener);
+			text = String.format(testData.toString(), value);
+			System.out.println(text);
+		} catch (JSONException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (resourceAsStream != null) {
+				resourceAsStream.close();
+			}
+		}
+		return text;
+	}
 }

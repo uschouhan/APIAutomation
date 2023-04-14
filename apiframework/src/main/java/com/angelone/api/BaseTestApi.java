@@ -7,44 +7,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.angelone.api.pojo.*;
+import com.angelone.testdataMapper.*;
+import lombok.SneakyThrows;
 import org.testng.SkipException;
 
-import com.angelone.api.pojo.CancelOrderPOJO;
-import com.angelone.api.pojo.ChartsAPIPOJO;
-import com.angelone.api.pojo.FundRmsLimitPOJO;
-import com.angelone.api.pojo.FundWithdrawalPOJO;
-import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
-import com.angelone.api.pojo.LTPPricePOJO;
-import com.angelone.api.pojo.LoginMpinPOJO;
-import com.angelone.api.pojo.LoginOtpPOJO;
-import com.angelone.api.pojo.MarginAmountPOJO;
-import com.angelone.api.pojo.ModifyOrderPOJO;
-import com.angelone.api.pojo.OptionsPOJO;
-import com.angelone.api.pojo.OrdersDetailsData;
-import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
-import com.angelone.api.pojo.PledgeGetUserSecurityPOJO;
-import com.angelone.api.pojo.PledgeGetWithdrawSecurityPOJO;
-import com.angelone.api.pojo.UserDataJWT_POJO;
-import com.angelone.api.pojo.VerifyLoginOtpPOJO;
 import com.angelone.api.utility.Helper;
-import com.angelone.testdataMapper.CancelOrderData;
-import com.angelone.testdataMapper.ChartsTestData;
-import com.angelone.testdataMapper.FundRmsLimitMapper;
-import com.angelone.testdataMapper.FundWithdrawalDataMapper;
-import com.angelone.testdataMapper.GetLoginOTP;
-import com.angelone.testdataMapper.LTPPriceData;
-import com.angelone.testdataMapper.LoginMpinMapper;
-import com.angelone.testdataMapper.MarginAmountMapper;
-import com.angelone.testdataMapper.ModifyOrderMapper;
-import com.angelone.testdataMapper.OptionsDataMapper;
-import com.angelone.testdataMapper.PlaceOrderTestData;
-import com.angelone.testdataMapper.PledgeGetUserSecurity;
-import com.angelone.testdataMapper.PledgeGetWithdrawSecurity;
-import com.angelone.testdataMapper.UserDATAJWTMapper;
-import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
 import io.restassured.response.Response;
-import lombok.SneakyThrows;
 
 public class BaseTestApi {
 	// protected static ThreadLocal <ReqresApi> ReqresApi = new
@@ -162,7 +132,13 @@ public class BaseTestApi {
 		Response response = setupApi.cancelOrder(orderData);
 		return response;
 	}
-	
+
+	public Response callSetWatchListApi(Integer version, String watchlistData) {
+		SetWatchListPOJO watchListData = SetWatchListDataMapper.getWatchListData(version, watchlistData);
+		Response response = setupApi.call_setWatchlistAPI(setupApi.nonTradingAccessTokenId,watchListData);
+		return response;
+	}
+
 	public Response getBSEChartsEquity(int seqno, String action,String topic,String rtype,String period,
 			String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
@@ -210,7 +186,12 @@ public class BaseTestApi {
 		Response response = setupApi.getHolding(setupApi.nonTradingAccessTokenId);
 		return response;
 	}
-	
+
+	public Response getIpoDetails() {
+		//String nonTradedToken="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzgxODU5OTEsImlhdCI6MTY3ODA5NTAyNiwib21uZW1hbmFnZXJpZCI6Mywic291cmNlaWQiOiI1Iiwic3ViIjoiUzgzMzQwMiJ9.wmJl3P3LT9_XeqQEPgc_bAVSn2Uzz3P7W6R4zQ5BqWPaXFzMF60ruWfyC8o5Bjj4hFToXpMiuE6gIyYEJlfFkg";
+		Response response = setupApi.callIpoMasterApi(setupApi.nonTradingAccessTokenId);
+		return response;
+	}
 	
 	public void generateUserToken(String userCredentials, String secret) {
 		String[] creden = userCredentials.split(":");
@@ -252,7 +233,10 @@ public class BaseTestApi {
 	public Response getPositions() {
 		return setupApi.getAllPostions();
 	}
-	
+
+	public Response callPortfolioAdvioryApi() {
+		return setupApi.callPortfolioAdvisoryApi(setupApi.nonTradingAccessTokenId);
+	}
 	
 	public String genLoginToken(String mobileNum, String emailId, String password) {
 
@@ -310,12 +294,50 @@ public class BaseTestApi {
 				params);
 		return marketResponse;
 	}
-	
+
+	public Response getSectorHeatMap() {
+		// setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIyLTEyLTMwVDA4OjMwOjU2LjgzMzc1NjA5NFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjcyOTkzODU2LCJpYXQiOjE2NzIzODkwNTZ9.0nRzf39OqjmD9W3aHDqHQHiVhpgiKuxDrXbeBOUhcKw";
+		Response marketResponse = setupApi.callSectorHeatMapApi(setupApi.nonTradingAccessTokenId);
+		return marketResponse;
+	}
+
+
 	public Response getMarketMoversByMost(String Category) {
 		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
 		Map<String, Object> params = new HashMap<>();
 		params.put("Category", Category);
 		Response marketResponse = setupApi.call_MartketMoversByMost(setupApi.nonTradingAccessTokenId,
+				params);
+		return marketResponse;
+	}
+
+	public Response getFundamentalRatio(String ISIN) {
+		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		Map<String, Object> params = new HashMap<>();
+		params.put("ISIN", ISIN);
+		Response FundamentalRatio = setupApi.call_FundamentalRatio(setupApi.nonTradingAccessTokenId,
+				params);
+		return FundamentalRatio;
+	}
+
+
+	public Response getTopGainerNLoser(String category) {
+		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		Map<String, Object> params = new HashMap<>();
+		params.put("category", category);
+		Response FundamentalRatio = setupApi.call_TopGainerNLoser(setupApi.nonTradingAccessTokenId,
+				params);
+		return FundamentalRatio;
+	}
+
+
+	public Response getIntraTradeDetails(String OptionType,String Symbol,String PriceUnderlying) {
+		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		Map<String, Object> params = new HashMap<>();
+		params.put("OptionType", OptionType);
+		params.put("Symbol", Symbol);
+		params.put("PriceUnderlying", PriceUnderlying);
+		Response marketResponse = setupApi.callInstaTradeDetailsApi(setupApi.nonTradingAccessTokenId,
 				params);
 		return marketResponse;
 	}
@@ -344,6 +366,7 @@ public class BaseTestApi {
 	
 	public Response getWatchLists() {
 		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
+		setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiI5NzQxNjM2ODU0IiwidXNlcl9pZCI6IlU1MDA0OTI2NyIsInNvdXJjZSI6IlNQQVJLIiwiYXBwX2lkIjoiNTY1NjciLCJjcmVhdGVkX2F0IjoiMjAyMy0wNC0xNFQwNjoxNzowNC44NTYyMDM0MjlaIiwiZGF0YUNlbnRlciI6IiJ9LCJpc3MiOiJhbmdlbCIsImV4cCI6MTY4NDA0NTAyNCwiaWF0IjoxNjgxNDUzMDI0fQ.dkfyErxSOAPTvXPUH88hciGpK2IywsZyfd0WFF9G2YI";
 		return setupApi.call_getWatchlistAPI(setupApi.nonTradingAccessTokenId);
 		
 	}
@@ -354,6 +377,10 @@ public class BaseTestApi {
 		return decodedJson;
 	}
 
+	public String encodeJsonData(String data) {
+		String encodeData = helper.encodeData(data);
+		return encodeData;
+	}
 	public void exitPositions() {
 		Response callOrdersApi = getOrderBook();// OrderBookAPi
 		GetOrdersDetailsResponsePOJO as = callOrdersApi.getBody().as(GetOrdersDetailsResponsePOJO.class);
@@ -388,4 +415,12 @@ public class BaseTestApi {
 	}
 
 
+	public Response getFutureMarketsIndicators(String ExpiryType, String EnumName) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("ExpiryType", ExpiryType);
+		params.put("EnumName", EnumName);
+		Response marketResponse = setupApi.call_future_markets_indicators(setupApi.nonTradingAccessTokenId,
+				params);
+		return marketResponse;
+	}
 }
