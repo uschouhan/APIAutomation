@@ -52,7 +52,7 @@ public class Helper {
 	public String decodeData(String data) {
 
 		ChromeOptions options = new ChromeOptions();
-		options.setHeadless(true);
+		options.addArguments("--headless");
 		WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://www.zickty.com/gziptotext/");
@@ -70,7 +70,7 @@ public class Helper {
 	public String encodeData(String data) {
 
 		ChromeOptions options = new ChromeOptions();
-		options.setHeadless(true);
+		options.addArguments("--headless");
 		WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://www.zickty.com/gziptotext/");
