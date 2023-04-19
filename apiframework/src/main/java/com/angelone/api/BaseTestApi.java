@@ -1,10 +1,12 @@
 package com.angelone.api;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import com.angelone.api.pojo.*;
@@ -135,7 +137,7 @@ public class BaseTestApi {
 
 	public Response callSetWatchListApi(Integer version, String watchlistData) {
 		SetWatchListPOJO watchListData = SetWatchListDataMapper.getWatchListData(version, watchlistData);
-		Response response = setupApi.call_setWatchlistAPI(setupApi.nonTradingAccessTokenId,watchListData);
+		Response response = setupApi.call_setWatchlistAPI(setupApi.getNonTradingAccessTokenId(),watchListData);
 		return response;
 	}
 
@@ -183,13 +185,13 @@ public class BaseTestApi {
 
 	public Response getHolding() {
 		//String nonTradedToken="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzgxODU5OTEsImlhdCI6MTY3ODA5NTAyNiwib21uZW1hbmFnZXJpZCI6Mywic291cmNlaWQiOiI1Iiwic3ViIjoiUzgzMzQwMiJ9.wmJl3P3LT9_XeqQEPgc_bAVSn2Uzz3P7W6R4zQ5BqWPaXFzMF60ruWfyC8o5Bjj4hFToXpMiuE6gIyYEJlfFkg";
-		Response response = setupApi.getHolding(setupApi.nonTradingAccessTokenId);
+		Response response = setupApi.getHolding(setupApi.getNonTradingAccessTokenId());
 		return response;
 	}
 
 	public Response getIpoDetails() {
 		//String nonTradedToken="eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzgxODU5OTEsImlhdCI6MTY3ODA5NTAyNiwib21uZW1hbmFnZXJpZCI6Mywic291cmNlaWQiOiI1Iiwic3ViIjoiUzgzMzQwMiJ9.wmJl3P3LT9_XeqQEPgc_bAVSn2Uzz3P7W6R4zQ5BqWPaXFzMF60ruWfyC8o5Bjj4hFToXpMiuE6gIyYEJlfFkg";
-		Response response = setupApi.callIpoMasterApi(setupApi.nonTradingAccessTokenId);
+		Response response = setupApi.callIpoMasterApi(setupApi.getNonTradingAccessTokenId());
 		return response;
 	}
 	
@@ -218,12 +220,14 @@ public class BaseTestApi {
 		Thread.sleep(5000);
 		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
 		Response response = setupApi.getUserTokenViaMPIN(userMpin, jwtToken);
-		if (response.statusCode() == 200 && Objects.nonNull(response))
-			setupApi.token = response.jsonPath().getString("data.accesstoken");
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			String string = response.jsonPath().getString("data.accesstoken");
+			setupApi.setToken(string);
+		}
 		else
 			throw new SkipException("Couldnt generate MPIN Access Token for User .Hence skipping tests");
-		System.out.println("User Mpin Token = " + setupApi.token);
-		return setupApi.token;
+		System.out.println("User Mpin Token = " + setupApi.getToken());
+		return setupApi.getToken();
 	}
 
 	public Response getOrderBook() {
@@ -235,31 +239,66 @@ public class BaseTestApi {
 	}
 
 	public Response callPortfolioAdvioryApi() {
-		return setupApi.callPortfolioAdvisoryApi(setupApi.nonTradingAccessTokenId);
+		return setupApi.callPortfolioAdvisoryApi(setupApi.getNonTradingAccessTokenId());
 	}
 	
-	public String genLoginToken(String mobileNum, String emailId, String password) {
+	public String genLoginToken(String mobileNum, String emailId, String password,String oldTradeToken) {
 
 		LoginOtpPOJO otpDetails = GetLoginOTP.getOtp(mobileNum);
-		Response response = setupApi.getLoginToken(otpDetails);
-		if (response.statusCode() == 200 && Objects.nonNull(response))
-			setupApi.request_id = response.jsonPath().getString("data.request_id");
-		else
+		Response response = setupApi.getLoginToken(otpDetails,oldTradeToken);
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			String reqId = response.jsonPath().getString("data.request_id");
+			setupApi.setRequest_id(reqId);
+		} else
 			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
-		System.out.println("User request id = " + setupApi.request_id);
-		return setupApi.request_id;
+		System.out.println("User request id = " + setupApi.getRequest_id());
+		return setupApi.getRequest_id();
 	}
 
 	public String verifyLoginToken(String requestId, String mobileNum, String otp, String clientId) {
 		VerifyLoginOtpPOJO verifyOtp = VerifyLoginOtpMapper.verifyOtp(requestId, mobileNum, otp);
 		Response response = setupApi.verifyLoginToken(verifyOtp);
-		if (response.statusCode() == 200 && Objects.nonNull(response))
-			setupApi.nonTradingAccessTokenId = response.jsonPath()
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			String nonTradeToken = response.jsonPath()
 					.getString("data.PartyCodeDetails." + clientId + ".non_trading_access_token");
-		else
+			setupApi.setNonTradingAccessTokenId(nonTradeToken);
+			
+		} else
 			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
-		System.out.println("Non Trading access token " + setupApi.nonTradingAccessTokenId);
-		return setupApi.token;
+		System.out.println("Non Trading access token " + setupApi.getNonTradingAccessTokenId());
+		return setupApi.getNonTradingAccessTokenId();
+	}
+	
+	@SneakyThrows
+	public String refreshToken(String userDetails)  {
+		String[] creden = userDetails.split(":");
+		String clientId = creden[3];
+		Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+	    String oldTradeToken = prop.getProperty(clientId);
+		RefreshTokenPOJO setRefreshTokenData = RefreshTokenMapper.setRefreshTokenData(oldTradeToken);
+		Response response = setupApi.refreshToken(setRefreshTokenData);
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			String nonTradedToken = response.jsonPath()
+					.getString("data.access_token");
+			setupApi.setNonTradingAccessTokenId(nonTradedToken);
+		} else
+			throw new SkipException("Couldnt generate Access Token for User using RefreshToken api .Hence skipping tests");
+		System.out.println("Non Trading access token " + setupApi.getNonTradingAccessTokenId());
+		return setupApi.getNonTradingAccessTokenId();
+	}
+	
+	@SneakyThrows
+	public String refreshTokenOnly(String oldToken)  {
+		RefreshTokenPOJO setRefreshTokenData = RefreshTokenMapper.setRefreshTokenData(oldToken);
+		Response response = setupApi.refreshToken(setRefreshTokenData);
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			String nonTradedToken = response.jsonPath()
+					.getString("data.access_token");
+			setupApi.setNonTradingAccessTokenId(nonTradedToken);
+		} else
+			throw new SkipException("Couldnt generate Access Token for User using RefreshToken api .Hence skipping tests");
+		System.out.println("Non Trading access token " + setupApi.getNonTradingAccessTokenId());
+		return setupApi.getNonTradingAccessTokenId();
 	}
 
 	public String getNonTradingAccessToken(String userDetails) {
@@ -270,7 +309,9 @@ public class BaseTestApi {
 			String emailId = creden[1];
 			String password = creden[2];
 			String clientId = creden[3];
-			String requestId = genLoginToken(mobileNum, emailId, password);
+			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+		    String oldTradeToken = prop.getProperty(clientId);
+			String requestId = genLoginToken(mobileNum, emailId, password,oldTradeToken);
 			String otp = helper.getOTPmail(emailId, password);
 			nonTradedToken = verifyLoginToken(requestId, mobileNum, otp, clientId);
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -283,61 +324,79 @@ public class BaseTestApi {
 		return nonTradedToken;
 
 	}
+	
+	public String getNonTradingAccessTokenWithoutOtp(String userDetails) {
+		String[] creden = userDetails.split(":");
+		String oldTradeToken="";
+		try {
+			String clientId = creden[3];
+			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+		    oldTradeToken = prop.getProperty(clientId);
+			setupApi.setNonTradingAccessTokenId(oldTradeToken);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Client Id missing in tentNG xml file");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Issue while generating nonTradeAccessToken.");
+		}
+		return oldTradeToken;
+
+	}
 
 	public Response getMarketBuiltup(String expiry, String sector, String viewName) {
-		// setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIyLTEyLTMwVDA4OjMwOjU2LjgzMzc1NjA5NFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjcyOTkzODU2LCJpYXQiOjE2NzIzODkwNTZ9.0nRzf39OqjmD9W3aHDqHQHiVhpgiKuxDrXbeBOUhcKw";
+		// setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIyLTEyLTMwVDA4OjMwOjU2LjgzMzc1NjA5NFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjcyOTkzODU2LCJpYXQiOjE2NzIzODkwNTZ9.0nRzf39OqjmD9W3aHDqHQHiVhpgiKuxDrXbeBOUhcKw";
 		Map<String, Object> params = new HashMap<>();
 		params.put("Expiry", expiry);
 		params.put("SectorName", sector);
 		params.put("ViewName", viewName);
-		Response marketResponse = setupApi.call_marketPlace_futureBuiltupHeatmap(setupApi.nonTradingAccessTokenId,
+		Response marketResponse = setupApi.call_marketPlace_futureBuiltupHeatmap(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return marketResponse;
 	}
 
 	public Response getSectorHeatMap() {
-		// setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIyLTEyLTMwVDA4OjMwOjU2LjgzMzc1NjA5NFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjcyOTkzODU2LCJpYXQiOjE2NzIzODkwNTZ9.0nRzf39OqjmD9W3aHDqHQHiVhpgiKuxDrXbeBOUhcKw";
-		Response marketResponse = setupApi.callSectorHeatMapApi(setupApi.nonTradingAccessTokenId);
+		// setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIyLTEyLTMwVDA4OjMwOjU2LjgzMzc1NjA5NFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjcyOTkzODU2LCJpYXQiOjE2NzIzODkwNTZ9.0nRzf39OqjmD9W3aHDqHQHiVhpgiKuxDrXbeBOUhcKw";
+		Response marketResponse = setupApi.callSectorHeatMapApi(setupApi.getNonTradingAccessTokenId());
 		return marketResponse;
 	}
 
 
 	public Response getMarketMoversByMost(String Category) {
-		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		//setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
 		Map<String, Object> params = new HashMap<>();
 		params.put("Category", Category);
-		Response marketResponse = setupApi.call_MartketMoversByMost(setupApi.nonTradingAccessTokenId,
+		Response marketResponse = setupApi.call_MartketMoversByMost(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return marketResponse;
 	}
 
 	public Response getFundamentalRatio(String ISIN) {
-		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		//setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
 		Map<String, Object> params = new HashMap<>();
 		params.put("ISIN", ISIN);
-		Response FundamentalRatio = setupApi.call_FundamentalRatio(setupApi.nonTradingAccessTokenId,
+		Response FundamentalRatio = setupApi.call_FundamentalRatio(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return FundamentalRatio;
 	}
 
 
 	public Response getTopGainerNLoser(String category) {
-		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		//setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
 		Map<String, Object> params = new HashMap<>();
 		params.put("category", category);
-		Response FundamentalRatio = setupApi.call_TopGainerNLoser(setupApi.nonTradingAccessTokenId,
+		Response FundamentalRatio = setupApi.call_TopGainerNLoser(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return FundamentalRatio;
 	}
 
 
 	public Response getIntraTradeDetails(String OptionType,String Symbol,String PriceUnderlying) {
-		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		//setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
 		Map<String, Object> params = new HashMap<>();
 		params.put("OptionType", OptionType);
 		params.put("Symbol", Symbol);
 		params.put("PriceUnderlying", PriceUnderlying);
-		Response marketResponse = setupApi.callInstaTradeDetailsApi(setupApi.nonTradingAccessTokenId,
+		Response marketResponse = setupApi.callInstaTradeDetailsApi(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return marketResponse;
 	}
@@ -366,8 +425,7 @@ public class BaseTestApi {
 	
 	public Response getWatchLists() {
 		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
-		//setupApi.nonTradingAccessTokenId="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiI5NzQxNjM2ODU0IiwidXNlcl9pZCI6IlU1MDA0OTI2NyIsInNvdXJjZSI6IlNQQVJLIiwiYXBwX2lkIjoiNTY1NjciLCJjcmVhdGVkX2F0IjoiMjAyMy0wNC0xNFQwNjoxNzowNC44NTYyMDM0MjlaIiwiZGF0YUNlbnRlciI6IiJ9LCJpc3MiOiJhbmdlbCIsImV4cCI6MTY4NDA0NTAyNCwiaWF0IjoxNjgxNDUzMDI0fQ.dkfyErxSOAPTvXPUH88hciGpK2IywsZyfd0WFF9G2YI";
-		return setupApi.call_getWatchlistAPI(setupApi.nonTradingAccessTokenId);
+		return setupApi.call_getWatchlistAPI(setupApi.getNonTradingAccessTokenId());
 		
 	}
 	
@@ -419,7 +477,7 @@ public class BaseTestApi {
 		Map<String, Object> params = new HashMap<>();
 		params.put("ExpiryType", ExpiryType);
 		params.put("EnumName", EnumName);
-		Response marketResponse = setupApi.call_future_markets_indicators(setupApi.nonTradingAccessTokenId,
+		Response marketResponse = setupApi.call_future_markets_indicators(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return marketResponse;
 	}

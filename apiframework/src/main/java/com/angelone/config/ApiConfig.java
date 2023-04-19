@@ -50,6 +50,9 @@ public interface ApiConfig extends Config {
   @Key("VERIFY_OTP_ENDPOINT")
   String verifyOTPEndpoint();
   
+  @Key("REFRESH_TOKEN_ENDPOINT")
+  String refreshTokenEndpoint();
+  
   @Key("DISCOVERY_BASE_URL")
   String discoveryBaseUrl();
   

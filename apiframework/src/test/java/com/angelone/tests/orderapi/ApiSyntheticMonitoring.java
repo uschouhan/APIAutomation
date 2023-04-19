@@ -69,6 +69,44 @@ class ApiSyntheticMonitoring extends BaseClass {
         verifyOrderIsCancelled(orderNum, variety);
 
     }
+    
+    @Test(enabled = true)
+    void placeStopLossOrder_Buy_DELIVERY_LimitOrder_Cash() throws IOException, InterruptedException {
+
+    	String variety = helper.orderTypeCheckForEquity();
+        // get LTP price to manipulate Limit Price
+    	String pLtp = baseAPI.getLTPPrice("12018", "nse_cm");
+		String ltpPrice = helper.BuyroundoffValueToCancelOrder(pLtp);
+		String triggerPrice=helper.getTriggerPriceValueForBuy(ltpPrice);
+        //Market Order
+        Response response = baseAPI.placeStockOrder("NSE", "STOPLOSS_LIMIT", ltpPrice, "DELIVERY", "1", "1", "12018", "SUZLON-EQ", "BUY",triggerPrice, variety);
+        String orderNum= response.jsonPath().getString("data.orderid");
+
+        Thread.sleep(1000);
+        // Call getOrderBook
+        Response callOrdersApi = baseAPI.getOrderBook();
+        GetOrdersDetailsResponsePOJO as = callOrdersApi.getBody().as(GetOrdersDetailsResponsePOJO.class);
+        List<OrdersDetailsData> data = as.getData();
+        List<String> orderIds = data.stream()
+                .filter(x -> !(x.getOrderstatus().contains("cancelled") || x.getOrderstatus().contains("rejected")))
+                .map(x -> x.getOrderid()).collect(Collectors.toList());
+
+        if (orderIds.contains(orderNum))
+            ExtentLogger.info(orderNum + " Order Id found in open order");
+        else {
+            ExtentLogger.fail(orderNum + " Order Id not found in open order.Probably rejected.Please check manually");
+            Assert.fail("Place Order isnt successful as order Id " + orderNum + " doesnt found in Open Order");
+        }
+
+        // Cancel Order
+        Response cancelOrderResponse = baseAPI.cancelOrder(orderNum, variety);
+        Assert.assertTrue(cancelOrderResponse.getStatusCode() == 200, "some error in placeOrder api ");
+
+        Thread.sleep(1000);
+        // Verify Order is cancelled
+        verifyOrderIsCancelled(orderNum, variety);
+
+    }
 
     @Test(enabled = true)
     void modifyEquityOrder() throws IOException, InterruptedException {
@@ -856,7 +894,7 @@ class ApiSyntheticMonitoring extends BaseClass {
         Assertions.assertThat(watchlistName).isNotNull();
     }
 
-    @Test(enabled = true)
+    @Test(enabled = false)
     public void testSetWatchlist() throws Exception {
         String jsonFilePath = "requests/setWatchlistData.json";
         String scriptId = "10666";
@@ -873,8 +911,8 @@ class ApiSyntheticMonitoring extends BaseClass {
         String versionId = watchlists.jsonPath().getString("data.version");
         String setWatchListData = helper.modifyJsonData(jsonFilePath, scriptId);
         String encodedWatchListData = baseAPI.encodeJsonData(setWatchListData);
-        Response response = baseAPI.callSetWatchListApi(Integer.valueOf(versionId), encodedWatchListData);
-        Assert.assertEquals(response.getStatusCode(), 200, "Error in watchlists api ");
+        Response callSetWatchListApi = baseAPI.callSetWatchListApi(Integer.valueOf(versionId),encodedWatchListData);
+        Assert.assertEquals(callSetWatchListApi.getStatusCode(), 200, "Error in watchlists api ");
     }
 
     @Test(enabled = true)

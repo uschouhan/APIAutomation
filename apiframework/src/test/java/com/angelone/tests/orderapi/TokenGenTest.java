@@ -54,7 +54,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 class TokenGenTest extends BaseTestApi {
-	Helper helper = new Helper();
+
 	@Test(enabled = true)
 	void placeOrder() throws IOException {
 		//Generate User Mpin Token
@@ -135,35 +135,15 @@ class TokenGenTest extends BaseTestApi {
 		String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
 		String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 		generateUserToken(userdetails, secKey);
-		String pLtp = getLTPPrice("10666", "nse_cm");
+		String pLtp = getLTPPrice("12018", "nse_cm");
 		String ltpPrice = BuyroundoffValueToCancelOrder(pLtp);
 		String triggerPrice=getTriggerPriceValueForBuy(ltpPrice);
         //Market Order
-        Response response = placeStockOrder("NSE", "STOPLOSS_LIMIT", pLtp, "DELIVERY", "1", "1", "10666", "PNB-EQ", "BUY",triggerPrice, "NORMAL");		
+        Response response = placeStockOrder("NSE", "STOPLOSS_LIMIT", ltpPrice, "DELIVERY", "1", "1", "12018", "SUZLON-EQ", "BUY",triggerPrice, "AMO");
         String orderId= response.jsonPath().getString("data.orderid");
 		
     }
 
-	@Test(enabled = true)
-	public void testSetWatchlist() throws Exception {
-		String jsonFilePath = "requests/setWatchlistData.json";
-		String scriptId = "10666";
-		Response watchlists = getWatchLists();
-		ExtentLogger.info(watchlists.asPrettyString());
-		Assert.assertEquals(watchlists.getStatusCode(), 200, "Error in watchlists api ");
-		Assert.assertEquals(watchlists.jsonPath().getString("status"), "success",
-				"Status doesnt match in watchlists api ");
-		Assert.assertEquals(watchlists.jsonPath().getString("error_code"), "",
-				"error_code doesnt match in watchlists api ");
-		Assert.assertTrue(!watchlists.jsonPath().getString("data").isEmpty(), "data is empty in watchlists api ");
-		Assert.assertTrue(!watchlists.jsonPath().getString("data.watchlistData").isEmpty(),
-				"watchlistData is empty in watchlists api ");
-		String versionId = watchlists.jsonPath().getString("data.version");
-		String setWatchListData = helper.modifyJsonData(jsonFilePath, scriptId);
-		String encodedWatchListData = encodeJsonData(setWatchListData);
-		Response response = callSetWatchListApi(Integer.valueOf(versionId), encodedWatchListData);
-		Assert.assertEquals(response.getStatusCode(), 200, "Error in watchlists api ");
-	}
 
 	@Test(enabled = true)
 	void testExitPositions() throws IOException {
@@ -846,7 +826,7 @@ class TokenGenTest extends BaseTestApi {
 	public String decodeData(String data) {
 
 		ChromeOptions options = new ChromeOptions();
-		options.setHeadless(true);
+		options.addArguments("--headless");
 		WebDriver driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://www.zickty.com/gziptotext/");

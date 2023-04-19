@@ -1,6 +1,7 @@
 package com.angelone.api;
 
 import java.lang.reflect.Method;
+import java.util.Properties;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +28,9 @@ public class BaseClass {
 		// Generate User Mpin Token
 		baseAPI.generateUserToken(userDetails, SECRET_KEY);
 		// Generate NonTraded Access Token
-		baseAPI.getNonTradingAccessToken(userDetails);
+		//baseAPI.getNonTradingAccessToken(userDetails);
+		baseAPI.getNonTradingAccessTokenWithoutOtp(userDetails);
+		//baseAPI.refreshToken(userDetails);
 		//ExtentReport.initReports();
 		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());
 		cDetails= new ClientDetails(userDetails);

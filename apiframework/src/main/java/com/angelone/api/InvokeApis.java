@@ -16,11 +16,12 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 public final class InvokeApis {
-
-    public String token;
-    public String request_id;
-    public String otp;
-    public String nonTradingAccessTokenId;
+	
+	private String token;
+	private String request_id;
+	private String otp;
+	private String nonTradingAccessTokenId;
+    
     //public String ltpPrice;
     private static final String USER_TOKEN_ENDPOINT = ApiConfigFactory.getConfig().tokenEndpoint();
     private static final String LOGIN_MPIN_ENDPOINT = ApiConfigFactory.getConfig().loginMpinEndpoint();
@@ -31,6 +32,7 @@ public final class InvokeApis {
     private static final String GET_POSITION_ENDPOINT = ApiConfigFactory.getConfig().getPositionEndpoint();
     private static final String GET_LOGIN_OTP_ENDPOINT = ApiConfigFactory.getConfig().getLoginOTPEndpoint();
     private static final String VERIFY_OTP_ENDPOINT = ApiConfigFactory.getConfig().verifyOTPEndpoint();
+    private static final String REFRESH_TOKEN_ENDPOINT = ApiConfigFactory.getConfig().refreshTokenEndpoint();
     private static final String FUTURE_BUILTUP_HEATMAP_ENDPOINT = ApiConfigFactory.getConfig().futureBuiltupHeatMapEndpoint();
     private static final String MARKET_MOVERS_BY_MOST_ENDPOINT = ApiConfigFactory.getConfig().marketMoversByMost();
     private static final String SECTOR_HEATMAP_ENDPOINT = ApiConfigFactory.getConfig().sectorHeatmapEndpoint();
@@ -56,7 +58,39 @@ public final class InvokeApis {
     private static final String TOPGAINER_AND_LOSERS_ENDPOINT = ApiConfigFactory.getConfig().topgaineAndLosers();
     private static final String SET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().setWatchlist();
 
-    /**
+    public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getNonTradingAccessTokenId() {
+		return nonTradingAccessTokenId;
+	}
+
+	public void setNonTradingAccessTokenId(String nonTradingAccessTokenId) {
+		this.nonTradingAccessTokenId = nonTradingAccessTokenId;
+	}
+	
+    public String getRequest_id() {
+		return request_id;
+	}
+
+	public void setRequest_id(String request_id) {
+		this.request_id = request_id;
+	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+
+	/**
      * Method for calling create user Token via MPIN
      *
      * @param userDetails
@@ -85,7 +119,7 @@ public final class InvokeApis {
         Map<String, Object> m = getHeaders();
         m.put("Accept", "application/json");
         m.put("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8");
-        m.put("ApplicationName", "Spark-Web");
+        m.put("ApplicationName", "SparkAutomation");
         m.put("Connection", "keep-alive");
         m.put("Origin", "http://uattrade.angelbroking.com");
         m.put("Referer", "http://uattrade.angelbroking.com/");
@@ -156,7 +190,7 @@ public final class InvokeApis {
 
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("ClientIP", "172.29.24.126");
-        m.put("ApplicationName", "Spark");
+        m.put("ApplicationName", "SparkAutomation");
         m.put("X-DeviceID", Helper.generateDeviceId());
         m.put("DeviceType", "Android");
         m.put("AppVersion", "aayT0001");
@@ -298,10 +332,10 @@ public final class InvokeApis {
 
     //##################### Trade related APIs    ######################
 
-    public Response getLoginToken(LoginOtpPOJO otpRequestDetails) {
+    public Response getLoginToken(LoginOtpPOJO otpRequestDetails , String oldTradeToken) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + GET_LOGIN_OTP_ENDPOINT);
         Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
-                .headers(getOTPHeaders())
+                .headers(getOTPHeadersForCaptchaApi(oldTradeToken))
                 .body(otpRequestDetails)
                 .log()
                 .all()
@@ -310,6 +344,8 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
+    
+    
 
     /**
      * Method to construct headers for loginOtp api
@@ -330,6 +366,29 @@ public final class InvokeApis {
         m.put("x-source-v2", "abma");
         return m;
     }
+    
+    /**
+     * Method to construct headers for loginOtp api
+     *
+     * @return headers as map
+     */
+    private static Map<String, Object> getOTPHeadersForCaptchaApi(String oldNonTradeToken) {
+
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("x-clientlocalip", "1.2.3.4");
+        m.put("x-clientpublicip", "1.2.3.4");
+        m.put("x-deviceid", Helper.generateDeviceId());
+        m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
+        m.put("X-operatingsystem", "Ubuntu");
+        m.put("x-sourceid", "5");
+        m.put("x-usertype", "1");
+        m.put("x-source", "mutualfund");
+        m.put("x-source-v2", "abma");
+        m.put("Authorization", "Bearer "+ oldNonTradeToken);
+        return m;
+    }
+    
+    
 
     public Response verifyLoginToken(VerifyLoginOtpPOJO verifyOtpDetails) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + VERIFY_OTP_ENDPOINT);
@@ -343,6 +402,20 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
+    
+    public Response refreshToken(RefreshTokenPOJO refreshPojoData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + REFRESH_TOKEN_ENDPOINT);
+        Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
+                .headers(getVerifyOTPHeaders())
+                .body(refreshPojoData)
+                .log()
+                .all()
+                .post(REFRESH_TOKEN_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
 
     /**
      * Method to construct headers for VerifyloginOtp api
@@ -475,7 +548,7 @@ public final class InvokeApis {
         m.put("DeviceID", Helper.generateDeviceId());
         m.put("AppVersion", "40.0.1");
         m.put("Content-Type", "application/json");
-        m.put("ApplicationName", "SparkAnroid");
+        m.put("ApplicationName", "SparkAutomation");
         return m;
     }
 

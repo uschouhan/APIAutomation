@@ -1,6 +1,9 @@
 package com.angelone.api.utility;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -413,4 +416,32 @@ public class Helper {
 		}
 		return text;
 	}
+
+	public String getTriggerPriceValueForBuy(String ltp1) {
+		double lt = Double.parseDouble(ltp1);
+		double per = lt * 5 / 100;
+		double buyPrice = (lt - per) * 10;
+		double roundOff = Math.round(buyPrice);
+		double FinalBuyPrice = roundOff / 10;
+		System.out.print(FinalBuyPrice);
+		return String.valueOf(FinalBuyPrice);
+	}
+	
+	
+	  public static Properties readPropertiesFile(String fileName) throws IOException {
+	        FileInputStream fis = null;
+	        Properties prop = null;
+	        try {
+	            fis = new FileInputStream(fileName);
+	            prop = new Properties();
+	            prop.load(fis);
+	        } catch (FileNotFoundException fnfe) {
+	            fnfe.printStackTrace();
+	        } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	        } finally {
+	            fis.close();
+	        }
+	        return prop;
+	    }
 }
