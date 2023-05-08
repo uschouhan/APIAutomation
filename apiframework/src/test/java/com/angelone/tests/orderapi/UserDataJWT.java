@@ -12,6 +12,9 @@ import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.logging.log4j.core.util.IOUtils;
+import org.assertj.core.api.Assertions;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import io.restassured.response.Response;
@@ -91,7 +94,77 @@ public class UserDataJWT {
 		return message;
 	}
 
-	
+	@Test
+	public void TestJsonArrya() throws Exception {
+		String text = "{\n"
+				+ "  \"MonthList\": [\n"
+				+ "    \"Mar 23\",\n"
+				+ "    \"Dec 22\"\n"
+				+ "  ],\n"
+				+ "  \"ItemList\": [\n"
+				+ "    {\n"
+				+ "      \"MonthList\": [\n"
+				+ "        \"73.15%\",\n"
+				+ "        \"73.146074879063%\"\n"
+				+ "      ],\n"
+				+ "      \"ChangePercentage\": \"0.00\",\n"
+				+ "      \"Name\": \"Promoters\"\n"
+				+ "    },\n"
+				+ "    {\n"
+				+ "      \"MonthList\": [\n"
+				+ "        \"1.7%\",\n"
+				+ "        \"1.7059971808279%\"\n"
+				+ "      ],\n"
+				+ "      \"ChangePercentage\": \"-0.01\",\n"
+				+ "      \"Name\": \"FIIs\"\n"
+				+ "    },\n"
+				+ "    {\n"
+				+ "      \"MonthList\": [\n"
+				+ "        \"4.61%\",\n"
+				+ "        \"4.0503527458552%\"\n"
+				+ "      ],\n"
+				+ "      \"ChangePercentage\": \"0.56\",\n"
+				+ "      \"Name\": \"Mutual Funds\"\n"
+				+ "    },\n"
+				+ "    {\n"
+				+ "      \"MonthList\": [\n"
+				+ "        \"8.87%\",\n"
+				+ "        \"8.8706910262273%\"\n"
+				+ "      ],\n"
+				+ "      \"ChangePercentage\": \"-0.00\",\n"
+				+ "      \"Name\": \"Insurance Companies\"\n"
+				+ "    },\n"
+				+ "    {\n"
+				+ "      \"MonthList\": [\n"
+				+ "        \"0.05%\",\n"
+				+ "        \"0.07%\"\n"
+				+ "      ],\n"
+				+ "      \"ChangePercentage\": \"-0.02\",\n"
+				+ "      \"Name\": \"Other DIIs\"\n"
+				+ "    },\n"
+				+ "    {\n"
+				+ "      \"MonthList\": [\n"
+				+ "        \"11.62%\",\n"
+				+ "        \"12.161404930784%\"\n"
+				+ "      ],\n"
+				+ "      \"ChangePercentage\": \"-0.54\",\n"
+				+ "      \"Name\": \"Non Institution\"\n"
+				+ "    }\n"
+				+ "  ]\n"
+				+ "}";
+		JSONObject object = new JSONObject(text);
+		  JSONArray jsonArray = new JSONArray(object.getJSONArray("ItemList"));
+			for(int i=0;i<jsonArray.length();i++)
+			{
+				JSONArray jsonArray2 = jsonArray.getJSONObject(i).getJSONArray("MonthList");
+				String ChangePercentage = jsonArray.getJSONObject(i).getString("ChangePercentage");
+				String Name = jsonArray.getJSONObject(i).getString("Name");
+				Assertions.assertThat(jsonArray2.length()).as("MonthList doesnt hv 2 records").isEqualTo(2);
+				Assertions.assertThat(ChangePercentage).as("ChangePercentage market is null").isNotNull().isNotBlank().isNotEmpty();
+				Assertions.assertThat(Name).as("Name is null").isNotNull().isNotBlank().isNotEmpty();
+			}
+		
+	}
 	
 
 }

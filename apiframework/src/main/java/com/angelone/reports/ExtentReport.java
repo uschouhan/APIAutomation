@@ -1,6 +1,7 @@
 package com.angelone.reports;
 
 import java.io.File;
+import java.util.Objects;
 
 import com.angelone.api.utility.Constants;
 import com.aventstack.extentreports.ExtentReports;
@@ -40,11 +41,15 @@ public final class ExtentReport {
    
 
     public static synchronized void createTest(String testCaseName){
+    	if(Objects.nonNull(extent))
+    	{
         extentTest = extent.createTest(testCaseName);
         ExtentManager.setExtentTest(extentTest);
+    	}
     }
 
     public static synchronized void assignAuthor(String author){
+    	if(Objects.nonNull(ExtentManager.getExtentTest()))
         ExtentManager.getExtentTest().assignAuthor(author);
     }
 

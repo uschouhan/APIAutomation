@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.mail.Authenticator;
@@ -280,7 +283,7 @@ public class Helper {
 		return String.valueOf(FinalBuyPrice);
 
 	}
-	
+
 	public String SellTriggerPriceGreaterT2T(String ltp1) {
 		double lt = Double.parseDouble(ltp1);
 		double per = lt * (0.5) / 100;
@@ -291,8 +294,8 @@ public class Helper {
 		return String.valueOf(FinalBuyPrice);
 
 	}
-	
-	public  String fnoBuyMarketPending(String ltp) {
+
+	public String fnoBuyMarketPending(String ltp) {
 		double lt = Double.parseDouble(ltp);
 		double per = lt * 5 / 100;
 		double buyPrice = (lt - per) * 10;
@@ -321,6 +324,14 @@ public class Helper {
 			dateNew = new Date(System.currentTimeMillis() - value * 3600 * 1000);
 		else if (type.equalsIgnoreCase("m"))
 			dateNew = new Date(System.currentTimeMillis() - value * 60 * 1000);
+		else if (type.equalsIgnoreCase("D"))
+			dateNew = new Date(System.currentTimeMillis() - value * 24 * 3600 * 1000);
+		else if (type.equalsIgnoreCase("W"))
+			dateNew = new Date(System.currentTimeMillis() - value * 7 * 24 * 3600 * 1000);
+		else if (type.equalsIgnoreCase("M"))
+			dateNew = new Date(System.currentTimeMillis() - value * 30 * 24 * 3600 * 1000);
+		else if (type.equalsIgnoreCase("y"))
+			dateNew = new Date(System.currentTimeMillis() - value * 365 * 24 * 3600 * 1000);
 		else
 			System.out.println("Please provide correct type and value");
 		System.out.println("Start Time = " + dateFormat.format(dateNew));
@@ -383,25 +394,22 @@ public class Helper {
 		} else
 			return "AMO";
 	}
-	
-	public static String generateDeviceId() {
-		 UUID uuid = UUID.randomUUID();
-	        String randomString = uuid.toString().replace("-", "");
-	        String formattedString = String.format("%s-%s-%s-%s-%s",
-	            randomString.substring(0, 8),
-	            randomString.substring(8, 12),
-	            randomString.substring(12, 16),
-	            randomString.substring(16, 20),
-	            randomString.substring(20));
-	        System.out.println(formattedString);
-       return formattedString;
-   }
 
-	public String modifyJsonData(String jsonFilePath , String value) throws Exception {
+	public static String generateDeviceId() {
+		UUID uuid = UUID.randomUUID();
+		String randomString = uuid.toString().replace("-", "");
+		String formattedString = String.format("%s-%s-%s-%s-%s", randomString.substring(0, 8),
+				randomString.substring(8, 12), randomString.substring(12, 16), randomString.substring(16, 20),
+				randomString.substring(20));
+		System.out.println(formattedString);
+		return formattedString;
+	}
+
+	public String modifyJsonData(String jsonFilePath, String value) throws Exception {
 		InputStream resourceAsStream = null;
-		String text="";
+		String text = "";
 		try {
-			//String dataFileName = "requests/setWatchlistData.json";
+			// String dataFileName = "requests/setWatchlistData.json";
 			resourceAsStream = getClass().getClassLoader().getResourceAsStream(jsonFilePath);
 			JSONTokener tokener = new JSONTokener(resourceAsStream);
 			JSONArray testData = new JSONArray(tokener);
@@ -426,22 +434,41 @@ public class Helper {
 		System.out.print(FinalBuyPrice);
 		return String.valueOf(FinalBuyPrice);
 	}
-	
-	
-	  public static Properties readPropertiesFile(String fileName) throws IOException {
-	        FileInputStream fis = null;
-	        Properties prop = null;
-	        try {
-	            fis = new FileInputStream(fileName);
-	            prop = new Properties();
-	            prop.load(fis);
-	        } catch (FileNotFoundException fnfe) {
-	            fnfe.printStackTrace();
-	        } catch (IOException ioe) {
-	            ioe.printStackTrace();
-	        } finally {
-	            fis.close();
-	        }
-	        return prop;
-	    }
+
+	public static Properties readPropertiesFile(String fileName) throws IOException {
+		FileInputStream fis = null;
+		Properties prop = null;
+		try {
+			fis = new FileInputStream(fileName);
+			prop = new Properties();
+			prop.load(fis);
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		} finally {
+			fis.close();
+		}
+		return prop;
+	}
+
+	public String decompressData(String compressedData) {
+
+		byte[] decodedData = Base64.getDecoder().decode(compressedData);
+
+		Inflater inflater = new Inflater();
+		inflater.setInput(decodedData);
+		byte[] decompressedData = new byte[40000];
+		String output = "";
+		try {
+			int decompressedSize = inflater.inflate(decompressedData);
+			inflater.end();
+
+			output = new String(decompressedData, 0, decompressedSize);
+			System.out.println("Decompress Data -> \n"+output);
+		} catch (DataFormatException e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
 }

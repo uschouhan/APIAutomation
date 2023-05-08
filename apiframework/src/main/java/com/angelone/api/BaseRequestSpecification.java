@@ -25,7 +25,7 @@ public final class BaseRequestSpecification {
   public static final String PLEDGE_GETWITHDRAWSECURITY_BASE_URL = ApiConfigFactory.getConfig().getWithdrawSecurityBaseURL();
   public static final String IPO_BASE_URL = ApiConfigFactory.getConfig().getIpoBaseURL();
   public static final String PORTFOLIO_ADVISORY_BASE_URL = ApiConfigFactory.getConfig().getPortfolioAdvisoryBaseURL();
-
+  public static final String GETWITHDRAWSLIST_BASE_URL = ApiConfigFactory.getConfig().getWithdrawListBaseURL();
   
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
@@ -120,5 +120,19 @@ public final class BaseRequestSpecification {
 	      .given()
 	      .contentType(ContentType.JSON)
 	      .baseUri(PLEDGE_GETWITHDRAWSECURITY_BASE_URL);
+	  }
+  
+  public static RequestSpecification getWithdrawList() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(FUND_WITHDRAWAL_BASE_URL);
+	  }
+  
+  public static RequestSpecification getTransactionMergedList() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(FUND_WITHDRAWAL_BASE_URL);
 	  }
 }

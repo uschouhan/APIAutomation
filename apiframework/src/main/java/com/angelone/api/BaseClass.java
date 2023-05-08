@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.angelone.api.pojo.ClientDetails;
@@ -23,7 +24,7 @@ public class BaseClass {
 
 	@Parameters({ "UserCredentials" })
 	@BeforeTest
-	public void Setup(String userDetails) {
+	public void Setup(@Optional("9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222")String userDetails) {
 		baseAPI = new BaseTestApi();
 		// Generate User Mpin Token
 		baseAPI.generateUserToken(userDetails, SECRET_KEY);

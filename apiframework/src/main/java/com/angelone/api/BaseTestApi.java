@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import com.angelone.api.pojo.*;
 import com.angelone.testdataMapper.*;
+
+import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.testng.SkipException;
 
@@ -23,6 +25,25 @@ public class BaseTestApi {
 	// ThreadLocal<String>();
 	private final InvokeApis setupApi = new InvokeApis();
 	private final Helper helper = new Helper();
+	private String secretKey;
+	private String userDetails;
+
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
+	}
+
+	public String getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(String userDetails) {
+		this.userDetails = userDetails;
+	}
+
 
 	public String getLTPPrice(String scriptId, String segment) {
 		String ltpPrice;
@@ -84,54 +105,72 @@ public class BaseTestApi {
 //	}
 
 	public Response placeStockOrder(String ordertype, String price, String producttype, String symboltoken,
-			String tradingsymbol, String variety) {
+									String tradingsymbol, String variety) {
 		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(ordertype, price, producttype, symboltoken,
 				tradingsymbol, variety);
 		Response response = setupApi.placeOrder(orderData);
+		response = getResponse(orderData,response);
 		return response;
 	}
 
+	@NonNull
+	private Response getResponse(PlaceOrderDetailsPOJO orderData, Response response) {
+		if(response.getStatusCode()==403) {
+			System.out.println("Generating new trade token since current token is expired ...");
+			generateUserToken(getUserDetails(),getSecretKey());
+			response =setupApi.placeOrder(orderData);
+		}
+		return response;
+	}
 	public Response placeStockOrder(String exchange, String ordertype, String price, String producttype,
-			String symboltoken, String tradingsymbol, String variety) {
+									String symboltoken, String tradingsymbol, String variety) {
 		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(exchange, ordertype, price, producttype,
 				symboltoken, tradingsymbol, variety);
 		Response response = setupApi.placeOrder(orderData);
+		response = getResponse(orderData,response);
 		return response;
 	}
 
 	public Response placeStockOrder(String exchange, String ordertype, String price, String producttype,
-			String quantity, String stoploss, String symboltoken, String tradingsymbol, String transactiontype,
-			String triggerprice, String variety) {
+									String quantity, String stoploss, String symboltoken, String tradingsymbol, String transactiontype,
+									String triggerprice, String variety) {
 		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(exchange, ordertype, price, producttype,
 				quantity, stoploss, symboltoken, tradingsymbol, transactiontype, triggerprice, variety);
 		Response response = setupApi.placeOrder(orderData);
+		response = getResponse(orderData,response);
 		return response;
 	}
 
 	public Response placeStockOrder(String basketID, String disclosedquantity,String duration,String exchange,String multiplier,
-			String orderValidityDate,String ordertag,String ordertype,String precision,String price,String producttype,
-			String quantity,String squareoff,String stoploss,String strategyCode,String symboltoken,String tickSize,String tradingsymbol,
-			String trailTickYesNo,String trailingStopLoss,String transactiontype,String triggerprice,String variety)
-	{
+									String orderValidityDate,String ordertag,String ordertype,String precision,String price,String producttype,
+									String quantity,String squareoff,String stoploss,String strategyCode,String symboltoken,String tickSize,String tradingsymbol,
+									String trailTickYesNo,String trailingStopLoss,String transactiontype,String triggerprice,String variety) {
 		PlaceOrderDetailsPOJO orderData = PlaceOrderTestData.placeOrder(basketID,disclosedquantity,duration,exchange,multiplier,orderValidityDate,ordertag,
 				ordertype,precision,price,producttype,quantity,squareoff,stoploss,strategyCode,symboltoken,tickSize,tradingsymbol,trailTickYesNo,trailingStopLoss,transactiontype,triggerprice,variety);
 		Response response = setupApi.placeOrder(orderData);
+		response = getResponse(orderData,response);
 		return response;
 	}
-	
-	
+
+
 	public Response modifyStockOrder(String disclosedquantity,String duration,String exchange,String multiplier,
-			String orderValidityDate,String orderId,String ordertype,String precision,String price,
-			String quantity,String symboltoken,String triggerprice,String variety) {
+									 String orderValidityDate,String orderId,String ordertype,String precision,String price,
+									 String quantity,String symboltoken,String triggerprice,String variety) {
 		ModifyOrderPOJO orderData = ModifyOrderMapper.modifyOrder(disclosedquantity, duration, exchange, multiplier, orderValidityDate, orderId, ordertype, precision, price,
-				 quantity, symboltoken, triggerprice, variety);
+				quantity, symboltoken, triggerprice, variety);
 		Response response = setupApi.modifyOrderApi(orderData);
 		return response;
 	}
-	
+
 	public Response cancelOrder(String orderId, String variety) {
 		CancelOrderPOJO orderData = CancelOrderData.cancelOrder(orderId, variety);
 		Response response = setupApi.cancelOrder(orderData);
+		return response;
+	}
+
+	public Response getOrderStatus(String guiOrderId, String orderId) {
+		OrderStatusPOJO orderStatusData = OrderStatusMapper.orderStatusData(guiOrderId, orderId);
+		Response response = setupApi.getOrderStatus(orderStatusData);
 		return response;
 	}
 
@@ -142,41 +181,41 @@ public class BaseTestApi {
 	}
 
 	public Response getBSEChartsEquity(int seqno, String action,String topic,String rtype,String period,
-			String type,int duration,String from,String to) {
+									   String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.getBSEEquityCharts(chartsData);
 		return response;
 	}
-	
-	
+
+
 	public Response getMCXCharts(int seqno, String action,String topic,String rtype,String period,
-			String type,int duration,String from,String to) {
+								 String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.callMCXChartsApi(chartsData);
 		return response;
 	}
-	
+
 	public Response getNSEChartsEquity(int seqno, String action,String topic,String rtype,String period,
-			String type,int duration,String from,String to) {
+									   String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.getNSEEquityCharts(chartsData);
 		return response;
 	}
-	
+
 	public Response getNSEChartsCurrency(int seqno, String action,String topic,String rtype,String period,
-			String type,int duration,String from,String to) {
+										 String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.getNSECurrencyCharts(chartsData);
 		return response;
 	}
-	
+
 	public Response getNSEChartsFNO(int seqno, String action,String topic,String rtype,String period,
-			String type,int duration,String from,String to) {
+									String type,int duration,String from,String to) {
 		ChartsAPIPOJO chartsData = ChartsTestData.getChartsData(seqno, action,topic,rtype,period,type,duration,from,to);
 		Response response = setupApi.getNSE_FNO_Charts(chartsData);
 		return response;
 	}
-	
+
 	public Response callOptionsAPI(String stockxchangecode, String expirydate) {
 		OptionsPOJO chartsData = OptionsDataMapper.getOptionsData(stockxchangecode,expirydate);
 		Response response = setupApi.getOptions(chartsData);
@@ -194,8 +233,10 @@ public class BaseTestApi {
 		Response response = setupApi.callIpoMasterApi(setupApi.getNonTradingAccessTokenId());
 		return response;
 	}
-	
+
 	public void generateUserToken(String userCredentials, String secret) {
+		userDetails = userCredentials;
+		secretKey=secret;
 		String[] creden = userCredentials.split(":");
 		try {
 			String userId = creden[3];
@@ -223,8 +264,7 @@ public class BaseTestApi {
 		if (response.statusCode() == 200 && Objects.nonNull(response)) {
 			String string = response.jsonPath().getString("data.accesstoken");
 			setupApi.setToken(string);
-		}
-		else
+		} else
 			throw new SkipException("Couldnt generate MPIN Access Token for User .Hence skipping tests");
 		System.out.println("User Mpin Token = " + setupApi.getToken());
 		return setupApi.getToken();
@@ -241,7 +281,14 @@ public class BaseTestApi {
 	public Response callPortfolioAdvioryApi() {
 		return setupApi.callPortfolioAdvisoryApi(setupApi.getNonTradingAccessTokenId());
 	}
-	
+
+
+	//public Response callWithdrawListAPI(String party_code) {
+	//GetWithdrawListPOJO getWithdrawList = GetWithdrawListData.getWithdrawListData(party_code);
+	//Response response = setupApi.getWithdrawList(getWithdrawList);
+	//return response;
+	//}
+
 	public String genLoginToken(String mobileNum, String emailId, String password,String oldTradeToken) {
 
 		LoginOtpPOJO otpDetails = GetLoginOTP.getOtp(mobileNum);
@@ -262,19 +309,19 @@ public class BaseTestApi {
 			String nonTradeToken = response.jsonPath()
 					.getString("data.PartyCodeDetails." + clientId + ".non_trading_access_token");
 			setupApi.setNonTradingAccessTokenId(nonTradeToken);
-			
+
 		} else
 			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
 		System.out.println("Non Trading access token " + setupApi.getNonTradingAccessTokenId());
 		return setupApi.getNonTradingAccessTokenId();
 	}
-	
+
 	@SneakyThrows
 	public String refreshToken(String userDetails)  {
 		String[] creden = userDetails.split(":");
 		String clientId = creden[3];
 		Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
-	    String oldTradeToken = prop.getProperty(clientId);
+		String oldTradeToken = prop.getProperty(clientId);
 		RefreshTokenPOJO setRefreshTokenData = RefreshTokenMapper.setRefreshTokenData(oldTradeToken);
 		Response response = setupApi.refreshToken(setRefreshTokenData);
 		if (response.statusCode() == 200 && Objects.nonNull(response)) {
@@ -286,7 +333,7 @@ public class BaseTestApi {
 		System.out.println("Non Trading access token " + setupApi.getNonTradingAccessTokenId());
 		return setupApi.getNonTradingAccessTokenId();
 	}
-	
+
 	@SneakyThrows
 	public String refreshTokenOnly(String oldToken)  {
 		RefreshTokenPOJO setRefreshTokenData = RefreshTokenMapper.setRefreshTokenData(oldToken);
@@ -310,7 +357,7 @@ public class BaseTestApi {
 			String password = creden[2];
 			String clientId = creden[3];
 			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
-		    String oldTradeToken = prop.getProperty(clientId);
+			String oldTradeToken = prop.getProperty(clientId);
 			String requestId = genLoginToken(mobileNum, emailId, password,oldTradeToken);
 			String otp = helper.getOTPmail(emailId, password);
 			nonTradedToken = verifyLoginToken(requestId, mobileNum, otp, clientId);
@@ -324,14 +371,14 @@ public class BaseTestApi {
 		return nonTradedToken;
 
 	}
-	
+
 	public String getNonTradingAccessTokenWithoutOtp(String userDetails) {
 		String[] creden = userDetails.split(":");
 		String oldTradeToken="";
 		try {
 			String clientId = creden[3];
 			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
-		    oldTradeToken = prop.getProperty(clientId);
+			oldTradeToken = prop.getProperty(clientId);
 			setupApi.setNonTradingAccessTokenId(oldTradeToken);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Client Id missing in tentNG xml file");
@@ -340,7 +387,11 @@ public class BaseTestApi {
 			System.out.println("Issue while generating nonTradeAccessToken.");
 		}
 		return oldTradeToken;
+	}
 
+	public String setTradeToken(String token) {
+		setupApi.setToken(token);
+		return setupApi.getToken();
 	}
 
 	public Response getMarketBuiltup(String expiry, String sector, String viewName) {
@@ -370,6 +421,7 @@ public class BaseTestApi {
 		return marketResponse;
 	}
 
+
 	public Response getFundamentalRatio(String ISIN) {
 		//setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
 		Map<String, Object> params = new HashMap<>();
@@ -377,6 +429,15 @@ public class BaseTestApi {
 		Response FundamentalRatio = setupApi.call_FundamentalRatio(setupApi.getNonTradingAccessTokenId(),
 				params);
 		return FundamentalRatio;
+	}
+
+	public Response getStockShareHolder(String ISIN) {
+		//setupApi.getNonTradingAccessTokenId()="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTIwVDA1OjIwOjA0Ljc4NjMwMTIxNVoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5NDYyNDA0LCJpYXQiOjE2NzY4NzA0MDR9.EmgVMP-gNe8mVTd8hj2pwQMhfZm6apv9ArBjfv6Zw5k";
+		Map<String, Object> params = new HashMap<>();
+		params.put("ISIN", ISIN);
+		Response StockShareHolder = setupApi.call_stockShareHolderApi(setupApi.getNonTradingAccessTokenId(),
+				params);
+		return StockShareHolder;
 	}
 
 
@@ -400,45 +461,76 @@ public class BaseTestApi {
 				params);
 		return marketResponse;
 	}
-	
+
 	public Response callFundWithdrawalDataApi(String name,String value) {
 
 		FundWithdrawalPOJO verifyOtp = FundWithdrawalDataMapper.getFundData(name,value );
 		Response fundWithdrawalResponse = setupApi.getFundWithdrawalData(verifyOtp);
 		return fundWithdrawalResponse;
 	}
-	
+
+	public Response callWithdrawalBalanceApi() {
+
+		Response WithdrawalBalanceResponse = setupApi.call_withdrawalBalanceAPi(setupApi.getNonTradingAccessTokenId());
+		return WithdrawalBalanceResponse;
+	}
+
+	public Response callgetWithdrawListAPI() {
+
+		Response WithdrawListResponse = setupApi.getWithdrawListAPI(setupApi.getNonTradingAccessTokenId());
+		return WithdrawListResponse;
+	}
+
+	public Response callGetTransactionMergedListAPI() {
+
+		Response transactionMergedListResponse = setupApi.getTransactionMergedListAPI(setupApi.getNonTradingAccessTokenId());
+		return transactionMergedListResponse;
+	}
+
+
 	public Response callFundRMSLimitApi(String exchange,String product,String segment) {
 
 		FundRmsLimitPOJO fundData = FundRmsLimitMapper.getFundData(exchange, product, segment);
 		Response fundRMSResponse = setupApi.getFundRMSLimitData(fundData);
 		return fundRMSResponse;
 	}
-	
-	
+
+
 	public Response callMarginAmountApi(String partyCode) {
 
 		MarginAmountPOJO marginData = MarginAmountMapper.getMarginAmountData(partyCode);
 		Response marginDataResponse = setupApi.getMarginAmount(marginData);
 		return marginDataResponse;
 	}
-	
+
 	public Response getWatchLists() {
 		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
 		return setupApi.call_getWatchlistAPI(setupApi.getNonTradingAccessTokenId());
-		
+
 	}
-	
-	
+
+	public Response getProfileData() {
+		//String nonTradedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJjb3VudHJ5X2NvZGUiOiIiLCJtb2Jfbm8iOiIiLCJ1c2VyX2lkIjoiVTUwMDQ5MjY3Iiwic291cmNlIjoiU1BBUksiLCJhcHBfaWQiOiI1NjU2NyIsImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTE5VDAyOjQzOjUwLjIwMDUwMzQ0OFoiLCJkYXRhQ2VudGVyIjoiIn0sImlzcyI6ImFuZ2VsIiwiZXhwIjoxNjc5MzY2NjMwLCJpYXQiOjE2NzY3NzQ2MzB9.t12sYizMDjgVHBSm9rrtmyQkemjnqSz1ds9CEG6Z50w";
+		return setupApi.callGetProfileApi(setupApi.getNonTradingAccessTokenId());
+
+	}
+
 	public String decodeJsonResponse(String data) {
 		String decodedJson = helper.decodeData(data);
 		return decodedJson;
 	}
 
+	public String decodeData(String data) {
+		String decodedJson = helper.decompressData(data);
+		return decodedJson;
+	}
+
+
 	public String encodeJsonData(String data) {
 		String encodeData = helper.encodeData(data);
 		return encodeData;
 	}
+
 	public void exitPositions() {
 		Response callOrdersApi = getOrderBook();// OrderBookAPi
 		GetOrdersDetailsResponsePOJO as = callOrdersApi.getBody().as(GetOrdersDetailsResponsePOJO.class);
@@ -458,14 +550,14 @@ public class BaseTestApi {
 			System.out.println("Successfully Placed SELL order for " + orderId.getOrderid());
 		});
 	}
-	
-	
+
+
 	public Response callGetUserSecurityAPI(String party_code) {
 		PledgeGetUserSecurityPOJO getUserSecurity = PledgeGetUserSecurity.getUserSecurityData(party_code);
 		Response response = setupApi.getUserSecurity(getUserSecurity);
 		return response;
 	}
-	
+
 	public Response callGetWithdrawSecurityAPI(String party_code) {
 		PledgeGetWithdrawSecurityPOJO getWithdrawSecurity = PledgeGetWithdrawSecurity.getWithdrawSecurityData(party_code);
 		Response response = setupApi.getWithdrawSecurity(getWithdrawSecurity);

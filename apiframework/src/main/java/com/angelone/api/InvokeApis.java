@@ -29,6 +29,7 @@ public final class InvokeApis {
     private static final String LTP_PRICE_ENDPOINT = ApiConfigFactory.getConfig().ltpPriceEndpoint();
     private static final String CANCEL_ORDER_ENDPOINT = ApiConfigFactory.getConfig().cancelOrderEndpoint();
     private static final String GET_ORDER_BOOK_ENDPOINT = ApiConfigFactory.getConfig().getOrderBookEndpoint();
+    private static final String GET_ORDER_STATUS_ENDPOINT = ApiConfigFactory.getConfig().getOrderStatus();
     private static final String GET_POSITION_ENDPOINT = ApiConfigFactory.getConfig().getPositionEndpoint();
     private static final String GET_LOGIN_OTP_ENDPOINT = ApiConfigFactory.getConfig().getLoginOTPEndpoint();
     private static final String VERIFY_OTP_ENDPOINT = ApiConfigFactory.getConfig().verifyOTPEndpoint();
@@ -44,6 +45,7 @@ public final class InvokeApis {
     private static final String GET_HOLDING_ENDPOINT = ApiConfigFactory.getConfig().getHoldingEndpoint();
     private static final String GET_OPTIONS_ENDPOINT = ApiConfigFactory.getConfig().getOptionEndpoint();
     private static final String GET_FUND_WITHDRAWAL_ENDPOINT = ApiConfigFactory.getConfig().fundWithdrawalEndpoint();
+    private static final String GET_FUND_WITHDRAWAL_BALANCE_ENDPOINT = ApiConfigFactory.getConfig().fundWithdrawalBalanceEndpoint();
     private static final String GET_MARGIN_AMOUNT_ENDPOINT = ApiConfigFactory.getConfig().marginAmountEndpoint();
     private static final String PLEDGE_GETUSERSECURITY_ENDPOINT = ApiConfigFactory.getConfig().getUserSecurityEndpoint();
     private static final String GET_MCX_CHARTS_ENDPOINT = ApiConfigFactory.getConfig().getChartsMCXEndpoint();
@@ -57,6 +59,13 @@ public final class InvokeApis {
     private static final String FUNDAMENTAL_RATIO_ENDPOINT = ApiConfigFactory.getConfig().fundamentalRatioEndpoint();
     private static final String TOPGAINER_AND_LOSERS_ENDPOINT = ApiConfigFactory.getConfig().topgaineAndLosers();
     private static final String SET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().setWatchlist();
+    private static final String STOCK_SHARE_HOLDER_ENDPOINT = ApiConfigFactory.getConfig().stockShareHolder();
+
+    private static final String GETWITHDRAWLIST_ENDPOINT = ApiConfigFactory.getConfig().getWithdrawListEndpoint();
+    private static final String GETTRANSACTIONMERGEDLIST_ENDPOINT = ApiConfigFactory.getConfig().getTransactionMergedListEndpoint();
+
+    private static final String PROFILE_ENDPOINT = ApiConfigFactory.getConfig().getProfileEndpoint();
+
 
     public String getToken() {
 		return token;
@@ -292,6 +301,27 @@ public final class InvokeApis {
         m.put("Content-Type", "application/json");
         return m;
     }
+    
+
+    /**
+     * this Method is to get OrderStatus
+     *
+     * @param OrderStatusPOJO
+     * @return
+     */
+    public Response getOrderStatus(OrderStatusPOJO orderStatusData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + GET_ORDER_STATUS_ENDPOINT);
+        Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+                .headers(getHeadersForOrder())
+                .body(orderStatusData)
+                .log()
+                .all()
+                .post(GET_ORDER_STATUS_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
 
     public Response cancelOrder(CancelOrderPOJO cancelOrderDetails) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CANCEL_ORDER_ENDPOINT);
@@ -444,6 +474,20 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
+    
+    public Response callGetProfileApi(String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.getPortfolioAdvisorySpec() + PROFILE_ENDPOINT);
+        Response response = BaseRequestSpecification.getPortfolioAdvisorySpec().contentType(ContentType.JSON)
+                .headers("AccessToken", nonTradeAccessToken)
+                .headers("ApplicationName","SPARK_Automation")
+                .log()
+                .all()
+                .get(PROFILE_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
 
     public Response callIpoMasterApi(String nonTradeAccessToken) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.IPO_BASE_URL + GET_IPO_MASTER_ENDPOINT);
@@ -526,6 +570,19 @@ public final class InvokeApis {
     }
 
 
+    public Response call_stockShareHolderApi(String nonTradeAccessToken, Map<String, Object> queryParams) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.DISCOVERY_BASE_URL + STOCK_SHARE_HOLDER_ENDPOINT);
+        Response response = BaseRequestSpecification.getDiscoveryRequestSpec().contentType(ContentType.JSON)
+                .headers("AccessToken", nonTradeAccessToken)
+                .queryParams(queryParams)
+                .log()
+                .all()
+                .get(STOCK_SHARE_HOLDER_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
     public Response call_TopGainerNLoser(String nonTradeAccessToken, Map<String, Object> queryParams) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + TOPGAINER_AND_LOSERS_ENDPOINT);
         Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
@@ -706,6 +763,18 @@ public final class InvokeApis {
     }
 
 
+    public Response call_withdrawalBalanceAPi(String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.FUND_WITHDRAWAL_BASE_URL + GET_FUND_WITHDRAWAL_BALANCE_ENDPOINT);
+        Response response = BaseRequestSpecification.getFundWithdrawalSpec().contentType(ContentType.JSON)
+                .headers("Authorization", "Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(GET_FUND_WITHDRAWAL_BALANCE_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
     //################### MarginAmount API ##########################
 
     public Response getMarginAmount(MarginAmountPOJO marginPojo) {
@@ -777,5 +846,32 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
+    
+    public Response getWithdrawListAPI(String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.FUND_WITHDRAWAL_BASE_URL + GETWITHDRAWLIST_ENDPOINT);
+        Response response = BaseRequestSpecification.getWithdrawList().contentType(ContentType.JSON) 
+        		.headers("Authorization", "Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(GETWITHDRAWLIST_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
 
+    public Response getTransactionMergedListAPI(String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.FUND_WITHDRAWAL_BASE_URL + GETTRANSACTIONMERGEDLIST_ENDPOINT);
+        Response response = BaseRequestSpecification.getTransactionMergedList().contentType(ContentType.JSON) 
+        		.headers("Authorization", "Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(GETTRANSACTIONMERGEDLIST_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+   
+    
+    
+    
 }

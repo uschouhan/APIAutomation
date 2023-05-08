@@ -35,6 +35,9 @@ public interface ApiConfig extends Config {
   @Key("GET_ORDER_BOOK_ENDPOINT")
   String getOrderBookEndpoint();
   
+  @Key("GET_ORDER_STATUS")
+  String getOrderStatus();
+  
   @Key("GET_POSITIONS_ENDPOINT")
   String getPositionEndpoint();
   
@@ -70,6 +73,10 @@ public interface ApiConfig extends Config {
 
   @Key("FUNDAMENTAL_RATIO")
   String fundamentalRatioEndpoint();
+  
+  @Key("STOCK_SHARE_HOLDER")
+  String stockShareHolder();
+  
   
   @Key("WATCHLIST_BASE_URL")
   String watchlistEndpoint();
@@ -113,6 +120,9 @@ public interface ApiConfig extends Config {
   @Key("FUND_WITHDRAWAL_BASE_URL")
   String fundWithdrawalBaseUrl();
   
+  @Key("FUND_WITHDRAWAL_BALANCE_ENDPOINT")
+  String fundWithdrawalBalanceEndpoint();
+  
   @Key("FUND_WITHDRAWAL_ENDPOINT")
   String fundWithdrawalEndpoint();
   
@@ -148,11 +158,23 @@ public interface ApiConfig extends Config {
 
   @Key("PORTFOLIO_LIST_ENDPOINT")
   String getPortfolioListEndpoint();
+  
+  @Key("PROFILE_ENDPOINT")
+  String getProfileEndpoint();
 
   @Key("TOPGAINER_AND_LOSERS")
   String topgaineAndLosers();
   @Key("SET_WATCHLIST")
   String setWatchlist();
+  
+  @Key("GETWITHDRAWLIST_BASE_URL")
+  String getWithdrawListBaseURL();
+  
+  @Key("GETWITHDRAWLIST_ENDPOINT")
+  String getWithdrawListEndpoint();
+  
+  @Key("GETTRANSACTIONMERGEDLIST_ENDPOINT")
+  String getTransactionMergedListEndpoint();
 
   //######### Test Data #########
   
