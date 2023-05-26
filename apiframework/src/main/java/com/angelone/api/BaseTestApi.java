@@ -1,6 +1,5 @@
 package com.angelone.api;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +8,61 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import com.angelone.api.pojo.*;
-import com.angelone.testdataMapper.*;
-
-import lombok.NonNull;
-import lombok.SneakyThrows;
 import org.testng.SkipException;
 
+import com.angelone.api.pojo.CancelOrderPOJO;
+import com.angelone.api.pojo.ChartsAPIPOJO;
+import com.angelone.api.pojo.CreateGttOrderPOJO;
+import com.angelone.api.pojo.FundRmsLimitPOJO;
+import com.angelone.api.pojo.FundWithdrawalPOJO;
+import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
+import com.angelone.api.pojo.GttCancelOrderPOJO;
+import com.angelone.api.pojo.GttOrderListPOJO;
+import com.angelone.api.pojo.GttOrderStatusPOJO;
+import com.angelone.api.pojo.LTPPricePOJO;
+import com.angelone.api.pojo.LoginMpinPOJO;
+import com.angelone.api.pojo.LoginOtpPOJO;
+import com.angelone.api.pojo.MarginAmountPOJO;
+import com.angelone.api.pojo.ModifyGttOrderPOJO;
+import com.angelone.api.pojo.ModifyOrderPOJO;
+import com.angelone.api.pojo.OptionsPOJO;
+import com.angelone.api.pojo.OrderStatusPOJO;
+import com.angelone.api.pojo.OrdersDetailsData;
+import com.angelone.api.pojo.PlaceOrderDetailsPOJO;
+import com.angelone.api.pojo.PledgeGetUserSecurityPOJO;
+import com.angelone.api.pojo.PledgeGetWithdrawSecurityPOJO;
+import com.angelone.api.pojo.RefreshTokenPOJO;
+import com.angelone.api.pojo.SetWatchListPOJO;
+import com.angelone.api.pojo.UserDataJWT_POJO;
+import com.angelone.api.pojo.VerifyLoginOtpPOJO;
 import com.angelone.api.utility.Helper;
+import com.angelone.testdataMapper.CancelOrderData;
+import com.angelone.testdataMapper.ChartsTestData;
+import com.angelone.testdataMapper.CreateGTTOrderMapper;
+import com.angelone.testdataMapper.FundRmsLimitMapper;
+import com.angelone.testdataMapper.FundWithdrawalDataMapper;
+import com.angelone.testdataMapper.GetLoginOTP;
+import com.angelone.testdataMapper.GttCancelOrderMapper;
+import com.angelone.testdataMapper.GttOrderListMapper;
+import com.angelone.testdataMapper.GttOrderStatusMapper;
+import com.angelone.testdataMapper.LTPPriceData;
+import com.angelone.testdataMapper.LoginMpinMapper;
+import com.angelone.testdataMapper.MarginAmountMapper;
+import com.angelone.testdataMapper.ModifyGttOrderMapper;
+import com.angelone.testdataMapper.ModifyOrderMapper;
+import com.angelone.testdataMapper.OptionsDataMapper;
+import com.angelone.testdataMapper.OrderStatusMapper;
+import com.angelone.testdataMapper.PlaceOrderTestData;
+import com.angelone.testdataMapper.PledgeGetUserSecurity;
+import com.angelone.testdataMapper.PledgeGetWithdrawSecurity;
+import com.angelone.testdataMapper.RefreshTokenMapper;
+import com.angelone.testdataMapper.SetWatchListDataMapper;
+import com.angelone.testdataMapper.UserDATAJWTMapper;
+import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
 import io.restassured.response.Response;
+import lombok.NonNull;
+import lombok.SneakyThrows;
 
 public class BaseTestApi {
 	// protected static ThreadLocal <ReqresApi> ReqresApi = new
@@ -42,6 +86,23 @@ public class BaseTestApi {
 
 	public void setUserDetails(String userDetails) {
 		this.userDetails = userDetails;
+	}
+	
+	public String getLTPPrice(String scriptId) {
+		String ltpPrice;
+		LTPPricePOJO ltpprice = LTPPriceData.getLTPPrice(scriptId);
+		Response response = setupApi.getLTPPrice(ltpprice);
+		if (response.statusCode() == 200 && Objects.nonNull(response)) {
+			ltpPrice = response.jsonPath().getString("data[0].tradePrice");
+			Double ltp = Double.valueOf(ltpPrice);
+			ltp = ltp / 100;
+			// DecimalFormat df = new DecimalFormat("#.##");
+			// df.format(ltp);
+			ltpPrice = String.valueOf(ltp);
+		} else
+			throw new SkipException("Couldnt generate Access Token for User .Hence skipping tests");
+		System.out.println("LTP price fetched from api === " + ltpPrice);
+		return ltpPrice;
 	}
 
 	public String getLTPPrice(String scriptId, String segment) {
