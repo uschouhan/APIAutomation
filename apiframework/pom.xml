@@ -187,7 +187,13 @@
 			<artifactId>json</artifactId>
 			<version>20230227</version>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -1,0 +1,14 @@
+{
+    "clientid": "U50049267",
+    "disclosedqty": 0,
+    "exchange": "nse_cm",
+    "price": 302980,
+    "producttype": "CNC",
+    "qty": 1,
+    "symboltoken": "11536",
+    "timeperiod": 365,
+    "tradingsymbol": "TCS-EQ",
+    "transactiontype": "B",
+    "triggerprice": 302940,
+    "strategyCode": "GTT_Spark_Web"
+}

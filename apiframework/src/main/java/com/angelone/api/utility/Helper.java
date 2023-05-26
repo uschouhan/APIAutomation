@@ -1,29 +1,20 @@
 package com.angelone.api.utility;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TimeZone;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -38,6 +29,9 @@ import javax.mail.search.ComparisonTerm;
 import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 
+import lombok.SneakyThrows;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONTokener;
@@ -74,21 +68,50 @@ public class Helper {
 	}
 
 	public String encodeData(String data) {
+		byte[] inputBytes = data.getBytes();
+		Deflater deflater = new Deflater();
+		deflater.setInput(inputBytes);
+		deflater.finish();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		// Compress the data
+		byte[] buffer = new byte[40000];
+		while (!deflater.finished()) {
+			int compressedSize = deflater.deflate(buffer);
+			outputStream.write(buffer, 0, compressedSize);
+		}
+		// Close the streams
+		try {
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// Get the compressed data as a byte array
+		byte[] compressedBytes = outputStream.toByteArray();
 
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless");
-		WebDriver driver = new ChromeDriver(options);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("https://www.zickty.com/gziptotext/");
-		driver.findElement(By.id("output")).sendKeys(data);
-		driver.findElement(By.id("button2")).click();
-		// String decodedJson = driver.findElement(By.id("output")).getText();
-		// System.out.println(" ##### Decoded Text ### \n"+decodedJson);
-		String encodedData = (String) ((JavascriptExecutor) driver).executeScript("return arguments[0].value;",
-				driver.findElement(By.id("input")));
-		System.out.println("enCoded Data \n " + encodedData);
-		driver.quit();
-		return encodedData;
+		// Encode the compressed data using Base64
+		String compressedData = Base64.getEncoder().encodeToString(compressedBytes);
+		// Print the compressed data
+		System.out.println(compressedData);
+		return compressedData;
+	}
+
+
+	@SneakyThrows
+	public String getOtpFromMail(String emailID, String emailPass) {
+		//Login lpa = PageFactory.initElements(getDriver(), Login.class);
+		String otp = null;
+		otp = getOTPmail(emailID, emailPass);
+		int count = 0;
+		while (count < 5) {
+			if (Objects.isNull(otp) || otp.isEmpty()) {
+				otp = getOTPmail(emailID, emailPass);
+				count++;
+				Thread.sleep(3000);
+			} else break;
+		}
+		//System.out.println("First time OTP for is " + otp);
+		System.out.println("First time OTP for is " + otp);
+		return otp;
 	}
 
 	public String getOTPmail(String emailID, String emailPass) throws InterruptedException {
@@ -253,6 +276,15 @@ public class Helper {
 		double FinalBuyPrice = roundOff / 10;
 		return String.valueOf(FinalBuyPrice);
 	}
+	
+	public String gttBuyCancelOrderLimitPrice(String ltp1) {
+		int lt = Integer.parseInt(ltp1);
+		int per = lt * 2 / 100;
+		int buyPrice = (lt - per) * 10;
+		int roundOff = Math.round(buyPrice);
+		int FinalBuyPrice = roundOff / 10;
+		return String.valueOf(FinalBuyPrice);
+	}
 
 	public String buyValueCustomPriceForCurrency(String ltp) {
 		double lt = Double.parseDouble(ltp);
@@ -270,6 +302,16 @@ public class Helper {
 		double roundOff = Math.round(buyPrice);
 		double FinalBuyPrice = roundOff / 10;
 		double roundOffFinal = Math.round(FinalBuyPrice);
+		return String.valueOf(roundOffFinal);
+	}
+	
+	public String buyValueTriggerPriceForGTT(String ltp) {
+		int lt = Integer.parseInt(ltp);
+		int per = lt * 10 / 100;
+		int buyPrice = (lt - per) * 10;
+		int roundOff = Math.round(buyPrice);
+		int FinalBuyPrice = roundOff / 10;
+		int roundOffFinal = Math.round(FinalBuyPrice);
 		return String.valueOf(roundOffFinal);
 	}
 
@@ -471,4 +513,33 @@ public class Helper {
 		}
 		return output;
 	}
+
+
+	public static long numOfDaysDiff(String fromDate,String toDate) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		ZonedDateTime fromZdt = ZonedDateTime.parse(fromDate, formatter);
+		ZonedDateTime toZdt = ZonedDateTime.parse(toDate, formatter);
+
+		LocalDateTime fromDateTime = fromZdt.toLocalDateTime();
+		LocalDateTime toDateTime = toZdt.toLocalDateTime();
+
+		Duration duration = Duration.between(fromDateTime, toDateTime);
+		long days = duration.toDays();
+		System.out.println("Number of days between " + fromDate + " and " + toDate + ": " + days);
+		return days;
+	}
+
+	public static void updatePropertyValue(String fileName , String key ,String value) {
+		String propertyFilePath = "src/test/resources/"+fileName;
+		try {
+			PropertiesConfiguration conf = new PropertiesConfiguration(propertyFilePath);
+			conf.setProperty(key, value);
+			conf.save();
+			System.out.println("Property file updated successfully!");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

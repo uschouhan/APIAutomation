@@ -26,6 +26,7 @@ public final class BaseRequestSpecification {
   public static final String IPO_BASE_URL = ApiConfigFactory.getConfig().getIpoBaseURL();
   public static final String PORTFOLIO_ADVISORY_BASE_URL = ApiConfigFactory.getConfig().getPortfolioAdvisoryBaseURL();
   public static final String GETWITHDRAWSLIST_BASE_URL = ApiConfigFactory.getConfig().getWithdrawListBaseURL();
+  public static final String GTT_BASE_URL = ApiConfigFactory.getConfig().getGttBaseURL();
   
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
@@ -33,6 +34,13 @@ public final class BaseRequestSpecification {
       .contentType(ContentType.JSON)
       .baseUri(BASE_URL);
   }
+  
+  public static RequestSpecification getGttRequestSpec() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(GTT_BASE_URL);
+	  }
 
 	public static RequestSpecification getIpoRequestSpec() {
 		return RestAssured

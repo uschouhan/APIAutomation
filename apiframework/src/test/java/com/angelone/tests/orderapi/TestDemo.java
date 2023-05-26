@@ -28,6 +28,14 @@ public class TestDemo {
 		Response response = baseTest.placeStockOrder("MARKET", "0.0", "DELIVERY", "10666", "PNB-EQ", "AMO");
 	}
 
+	@Test
+	public void genNonTradeToken() {
+		String user = "7021633598:nikhil.kolwalkar@angelbroking.com:lgacdmzwhstmcbnl:N213207:2222";
+		String secret="db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		BaseTestApi baseTest = new BaseTestApi();
+		baseTest.getNonTradingAccessToken(user);
+	}
+
 	public String orderTypeCheckForComodity() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
 		//int hour = calendar.get(Calendar.HOUR_OF_DAY);

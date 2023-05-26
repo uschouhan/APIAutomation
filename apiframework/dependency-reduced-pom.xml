@@ -47,8 +47,28 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>ApiHealthCheck</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>3.0.0-M5</version>
+              <configuration>
+                <suiteXmlFiles>
+                  <suiteXmlFile>ApiSyntheticMonitoringSuite.xml</suiteXmlFile>
+                </suiteXmlFiles>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
   <properties>
-    <noexception.version>1.7.1</noexception.version>
+    <noexception.version>1.6.2</noexception.version>
     <lombok.version>1.18.20</lombok.version>
     <junit.jupiter.version>5.8.2</junit.jupiter.version>
     <joda.version>2.10.13</joda.version>
@@ -56,14 +76,12 @@
     <extentreport.version>5.0.8</extentreport.version>
     <reflection.version>0.10.2</reflection.version>
     <maven.compiler.target>8</maven.compiler.target>
-    <webdrivermanager.version>5.0.3</webdrivermanager.version>
     <restassured.version>5.2.0</restassured.version>
-    <testng.version>7.4.0</testng.version>
+    <testng.version>7.1.0</testng.version>
     <owner.version>1.0.12</owner.version>
     <jackson.version>2.14.1</jackson.version>
     <appium.java.version>7.6.0</appium.java.version>
     <maven.compiler.source>8</maven.compiler.source>
-    <selenium.version>3.141.59</selenium.version>
   </properties>
 </project>
 

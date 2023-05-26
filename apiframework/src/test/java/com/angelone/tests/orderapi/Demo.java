@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import com.angelone.api.utility.Helper;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -26,30 +27,30 @@ import com.angelone.reports.TracingPrintStream;
 public class Demo {
 
 	ClientDetails cDetails ;
-	
+
 	@Parameters({ "UserCredentials" })
-	@BeforeTest
+	@BeforeTest(enabled = false)
 	public void Setup(String userDetails) {
 		ExtentReport.initReports();
 		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());
 		cDetails= new ClientDetails(userDetails);
-		
+
 	}
-	
-	@BeforeMethod
+
+	@BeforeMethod(enabled = false)
 	public void beforeMethod(Method m) {
 		ExtentReport.createTest(cDetails.getMobileNumber()+":"+m.getName());
 		ExtentReport.assignAuthor(cDetails.getClientId());
 	}
-	
-	@AfterMethod
+
+	@AfterMethod(enabled = false)
 	public void cleanUp() {
 		ExtentReport.flushReports();
 	}
-	
+
 	@Test
 	public void testName(Method m) throws Exception {
-	
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 		Date date = new Date();
 		System.out.println("Checking Custom Print in Extent Report");
@@ -61,31 +62,25 @@ public class Demo {
 
 	@Test
 	public void testName1(Method m) throws Exception {
-		 LocalDateTime now = LocalDateTime.now();  
-	        System.out.println("Before Formatting: " + now);  
-	        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");  
-	        ExtentLogger.info("testing extent logging in 2 ");
-	        String formatDateTime = now.format(format);  
-	        System.out.println("After Formatting: " + formatDateTime);  
-	        Assert.fail("checking");
-		
+		LocalDateTime now = LocalDateTime.now();
+		System.out.println("Before Formatting: " + now);
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+		ExtentLogger.info("testing extent logging in 2 ");
+		String formatDateTime = now.format(format);
+		System.out.println("After Formatting: " + formatDateTime);
+		Assert.fail("checking");
+
 	}
-	
-	@Test
-	public void testName3(Method m) throws Exception {
-		
-	        ExtentLogger.info("testing extent logging in 3 ");
-	 
-		
-	}
-	
 
 	@Test
-	public void testNam4(Method m) throws Exception {
-		
-	        ExtentLogger.info("testing extent logging in 4 ");
-	 
-		
+	public void daysDiffrence() {
+		String fromDateStr = "2023-05-10T19:02:30.473+05:30";
+		String toDateStr = "2024-05-09T19:02:30.440+05:30";
+		Helper.numOfDaysDiff(fromDateStr,toDateStr);
 	}
-	
+
+	@Test
+	public void setValues() {
+		Helper.updatePropertyValue("api-data.properties","N213207","gm104");
+	}
 }

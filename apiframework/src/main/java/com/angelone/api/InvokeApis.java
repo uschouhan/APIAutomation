@@ -1,5 +1,6 @@
 package com.angelone.api;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,13 +61,16 @@ public final class InvokeApis {
     private static final String TOPGAINER_AND_LOSERS_ENDPOINT = ApiConfigFactory.getConfig().topgaineAndLosers();
     private static final String SET_WATCHLIST_ENDPOINT = ApiConfigFactory.getConfig().setWatchlist();
     private static final String STOCK_SHARE_HOLDER_ENDPOINT = ApiConfigFactory.getConfig().stockShareHolder();
-
     private static final String GETWITHDRAWLIST_ENDPOINT = ApiConfigFactory.getConfig().getWithdrawListEndpoint();
     private static final String GETTRANSACTIONMERGEDLIST_ENDPOINT = ApiConfigFactory.getConfig().getTransactionMergedListEndpoint();
-
     private static final String PROFILE_ENDPOINT = ApiConfigFactory.getConfig().getProfileEndpoint();
-
-
+    private static final String GTT_CREATERULE_ENDPOINT = ApiConfigFactory.getConfig().getCreateRuleEndpoint();
+    private static final String GTT_ORDERSTATUS_ENDPOINT = ApiConfigFactory.getConfig().getGttOrderStatusEndpoint();
+    private static final String GTT_CANCELORDER_ENDPOINT = ApiConfigFactory.getConfig().getGttCancelOrderEndpoint();
+	private static final String GTT_ORDERLIST_ENDPOINT = ApiConfigFactory.getConfig().gttOrderlistEndpoint();
+	private static final String GTT_MODIFYORDER_ENDPOINT = ApiConfigFactory.getConfig().gttModifyOrderEndpoint();
+	
+	
     public String getToken() {
 		return token;
 	}
@@ -226,6 +230,48 @@ public final class InvokeApis {
         return response;
     }
 
+    /**
+     * Method for calling placeGTTOrder api
+     *
+     * @param placeGTTOrderDetails
+     * @return orderDetails
+     */
+    public Response placeGttOrder(CreateGttOrderPOJO placeOrderDetails) {
+ 
+    	Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
+                .headers(getHeadersForOrder())
+                .body(placeOrderDetails)
+                .log()
+                .all()
+                .post(GTT_CREATERULE_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    
+    /**
+     * Method for calling modifyGTTOrder api
+     *
+     * @param placeGTTOrderDetails
+     * @return orderDetails
+     */
+    public Response modifyGttOrder(ModifyGttOrderPOJO modifyGttOrderData) {
+ 
+    	Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
+                .headers(getHeadersForOrder())
+                .body(modifyGttOrderData)
+                .log()
+                .all()
+                .post(GTT_MODIFYORDER_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    
+    
+    
 
     /**
      * Method for calling placeOrder api
@@ -254,6 +300,7 @@ public final class InvokeApis {
     private Map<String, Object> getHeadersForOrder() {
 
         Map<String, Object> m = new HashMap<String, Object>();
+        m.put("ApplicationName", "SparkAutomation");
         m.put("X-SourceID", "aliqua ad");
         m.put("X-UserType", "aliqua ad");
         m.put("X-ClientLocalIP", "aliqua ad");
@@ -321,8 +368,44 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
-    
 
+    public Response getGttOrderStatus(GttOrderStatusPOJO orderStatusData) {
+        Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
+                .headers(getHeadersForOrder())
+                .body(orderStatusData)
+                .log()
+                .all()
+                .post(GTT_ORDERSTATUS_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
+    public Response gttCancelOrderApi(GttCancelOrderPOJO orderStatusData) {
+        Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
+                .headers(getHeadersForOrder())
+                .body(orderStatusData)
+                .log()
+                .all()
+                .post(GTT_CANCELORDER_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    
+    public Response gttOrderListApi(GttOrderListPOJO orderStatusData) {
+        Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
+                .headers(getHeadersForOrder())
+                .body(orderStatusData)
+                .log()
+                .all()
+                .post(GTT_ORDERLIST_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
     public Response cancelOrder(CancelOrderPOJO cancelOrderDetails) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CANCEL_ORDER_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
@@ -781,6 +864,7 @@ public final class InvokeApis {
 
         System.out.println(" ########## API Called : " + BaseRequestSpecification.MARGIN_AMOUNT_BASE_URL + GET_MARGIN_AMOUNT_ENDPOINT);
         Response response = BaseRequestSpecification.getMarginAmountSpec().contentType(ContentType.JSON)
+                .headers("authorization", "Bearer "+getToken())
                 .relaxedHTTPSValidation()
                 .body(marginPojo)
                 .log()
@@ -797,6 +881,7 @@ public final class InvokeApis {
     public Response getUserSecurity(PledgeGetUserSecurityPOJO usersecuritypojo) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETUSERSECURITY_BASE_URL + PLEDGE_GETUSERSECURITY_ENDPOINT);
         Response response = BaseRequestSpecification.getUserSecuritySpec().contentType(ContentType.JSON)
+                .headers("authorization", "Bearer "+getToken())
                 .body(usersecuritypojo)
                 .log()
                 .all()
@@ -809,6 +894,7 @@ public final class InvokeApis {
     public Response getWithdrawSecurity(PledgeGetWithdrawSecurityPOJO withdrawsecuritypojo) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETWITHDRAWSECURITY_BASE_URL + PLEDGE_GETWITHDRAWSECURITY_ENDPOINT);
         Response response = BaseRequestSpecification.getWithdrawSecuritySpec().contentType(ContentType.JSON)
+                .headers("authorization", "Bearer "+getToken())
                 .body(withdrawsecuritypojo)
                 .log()
                 .all()

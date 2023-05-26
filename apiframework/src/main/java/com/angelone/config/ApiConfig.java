@@ -175,7 +175,25 @@ public interface ApiConfig extends Config {
   
   @Key("GETTRANSACTIONMERGEDLIST_ENDPOINT")
   String getTransactionMergedListEndpoint();
+  
+  @Key("GTT_BASE_URL")
+  String getGttBaseURL();
+  
+  @Key("GTT_CREATERULE_ENDPOINT")
+  String getCreateRuleEndpoint();
+  
+  @Key("GTT_ORDERSTATUS_ENDPOINT")
+  String getGttOrderStatusEndpoint();
+  
+  @Key("GTT_CANCELORDER_ENDPOINT")
+  String getGttCancelOrderEndpoint();
+  
+  @Key("GTT_ORDERLIST_ENDPOINT")
+  String gttOrderlistEndpoint();
 
+  @Key("GTT_MODIFYORDER_ENDPOINT")
+  String gttModifyOrderEndpoint();
+  
   //######### Test Data #########
   
   @Key("SECRET_KEY")
@@ -225,5 +243,6 @@ public interface ApiConfig extends Config {
   
   @Key("COMODITY_SYMBOL_NCDEX_TOKEN")
   String comodityNcdexSymbolToken();
+  
   
 }
