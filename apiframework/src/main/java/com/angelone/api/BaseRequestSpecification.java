@@ -27,6 +27,12 @@ public final class BaseRequestSpecification {
   public static final String PORTFOLIO_ADVISORY_BASE_URL = ApiConfigFactory.getConfig().getPortfolioAdvisoryBaseURL();
   public static final String GETWITHDRAWSLIST_BASE_URL = ApiConfigFactory.getConfig().getWithdrawListBaseURL();
   public static final String GTT_BASE_URL = ApiConfigFactory.getConfig().getGttBaseURL();
+  public static final String REPORT_EXCHANGE_BASE_URL = ApiConfigFactory.getConfig().reportexchangebaseurl();
+  public static final String PLEDGE_GETTRANSACTION_BASE_URL = ApiConfigFactory.getConfig().getPledgeTransactionBaseURL();
+  public static final String PG_TRANSACTION_BASE_URL = ApiConfigFactory.getConfig().getPGTransactionBaseURL();
+  public static final String PG_BASE_URL = ApiConfigFactory.getConfig().getPGBaseURL();
+  public static final String PG_ACTUATOR_BASEURL = ApiConfigFactory.getConfig().getPGActuatorBaseURL();
+
   
   public static RequestSpecification getDefaultRequestSpec() {
     return RestAssured
@@ -142,5 +148,70 @@ public final class BaseRequestSpecification {
 	      .given()
 	      .contentType(ContentType.JSON)
 	      .baseUri(FUND_WITHDRAWAL_BASE_URL);
+	  }
+
+
+	public static RequestSpecification getOrderCharge() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(TRADE_BASE_URL);
+	}
+
+	public static RequestSpecification getEquityTransaction() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(TRADE_BASE_URL);
+
+	}
+
+
+	public static RequestSpecification getExchange() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(REPORT_EXCHANGE_BASE_URL);
+	}
+	public static RequestSpecification getReortExchange() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(REPORT_EXCHANGE_BASE_URL);
+	}
+	
+	public static RequestSpecification getPledgeTransaction() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PLEDGE_GETTRANSACTION_BASE_URL);
+	  }
+
+  public static RequestSpecification getPledgeStatus() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PLEDGE_GETTRANSACTION_BASE_URL);
+	  }
+
+  public static RequestSpecification getPGTransactionList() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PG_TRANSACTION_BASE_URL);
+	  }
+
+  public static RequestSpecification getPGTransactionBase() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PG_BASE_URL);
+	  }
+
+  public static RequestSpecification getPGActuator() {
+	    return RestAssured
+	      .given()
+	      .contentType(ContentType.JSON)
+	      .baseUri(PG_ACTUATOR_BASEURL);
 	  }
 }

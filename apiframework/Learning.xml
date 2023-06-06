@@ -12,8 +12,7 @@
 		<classes>
 			<class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring">
 				<methods>
-					<include name="placeOrder_Sell_DELIVERY_LimitOrder_Cash_T2TStock" />
-					<include name="placeOrder_Sell_DELIVERY_LimitOrder_Cash_FromHoldings" />
+					<include name="placeOrder_Buy_DELIVERY_LimitOrder_Cash" />
 				</methods>
 			</class>
 		</classes>

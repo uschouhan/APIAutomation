@@ -500,7 +500,7 @@ public class Helper {
 
 		Inflater inflater = new Inflater();
 		inflater.setInput(decodedData);
-		byte[] decompressedData = new byte[40000];
+		byte[] decompressedData = new byte[90000];
 		String output = "";
 		try {
 			int decompressedSize = inflater.inflate(decompressedData);
@@ -514,7 +514,69 @@ public class Helper {
 		return output;
 	}
 
+	public static boolean isExpiryGreaterThanCurrentDate(String givenDateStr) {
+        // Specify the given date in the format "01 Jan 1980"
+       // String givenDateStr = "01 Jan 1980";
+        boolean check=false;
+        // Get the current system date
+        Date currentDate = new Date();
+        
+        // Convert the current date to the desired format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        String currentDateString = dateFormat.format(currentDate);
+        
+        try {
+            // Parse the given date string into a Date object
+            Date givenDate = dateFormat.parse(givenDateStr);
+            
+            // Compare the system date with the given date
+            if (currentDate.compareTo(givenDate) < 0) {
+                System.out.println("System date is less than the given date. "+givenDate);
+                check=true;
+            } else {
+                System.out.println("System date is not less than the given date. "+givenDate);
+                check=false;
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid date format: " + givenDateStr);
+        }
+        return check;
+    }
 
+	public static boolean isExpiryGreaterThanCurrentDateByWeek(String givenDateStr) {
+		
+	        //String givenDate = "09 Jun 2022";
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+
+	        try {
+	            // Parsing the given date string
+	            Date date = dateFormat.parse(givenDateStr);
+
+	            // Getting the current system date
+	            Date currentDate = new Date();
+
+	            // Adding a week (6 days) to the current system date
+	            Calendar calendar = Calendar.getInstance();
+	            calendar.setTime(currentDate);
+	            calendar.add(Calendar.DAY_OF_YEAR, 6);
+	            Date futureDate = calendar.getTime();
+
+	            // Comparing the given date with the future date
+	            if (date.after(futureDate)) {
+	                System.out.println("Given date is greater than the current system date by a week.");
+	                return true;
+	            } else {
+	                System.out.println("Given date is not greater than the current system date by a week.");
+	                return false;
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Invalid date format. Please provide the date in the format 'dd MMM yyyy'.");
+	            return false;
+	        }
+	    
+    }
+
+	
 	public static long numOfDaysDiff(String fromDate,String toDate) {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");

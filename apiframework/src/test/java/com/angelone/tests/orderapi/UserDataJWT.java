@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 
+import com.angelone.api.utility.Helper;
+
 import io.restassured.response.Response;
 import lombok.Data;
 
@@ -166,5 +168,10 @@ public class UserDataJWT {
 		
 	}
 	
+	@Test
+	public void chekcdate() throws Exception {
+		System.out.println(Helper.isExpiryGreaterThanCurrentDateByWeek("08 Jun 2023"));
+		
+	}
 
 }

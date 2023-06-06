@@ -1174,4 +1174,6 @@ public class ApiSyntheticMonitoring extends BaseClass {
             ExtentLogger.pass("Order Placement Successful");
 
     }
+    
+    
 }

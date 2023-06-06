@@ -69,8 +69,28 @@ public final class InvokeApis {
     private static final String GTT_CANCELORDER_ENDPOINT = ApiConfigFactory.getConfig().getGttCancelOrderEndpoint();
 	private static final String GTT_ORDERLIST_ENDPOINT = ApiConfigFactory.getConfig().gttOrderlistEndpoint();
 	private static final String GTT_MODIFYORDER_ENDPOINT = ApiConfigFactory.getConfig().gttModifyOrderEndpoint();
-	
-	
+	private static final String GET_SEARCH_ENDPOINT = ApiConfigFactory.getConfig().getSearchEndpoint();
+    private static final String REPORT_EXCHANGE_BASE_ENDPOINT = ApiConfigFactory.getConfig().reportexchangebaseendpoint();
+    private static final String REPORT_EXCHANGE_BASESCRIPDETAIL_ENDPOINT = ApiConfigFactory.getConfig().reportexchangebasescripdetaisendpoint();
+    private static final String INSTA_TRADE_BASE_ENDPOINT = ApiConfigFactory.getConfig().instatradebasaendpoint();
+    private static final String EQUITY_TRANSACTION_ENDPOINT = ApiConfigFactory.getConfig().equitytransactionendpoint();
+    private static final String ORDER_CHARGES_ENDPOINT = ApiConfigFactory.getConfig().orderchargesendpoint(); 
+    private static final String PLEDGE_GETTRANSACTION_ENDPOINT = ApiConfigFactory.getConfig().getPledgeTransactionEndpoint();
+	private static final String GETUNPLEDGE_TRANSACTION_ENDPOINT = ApiConfigFactory.getConfig().getUnPledgeTransactionEndpoint();
+	private static final String GETPLEDGE_STATUS_ENDPOINT = ApiConfigFactory.getConfig().getPledgeStatusEndpoint();
+	private static final String CREATE_PLEDGE_ENDPOINT = ApiConfigFactory.getConfig().createPledgeEndpoint();
+	private static final String PG_TRANSACTION_LIST_ENDPOINT = ApiConfigFactory.getConfig().getPGTransactionlistEndpoint();
+	private static final String PG_TRANSACTION_ENDPOINT = ApiConfigFactory.getConfig().getPGTransactionEndpoint();
+	private static final String PG_TRANSACTION_MERGED_ENDPOINT = ApiConfigFactory.getConfig().getPGTransactionMergedEndpoint();
+	private static final String PG_TRANSACTION_QUICK_ADDFUND_SUGGESTION_ENDPOINT = ApiConfigFactory.getConfig().getPGQuickAddFundsSugestionEndpoint();
+	private static final String PG_TRANSACTIONS_LIMIT_ENDPOINT = ApiConfigFactory.getConfig().getPGTransactionLimitsEndpoint();
+	private static final String PG_TRANSACTION_HELP_TOPIC_ENDPOINT = ApiConfigFactory.getConfig().getPGTransactionHelpTopicEndpoint();
+	private static final String PG_ACTUATOR_ANY_ENDPOINT = ApiConfigFactory.getConfig().getPGActuatorAnyEndpoint();
+	private static final String PG_ACTUATOR_INFO_ENDPOINT = ApiConfigFactory.getConfig().getPGActuatorInfoEndpoint();
+	private static final String CHECK_OPPOSITE_PENDINGORDER_ENDPOINT = ApiConfigFactory.getConfig().checkOppositePendigOrderEndpoint();
+	private static final String GETALL_SYMBOL_ENDPOINT = ApiConfigFactory.getConfig().getAllSymbolEndpoint();
+	private static final String GET_SECURITY_INFO_ENDPOINT = ApiConfigFactory.getConfig().getSecurityInfoEndpoint();
+
     public String getToken() {
 		return token;
 	}
@@ -427,7 +447,7 @@ public final class InvokeApis {
                 .all()
                 .get(GET_ORDER_BOOK_ENDPOINT);
         System.out.println("########  Api Response ########");
-        //response.then().log().all(true);
+        response.then().log().all(true);
         return response;
     }
 
@@ -571,6 +591,19 @@ public final class InvokeApis {
         return response;
     }
 
+    
+    public Response callSearchApi(String nonTradeAccessToken, Map<String, Object> queryParams) {
+        Response response = BaseRequestSpecification.getPortfolioAdvisorySpec().contentType(ContentType.JSON)
+                .headers("AccessToken", nonTradeAccessToken)
+                .headers("ApplicationName","SPARK_Automation")
+                .queryParams(queryParams)
+                .log()
+                .all()
+                .get(GET_SEARCH_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().body(true);
+        return response;
+    }
 
     public Response callIpoMasterApi(String nonTradeAccessToken) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.IPO_BASE_URL + GET_IPO_MASTER_ENDPOINT);
@@ -956,8 +989,255 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
-   
+
+
+    public Response getEquityTransaction(String AccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + EQUITY_TRANSACTION_ENDPOINT);
+        Response response = BaseRequestSpecification.getEquityTransaction().contentType(ContentType.JSON)
+                .headers("AccessToken" ,getNonTradingAccessTokenId())
+                .log()
+                .all()
+                .get(EQUITY_TRANSACTION_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getOrderCharges(List<OrderChargesPOJO> OrderchargePojo) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + ORDER_CHARGES_ENDPOINT);
+        Response response = BaseRequestSpecification.getOrderCharge().contentType(ContentType.JSON)
+                .headers("AccessToken" ,getNonTradingAccessTokenId())
+                .relaxedHTTPSValidation()
+                .body(OrderchargePojo)
+                .log()
+                .all()
+                .post(ORDER_CHARGES_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+
+    //################### GetScripDetailAPI ##########################
+    public Response getScriptDetail(getScripDetailPOJO scripdetailPojo) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.REPORT_EXCHANGE_BASE_URL + REPORT_EXCHANGE_BASESCRIPDETAIL_ENDPOINT);
+        Response response = BaseRequestSpecification.getReortExchange().contentType(ContentType.JSON)
+                .headers("Authorization", "Bearer "+getToken())
+                .relaxedHTTPSValidation()
+                .body(scripdetailPojo)
+                .log()
+                .all()
+                .post(REPORT_EXCHANGE_BASESCRIPDETAIL_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+
+    //################### GetSecurity API ##########################
+    public Response getSecurity(GetSecurityInfoPOJO securityPojo) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.REPORT_EXCHANGE_BASE_URL + REPORT_EXCHANGE_BASE_ENDPOINT);
+        Response response = BaseRequestSpecification.getExchange().contentType(ContentType.JSON)
+                .headers("Authorization", "Bearer "+getToken())
+                .relaxedHTTPSValidation()
+                .body(securityPojo)
+                .log()
+                .all()
+                .post(REPORT_EXCHANGE_BASE_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
     
+    public Response getPledgeTransactionAPI( String nonTradeAccessToken,PledgeGetTransactionPOJO requestData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETTRANSACTION_BASE_URL + PLEDGE_GETTRANSACTION_ENDPOINT);
+        Response response = BaseRequestSpecification.getPledgeTransaction().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2OTMyNjEsImlhdCI6MTY4NTYwMDMxMCwib21uZW1hbmFnZXJpZCI6MSwic291cmNlaWQiOiI1Iiwic3ViIjoiVjk5MjU5In0.9qvt10f7AF6PeIytv1LRPRYX7gczPh0En8-BPzkey3iZMUOAX4Fy0afDjPDypgs44qxXE9m2WEk2PaL7QRm5IA")
+        		.body(requestData)
+                .log()
+                .all()
+                .post(PLEDGE_GETTRANSACTION_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
     
+    public Response getUnPledgeTransactionAPI( String nonTradeAccessToken,PledgeGetTransactionPOJO requestData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETTRANSACTION_BASE_URL + GETUNPLEDGE_TRANSACTION_ENDPOINT);
+        Response response = BaseRequestSpecification.getPledgeTransaction().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2OTMyNjEsImlhdCI6MTY4NTYwMDMxMCwib21uZW1hbmFnZXJpZCI6MSwic291cmNlaWQiOiI1Iiwic3ViIjoiVjk5MjU5In0.9qvt10f7AF6PeIytv1LRPRYX7gczPh0En8-BPzkey3iZMUOAX4Fy0afDjPDypgs44qxXE9m2WEk2PaL7QRm5IA")
+        		.body(requestData)
+                .log()
+                .all()
+                .post(GETUNPLEDGE_TRANSACTION_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
     
+    }
+    
+    public Response getPledgeStatusAPI( String nonTradeAccessToken,PledgeGetStatusPOJO pledgeStatusData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETTRANSACTION_BASE_URL + GETPLEDGE_STATUS_ENDPOINT);
+        Response response = BaseRequestSpecification.getPledgeTransaction().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2OTMyNjEsImlhdCI6MTY4NTYwMDMxMCwib21uZW1hbmFnZXJpZCI6MSwic291cmNlaWQiOiI1Iiwic3ViIjoiVjk5MjU5In0.9qvt10f7AF6PeIytv1LRPRYX7gczPh0En8-BPzkey3iZMUOAX4Fy0afDjPDypgs44qxXE9m2WEk2PaL7QRm5IA")
+        		.body(pledgeStatusData)
+                .log()
+                .all()
+                .post(GETPLEDGE_STATUS_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
+    public Response createPledgeAPI( String nonTradeAccessToken,CreatePledgePOJO createPledgeData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PLEDGE_GETTRANSACTION_BASE_URL + CREATE_PLEDGE_ENDPOINT);
+        Response response = BaseRequestSpecification.getPledgeTransaction().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODU2OTMyNjEsImlhdCI6MTY4NTYwMDMxMCwib21uZW1hbmFnZXJpZCI6MSwic291cmNlaWQiOiI1Iiwic3ViIjoiVjk5MjU5In0.9qvt10f7AF6PeIytv1LRPRYX7gczPh0En8-BPzkey3iZMUOAX4Fy0afDjPDypgs44qxXE9m2WEk2PaL7QRm5IA")
+        		.body(createPledgeData)
+                .log()
+                .all()
+                .post(CREATE_PLEDGE_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
+    public Response getPGTransactionListAPI( String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_TRANSACTION_BASE_URL + PG_TRANSACTION_LIST_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGTransactionList().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(PG_TRANSACTION_LIST_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getPGTransactionAPI( String nonTradeAccessToken,Map<String, Object> queryParams) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_BASE_URL + PG_TRANSACTION_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGTransactionBase().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+        		.queryParams(queryParams)
+                .log()
+                .all()
+                .get(PG_TRANSACTION_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getPGMergedTransactionAPI( String nonTradeAccessToken,Map<String, Object> queryParams) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_TRANSACTION_BASE_URL + PG_TRANSACTION_MERGED_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGTransactionList().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+        		.queryParams(queryParams)
+                .log()
+                .all()
+                .get(PG_TRANSACTION_MERGED_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getPGTransactionQuickAddFundSugestionAPI( String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_TRANSACTION_BASE_URL + PG_TRANSACTION_QUICK_ADDFUND_SUGGESTION_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGTransactionList().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(PG_TRANSACTION_QUICK_ADDFUND_SUGGESTION_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getPGTransactionLimitAPI( String nonTradeAccessToken,Map<String, Object> queryParams) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_TRANSACTION_BASE_URL + PG_TRANSACTIONS_LIMIT_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGTransactionList().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+        		.queryParams(queryParams)
+                .log()
+                .all()
+                .get(PG_TRANSACTIONS_LIMIT_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getPGTransactionHelpTopicAPI( String nonTradeAccessToken,String pathParams ) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_TRANSACTION_BASE_URL + PG_TRANSACTION_HELP_TOPIC_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGTransactionList().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+        		.pathParam("topic", pathParams)
+                .log()
+                .all()
+                .get(PG_TRANSACTION_HELP_TOPIC_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    public Response getPGActuatorAnyAPI( String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_ACTUATOR_BASEURL + PG_ACTUATOR_ANY_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGActuator().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(PG_ACTUATOR_ANY_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getPGActuatorInfoAPI( String nonTradeAccessToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.PG_ACTUATOR_BASEURL + PG_ACTUATOR_INFO_ENDPOINT);
+        Response response = BaseRequestSpecification.getPGActuator().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+nonTradeAccessToken)
+                .log()
+                .all()
+                .get(PG_ACTUATOR_INFO_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response checkOppositePendingOrder( CheckOppositePendingOrderPOJO oppositePendingOrderData) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CHECK_OPPOSITE_PENDINGORDER_ENDPOINT);
+        Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+getToken())
+        		.body(oppositePendingOrderData)
+                .log()
+                .all()
+                .post(CHECK_OPPOSITE_PENDINGORDER_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getAllSymbol(String tradeToken,Map<String, Object> queryParams) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + GETALL_SYMBOL_ENDPOINT);
+        Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+getToken())
+        		.queryParams(queryParams)
+                .log()
+                .all()
+                .get(GETALL_SYMBOL_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response getSecurityInfo(GetSecurityInfoPOJO securityinfodata) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + GET_SECURITY_INFO_ENDPOINT);
+        Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON) 
+        		.headers("Authorization","Bearer "+getToken())
+        		.body(securityinfodata)
+                .log()
+                .all()
+                .post(GET_SECURITY_INFO_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+}
 }

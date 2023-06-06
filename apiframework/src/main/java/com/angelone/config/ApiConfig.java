@@ -194,6 +194,66 @@ public interface ApiConfig extends Config {
   @Key("GTT_MODIFYORDER_ENDPOINT")
   String gttModifyOrderEndpoint();
   
+  @Key("SEARCH_ENDPOINT")
+  String getSearchEndpoint();
+  
+  @Key("PLEDGE_GETTRANSACTION_BASE_URL")
+  String getPledgeTransactionBaseURL();
+
+  @Key("PLEDGE_GETTRANSACTION_ENDPOINT")
+  String getPledgeTransactionEndpoint();
+
+  @Key("GETUNPLEDGE_TRANSACTION_ENDPOINT")
+  String getUnPledgeTransactionEndpoint();
+
+  @Key("GETPLEDGE_STATUS_ENDPOINT")
+  String getPledgeStatusEndpoint();
+
+  @Key("CREATE_PLEDGE_ENDPOINT")
+  String createPledgeEndpoint();
+
+  @Key("CHECK_OPPOSITE_PENDINGORDER_ENDPOINT")
+  String checkOppositePendigOrderEndpoint();
+
+  @Key("GETALL_SYMBOL_ENDPOINT")
+  String getAllSymbolEndpoint();
+
+  @Key("GET_SECURITY_INFO_ENDPOINT")
+  String getSecurityInfoEndpoint();
+  
+  //######### PG API ###########
+  @Key("PG_TRANSACTION_BASE_URL")
+  String getPGTransactionBaseURL();
+
+  @Key("PG_TRANSACTION_LIST_ENDPOINT")
+  String getPGTransactionlistEndpoint();
+
+  @Key("PG_BASE_URL")
+  String getPGBaseURL();
+
+  @Key("PG_TRANSACTION_ENDPOINT")
+  String getPGTransactionEndpoint();
+
+  @Key("PG_TRANSACTION_MERGED_ENDPOINT")
+  String getPGTransactionMergedEndpoint();
+
+  @Key("PG_TRANSACTION_QUICK_ADDFUND_SUGGESTION_ENDPOINT")
+  String getPGQuickAddFundsSugestionEndpoint();
+
+  @Key("PG_TRANSACTIONS_LIMIT_ENDPOINT")
+  String getPGTransactionLimitsEndpoint();
+
+  @Key("PG_TRANSACTION_HELP_TOPIC_ENDPOINT")
+  String getPGTransactionHelpTopicEndpoint();
+
+  @Key("PG_ACTUATOR_BASEURL")
+  String getPGActuatorBaseURL();
+
+  @Key("PG_ACTUATOR_ANY_ENDPOINT")
+  String getPGActuatorAnyEndpoint();
+
+  @Key("PG_ACTUATOR_INFO_ENDPOINT")
+  String getPGActuatorInfoEndpoint();
   //######### Test Data #########
   
   @Key("SECRET_KEY")
@@ -243,6 +303,20 @@ public interface ApiConfig extends Config {
   
   @Key("COMODITY_SYMBOL_NCDEX_TOKEN")
   String comodityNcdexSymbolToken();
-  
-  
+
+  @Key("REPORT_EXCHANGE_BASE_URL")
+  String reportexchangebaseurl();
+  @Key("REPORT_EXCHANGE_BASE_ENDPOINT")
+  String reportexchangebaseendpoint();
+
+
+  @Key("REPORT_EXCHANGE_BASESCRIPDETAIL_ENDPOINT")
+
+  String reportexchangebasescripdetaisendpoint();
+  @Key("INSTA_TRADE_BASE_ENDPOINT")
+  String instatradebasaendpoint();
+  @Key("ORDER_CHARGES_ENDPOINT")
+  String orderchargesendpoint();
+  @Key("EQUITY_TRANSACTION_ENDPOINT")
+  String equitytransactionendpoint();
 }
