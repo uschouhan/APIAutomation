@@ -446,8 +446,8 @@ public final class InvokeApis {
                 .log()
                 .all()
                 .get(GET_ORDER_BOOK_ENDPOINT);
-        System.out.println("########  Api Response ########");
-        response.then().log().all(true);
+        System.out.println("########  Disabling log for this api to avoid verbosity ########");
+        //response.then().log().all(true);
         return response;
     }
 

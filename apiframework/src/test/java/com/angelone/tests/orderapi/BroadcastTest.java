@@ -14,6 +14,8 @@ import org.testng.annotations.Test;
 import com.angelone.api.BaseClass;
 import com.angelone.api.utility.Helper;
 
+import io.restassured.response.Response;
+
 public class BroadcastTest extends BaseClass {
 	//Define DataProviders for broadcast test
 	@DataProvider(name = "equity")
@@ -109,9 +111,14 @@ public class BroadcastTest extends BaseClass {
 
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void broadcastTestForFNOOptions() throws IOException, InterruptedException {
-		String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
+		//String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
+		//String fnoSymbolToken = baseAPI.getLowerPriceScripId("BANKNIFTY 48000 CE", "ALLOPTIONS","nse_fo",5.0);
+		String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
+		Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("cde_fo", token);
+		String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+		System.out.println("Trading symbol "+ tradingSymbol);
 	}
 
 }
