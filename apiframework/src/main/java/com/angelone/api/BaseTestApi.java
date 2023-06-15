@@ -751,7 +751,7 @@ public class BaseTestApi {
 				String ltpPrice = getLTPPrice(tokenValue, exchange);
 				System.out.println("LTP price at " + Helper.dateTime() + " = " + ltpPrice);
 				double value = Double.parseDouble(ltpPrice);
-				if (value > 0.0 && value < 6.0) {
+				if (value > 0.0 && value < expectedAmt) {
 					System.out.println("Token has less price");
 					System.out.println("Token id = " + tokenValue);
 					System.out.println("Token Scrip Name = " + scriptDesc);
