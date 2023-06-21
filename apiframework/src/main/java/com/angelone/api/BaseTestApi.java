@@ -765,6 +765,48 @@ public class BaseTestApi {
 		return tokenValue;
 
 	}
+	
+	
+	public String getLowerPriceScripIdWoCEPECheck(String scriptName, String segment, String exchange, Double expectedAmt)
+			throws IOException, InterruptedException {
+
+		Response searchAndgetScripToken = searchAndgetScripToken(scriptName, segment, "false");
+		if (searchAndgetScripToken.getStatusCode() == 440) {
+			String nonTradingAccessToken = getNonTradingAccessToken(getUserDetails());
+			String[] split = getUserDetails().split(":");
+			updatePropertyValue("api-data.properties", split[3], nonTradingAccessToken);
+			searchAndgetScripToken = searchAndgetScripToken(scriptName, segment, "false");
+		}
+		String body = searchAndgetScripToken.asString();
+		String tokenValue = null;
+		String decodedValue = decodeData(body);
+		int matchingCount = 0;
+		JSONArray jsonArray = new JSONArray(decodedValue);
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject object = jsonArray.getJSONObject(i);
+			String expiryDate = object.getString("expd");
+			String scriptDesc = object.getString("symD");
+
+			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDate(expiryDate)) {
+				tokenValue = object.getString("token");
+				String ltpPrice = getLTPPrice(tokenValue, exchange);
+				System.out.println("LTP price at " + Helper.dateTime() + " = " + ltpPrice);
+				double value = Double.parseDouble(ltpPrice);
+				if (value > 0.0 && value < expectedAmt) {
+					System.out.println("Token has less price");
+					System.out.println("Token id = " + tokenValue);
+					System.out.println("Token Scrip Name = " + scriptDesc);
+					matchingCount++;
+					break;
+				}
+			}
+		}
+		if (matchingCount == 0)
+			System.out.println("No scrip found which has less price for " + scriptName);
+		return tokenValue;
+
+	}
 
 	public static void updatePropertyValue(String fileName, String key, String value) {
 		String propertyFilePath = "src/test/resources/" + fileName;

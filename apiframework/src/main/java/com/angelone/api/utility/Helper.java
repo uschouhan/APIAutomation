@@ -496,22 +496,51 @@ public class Helper {
 
 	public String decompressData(String compressedData) {
 
+//		byte[] decodedData = Base64.getDecoder().decode(compressedData);
+//
+//		Inflater inflater = new Inflater();
+//		inflater.setInput(decodedData);
+//		byte[] decompressedData = new byte[90000];
+//		String output = "";
+//		try {
+//			int decompressedSize = inflater.inflate(decompressedData);
+//			inflater.end();
+//
+//			output = new String(decompressedData, 0, decompressedSize);
+//			System.out.println("Decompress Data -> \n"+output);
+//		} catch (DataFormatException e) {
+//			e.printStackTrace();
+//		}
+//		return output;
+		
 		byte[] decodedData = Base64.getDecoder().decode(compressedData);
+	    Inflater inflater = new Inflater();
+	    inflater.setInput(decodedData);
+	    List<Byte> decompressedData = new ArrayList<>();
+	    String output = "";
 
-		Inflater inflater = new Inflater();
-		inflater.setInput(decodedData);
-		byte[] decompressedData = new byte[90000];
-		String output = "";
-		try {
-			int decompressedSize = inflater.inflate(decompressedData);
-			inflater.end();
+	    try {
+	        byte[] buffer = new byte[1024];
+	        while (!inflater.finished()) {
+	            int decompressedSize = inflater.inflate(buffer);
+	            for (int i = 0; i < decompressedSize; i++) {
+	                decompressedData.add(buffer[i]);
+	            }
+	        }
+	        inflater.end();
 
-			output = new String(decompressedData, 0, decompressedSize);
-			System.out.println("Decompress Data -> \n"+output);
-		} catch (DataFormatException e) {
-			e.printStackTrace();
-		}
-		return output;
+	        byte[] decompressedArray = new byte[decompressedData.size()];
+	        for (int i = 0; i < decompressedData.size(); i++) {
+	            decompressedArray[i] = decompressedData.get(i);
+	        }
+
+	        output = new String(decompressedArray);
+	        System.out.println("Decompressed Data -> \n" + output);
+	    } catch (DataFormatException e) {
+	        e.printStackTrace();
+	    }
+
+	    return output;
 	}
 
 	public static boolean isExpiryGreaterThanCurrentDate(String givenDateStr) {
