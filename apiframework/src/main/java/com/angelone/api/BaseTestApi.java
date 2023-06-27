@@ -671,7 +671,7 @@ public class BaseTestApi {
 			String expiryDate = object.getString("expd");
 			String scriptDesc = object.getString("symD");
 
-			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDate(expiryDate)
+			if (!expiryDate.isEmpty()
 					&& Helper.isExpiryGreaterThanCurrentDateByWeek(expiryDate)) {
 				tokenValue = object.getString("token");
 				System.out.println("Token id = " + tokenValue);
@@ -745,8 +745,7 @@ public class BaseTestApi {
 			String expiryDate = object.getString("expd");
 			String scriptDesc = object.getString("symD");
 
-			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDate(expiryDate)
-					&& scriptDesc.contains("CE")) {
+			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDateByWeek(expiryDate)) {
 				tokenValue = object.getString("token");
 				String ltpPrice = getLTPPrice(tokenValue, exchange);
 				System.out.println("LTP price at " + Helper.dateTime() + " = " + ltpPrice);
@@ -788,7 +787,7 @@ public class BaseTestApi {
 			String expiryDate = object.getString("expd");
 			String scriptDesc = object.getString("symD");
 
-			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDate(expiryDate)) {
+			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDateByWeek(expiryDate)) {
 				tokenValue = object.getString("token");
 				String ltpPrice = getLTPPrice(tokenValue, exchange);
 				System.out.println("LTP price at " + Helper.dateTime() + " = " + ltpPrice);
