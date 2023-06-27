@@ -5,9 +5,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
 
 import com.angelone.api.utility.Helper;
+
+import org.assertj.core.api.Assertions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -83,4 +87,32 @@ public class Demo {
 	public void setValues() {
 		Helper.updatePropertyValue("api-data.properties","N213207","gm104");
 	}
+	
+
+	@Test
+	public void collectionTest() {
+		ArrayList<Double> arrayList = new ArrayList<>();
+	
+		arrayList.add(-16.12);
+		arrayList.add(-15.12);
+		arrayList.add(12.12);
+		arrayList.add(13.12);
+		arrayList.add(14.12);
+		
+		TreeSet<Double> set = new TreeSet<>();
+		set.add(12.12);
+		set.add(13.12);
+		set.add(14.12);
+		set.add(-15.12);
+		set.add(-16.12);
+		
+		ArrayList<Double> arrayList1 = new ArrayList<>(set);
+	
+		System.out.println(arrayList);
+		System.out.println(arrayList1);
+		
+		Assertions.assertThat(arrayList).as("both list isnt equal").isEqualTo(arrayList1);
+		
+	}
+	
 }
