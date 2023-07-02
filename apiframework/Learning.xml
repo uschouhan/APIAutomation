@@ -3,19 +3,17 @@
 <suite name="ApiMonitoringSuite" parallel="tests" thread-count="10">
 	<listeners>
 		<listener class-name="com.angelone.listeners.TestListener" />
-
 	</listeners>
 	<parameter name="testng.metrics.report.name" value="SyntheticMonitoringApiRun.html" />
 	<parameter name="testng.metrics.report.appendTimestamp" value="True" />
 	<test thread-count="1" name="GM2">
 		<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222" />
 		<classes>
-			<class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring">
+			<class name="com.angelone.tests.orderapi.BroadcastTest">
 				<methods>
-					<include name="placeOrder_Buy_DELIVERY_LimitOrder_Cash" />
+					<include name="broadcastTestForEquity" />
 				</methods>
 			</class>
 		</classes>
 	</test>
-
 </suite> 

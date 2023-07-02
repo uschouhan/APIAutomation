@@ -7,22 +7,21 @@
 	<description>creating framework for api</description>
 
 	<properties>
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<owner.version>1.0.12</owner.version>
 		<appium.java.version>7.6.0</appium.java.version>
 		<extentreport.version>5.0.8</extentreport.version>
-		<restassured.version>5.2.0</restassured.version>
+		<restassured.version>5.3.0</restassured.version>
 		<jackson.version>2.14.1</jackson.version>
-		<assertjcore.version>3.21.0</assertjcore.version>
-		<lombok.version>1.18.20</lombok.version>
+		<assertjcore.version>3.24.1</assertjcore.version>
+		<lombok.version>1.18.26</lombok.version>
 		<noexception.version>1.6.2</noexception.version>
 		<reflection.version>0.10.2</reflection.version>
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
-		<testng.version>7.1.0</testng.version>
+		<testng.version>7.7.1</testng.version>
 		<joda.version>2.10.13</joda.version>
-
-
+		
 	</properties>
 
 	<dependencies>
