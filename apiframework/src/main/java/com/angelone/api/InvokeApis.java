@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.json.JSONObject;
+
 import com.angelone.api.pojo.*;
 import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
@@ -90,6 +92,7 @@ public final class InvokeApis {
 	private static final String CHECK_OPPOSITE_PENDINGORDER_ENDPOINT = ApiConfigFactory.getConfig().checkOppositePendigOrderEndpoint();
 	private static final String GETALL_SYMBOL_ENDPOINT = ApiConfigFactory.getConfig().getAllSymbolEndpoint();
 	private static final String GET_SECURITY_INFO_ENDPOINT = ApiConfigFactory.getConfig().getSecurityInfoEndpoint();
+	private static final String CREATE_BASKET_ENDPOINT = ApiConfigFactory.getConfig().createBasketEndpoint();
 
     public String getToken() {
 		return token;
@@ -536,10 +539,22 @@ public final class InvokeApis {
         return response;
     }
     
+    public Response invokeCreateBasket(JSONObject data) {
+        Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
+                .headers("authorization","Bearer "+getNonTradingAccessTokenId())
+                .body(data.toString())
+                .log()
+                .all()
+                .post(CREATE_BASKET_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
     public Response refreshToken(RefreshTokenPOJO refreshPojoData) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + REFRESH_TOKEN_ENDPOINT);
         Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
-                .headers(getVerifyOTPHeaders())
+                .headers(getHeadersForOrder())
                 .body(refreshPojoData)
                 .log()
                 .all()

@@ -1,6 +1,7 @@
 package com.angelone.tests.orderapi;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -8,10 +9,14 @@ import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.angelone.api.BaseClass;
+import com.angelone.api.pojo.CreateBasketPOJO;
 import com.angelone.api.utility.Helper;
 
 import io.restassured.response.Response;
@@ -111,14 +116,89 @@ public class BroadcastTest extends BaseClass {
 
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void broadcastTestForFNOOptions() throws IOException, InterruptedException {
 		//String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
-		//String fnoSymbolToken = baseAPI.getLowerPriceScripId("BANKNIFTY 48000 CE", "ALLOPTIONS","nse_fo",5.0);
+		//String fnoSymbolToken = baseAPI.getLowerPriceScripId("RELIANCE CE", "DERIVATIVESSEG","nse_fo",2.4);
 		String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
-		Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("cde_fo", token);
-		String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
-		System.out.println("Trading symbol "+ tradingSymbol);
+		//Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("mcx_fo", token);
+		//String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+		//System.out.println("Trading symbol "+ tradingSymbol);
 	}
 
+	@Test(enabled = true)
+	public void basketOrder() throws IOException, InterruptedException {
+		//String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
+		//String fnoSymbolToken = baseAPI.getLowerPriceScripId("RELIANCE CE", "DERIVATIVESSEG","nse_fo",2.4);
+		//String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
+		//Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("mcx_fo", token);
+		//String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+		//System.out.println("Trading symbol "+ tradingSymbol);
+		Helper helper = new Helper();
+		List<CreateBasketPOJO> objdata = new ArrayList<>();
+		 String dataFileName = "data/basketOrderData.json";
+		 InputStream datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
+		JSONTokener tokener = new JSONTokener(datais);
+		JSONObject object = new JSONObject(tokener);
+		JSONArray basketData = object.getJSONArray("orders");
+		//basketData.forEach(data->System.out.println(data.toString()));
+		for (int i = 0; i < basketData.length(); i++) {
+			String symbolName = basketData.getJSONObject(i).getString("symbolName");
+			String scripExchg = basketData.getJSONObject(i).getString("scripExchg");
+			String exchange = basketData.getJSONObject(i).getString("exchange");
+			String producttype = basketData.getJSONObject(i).getString("producttype");
+			String ordertype = basketData.getJSONObject(i).getString("ordertype");
+			String segment = basketData.getJSONObject(i).getString("segment");
+			Integer qty = basketData.getJSONObject(i).getInt("qty");
+			if(segment.equalsIgnoreCase("CASHSEG"))
+			{
+				 String token = baseAPI.getSciptIdforEquity(symbolName,exchange);
+				 Response callgetSecurityInfo = baseAPI.callgetSecurityInfo(scripExchg, token);
+				 String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+				 String scripIsin = callgetSecurityInfo.jsonPath().getString("data.isin");
+				 String details = callgetSecurityInfo.jsonPath().getString("data.desc");
+				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
+				 String variety = helper.orderTypeCheckForEquity();
+				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
+						 "01 Jan 1980", tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty, variety);
+				 objdata.add(createBasketData);
+			}
+			else
+			{
+				 List<String> sciptTokenAndExpiryFromSearchApi = baseAPI.getSciptTokenAndExpiryFromSearchApi(symbolName, segment);
+				 String token = sciptTokenAndExpiryFromSearchApi.get(0);
+				 String expiryDate = sciptTokenAndExpiryFromSearchApi.get(1);
+				 Response callgetSecurityInfo = baseAPI.callgetSecurityInfo(scripExchg, token);
+				 String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+				 String scripIsin = callgetSecurityInfo.jsonPath().getString("data.isin");
+				 String details = callgetSecurityInfo.jsonPath().getString("data.desc");
+				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
+				 String variety = helper.orderTypeCheckForEquity();
+				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
+						 expiryDate, tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty, variety);
+				 objdata.add(createBasketData);
+			}
+		}
+		Response callCreateBasketApi = baseAPI.callCreateBasketApi(objdata);
+	}
+	
+	public void readTestData() throws Exception {
+        InputStream datais = null;
+        JSONObject testData;
+        try {
+            String dataFileName = "data/IOS_40_3_Release.json";
+            datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
+            JSONTokener tokener = new JSONTokener(datais);
+            testData = new JSONObject(tokener);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (datais != null) {
+                datais.close();
+            }
+        }
+    }
 }

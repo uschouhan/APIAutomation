@@ -15,6 +15,7 @@ import org.apache.logging.log4j.core.util.IOUtils;
 import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.testng.annotations.Test;
 
 import com.angelone.api.utility.Helper;
@@ -172,6 +173,32 @@ public class UserDataJWT {
 	public void chekcdate() throws Exception {
 		System.out.println(Helper.isExpiryGreaterThanCurrentDateByWeek("08 Jun 2023"));
 		
+	}
+	
+	@Test(enabled = true)
+	public void basketOrder() throws IOException, InterruptedException {
+		//String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
+		//String fnoSymbolToken = baseAPI.getLowerPriceScripId("RELIANCE CE", "DERIVATIVESSEG","nse_fo",2.4);
+		//String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
+		//Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("mcx_fo", token);
+		//String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+		//System.out.println("Trading symbol "+ tradingSymbol);
+		 String dataFileName = "data/basketOrderData.json";
+		 InputStream datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
+		JSONTokener tokener = new JSONTokener(datais);
+		JSONObject object = new JSONObject(tokener);
+		JSONArray basketData = object.getJSONArray("orders");
+		//basketData.forEach(data->System.out.println(data.toString()));
+		for (int i = 0; i < basketData.length(); i++) {
+			String symbolName = basketData.getJSONObject(i).getString("symbolName");
+			String scripExchg = basketData.getJSONObject(i).getString("scripExchg");
+			String exchange = basketData.getJSONObject(i).getString("exchange");
+			System.out.println(exchange);
+			String producttype = basketData.getJSONObject(i).getString("producttype");
+			String ordertype = basketData.getJSONObject(i).getString("ordertype");
+			String segment = basketData.getJSONObject(i).getString("segment");
+			Integer qty = basketData.getJSONObject(i).getInt("qty");
+		}
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.angelone.api.pojo.*;
@@ -430,6 +431,53 @@ public class BaseTestApi {
 		return setupApi.getNonTradingAccessTokenId();
 	}
 
+	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName,
+			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,
+			String producttype, String exchange, String ordertype, String price, Integer qty, String variety) {
+		CreateBasketPOJO basketDataEq = null;
+		switch (exchange) {
+		case "NFO":
+			basketDataEq = CreateBasketMapper.createBasketForFNO( token,  scripExchg,  exchgName,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+			break;
+		case "BSE":
+		case "NSE":
+			basketDataEq = CreateBasketMapper.createBasketForEquity( token,  scripExchg,  exchgName,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+			break;
+		case "MCX":
+			basketDataEq = CreateBasketMapper.createBasketForCommodityMCX( token,  scripExchg,  exchgName,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+			break;
+		case "NCDEX":
+			basketDataEq = CreateBasketMapper.createBasketForCommodityNCDEX( token,  scripExchg,  exchgName,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+			break;
+		case "CDS":
+			basketDataEq = CreateBasketMapper.createBasketFoCurrency( token,  scripExchg,  exchgName,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+			break;
+		default:
+			System.out.println("Invalid Segment");
+		}
+
+		return basketDataEq;
+	}
+
+	public Response callCreateBasketApi(List<CreateBasketPOJO> basketData) {
+		JSONObject obj = new JSONObject();
+		obj.put("orders", basketData);
+		obj.put("basketName", "BASKET-"+UUID.randomUUID().toString());
+		System.out.println(obj.toString());
+		Response response = setupApi.invokeCreateBasket(obj);
+		return response;
+	}
+
 	@SneakyThrows
 	public String refreshToken(String userDetails) {
 		String[] creden = userDetails.split(":");
@@ -646,11 +694,12 @@ public class BaseTestApi {
 		String encodeData = helper.encodeData(data);
 		return encodeData;
 	}
-	
+
 	/**
 	 * 
 	 * @param scriptName
-	 * @param category CURNCYSEG , COMDTYSEG , ALLFUTURES ,ALLOPTIONS ,DERIVATIVESSEG
+	 * @param category   CURNCYSEG , COMDTYSEG , ALLFUTURES ,ALLOPTIONS
+	 *                   ,DERIVATIVESSEG
 	 * @return
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -671,8 +720,7 @@ public class BaseTestApi {
 			String expiryDate = object.getString("expd");
 			String scriptDesc = object.getString("symD");
 
-			if (!expiryDate.isEmpty()
-					&& Helper.isExpiryGreaterThanCurrentDateByWeek(expiryDate)) {
+			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDateByWeek(expiryDate)) {
 				tokenValue = object.getString("token");
 				System.out.println("Token id = " + tokenValue);
 				System.out.println("Token Scrip Name = " + scriptDesc);
@@ -681,6 +729,34 @@ public class BaseTestApi {
 		}
 
 		return tokenValue;
+
+	}
+
+	public List<String> getSciptTokenAndExpiryFromSearchApi(String scriptName, String category)
+			throws IOException, InterruptedException {
+		List<String> data = new ArrayList<>();
+		Response searchAndgetScripToken = searchAndgetScripToken(scriptName, category, "false");
+		String body = searchAndgetScripToken.asString();
+		String tokenValue = null;
+		String decodedValue = decodeData(body);
+
+		JSONArray jsonArray = new JSONArray(decodedValue);
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject object = jsonArray.getJSONObject(i);
+			String expiryDate = object.getString("expd");
+			String scriptDesc = object.getString("symD");
+			if (!expiryDate.isEmpty() && Helper.isExpiryGreaterThanCurrentDateByWeek(expiryDate)) {
+				tokenValue = object.getString("token");
+				data.add(tokenValue);
+				data.add(expiryDate);
+				System.out.println("Token id = " + tokenValue);
+				System.out.println("Token Scrip Name = " + scriptDesc);
+				break;
+			}
+		}
+
+		return data;
 
 	}
 
@@ -764,10 +840,9 @@ public class BaseTestApi {
 		return tokenValue;
 
 	}
-	
-	
-	public String getLowerPriceScripIdWoCEPECheck(String scriptName, String segment, String exchange, Double expectedAmt)
-			throws IOException, InterruptedException {
+
+	public String getLowerPriceScripIdWoCEPECheck(String scriptName, String segment, String exchange,
+			Double expectedAmt) throws IOException, InterruptedException {
 
 		Response searchAndgetScripToken = searchAndgetScripToken(scriptName, segment, "false");
 		if (searchAndgetScripToken.getStatusCode() == 440) {
@@ -974,7 +1049,7 @@ public class BaseTestApi {
 	/**
 	 * 
 	 * @param exchange FNO=nse_fo, Commodity=mcx_fo,Currency=cde_fo
-	 * @param symbol 
+	 * @param symbol
 	 * @return
 	 */
 	public Response callgetSecurityInfo(String exchange, String symbol) {

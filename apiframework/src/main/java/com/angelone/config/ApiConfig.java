@@ -47,6 +47,9 @@ public interface ApiConfig extends Config {
   @Key("GET_INSTA_TRADEDETAILS_ENDPOINT")
   String getInstaTradeDetailsEndpoint();
   
+  @Key("CREATE_BASKET_ENDPOINT")
+  String createBasketEndpoint();
+  
   @Key("LOGIN_OTP_ENDPOINT")
   String getLoginOTPEndpoint();
   

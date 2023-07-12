@@ -10,6 +10,14 @@
     <finalName>apiframework</finalName>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M5</version>
         <configuration>
@@ -68,20 +76,20 @@
     </profile>
   </profiles>
   <properties>
-    <noexception.version>1.6.2</noexception.version>
-    <lombok.version>1.18.20</lombok.version>
-    <junit.jupiter.version>5.8.2</junit.jupiter.version>
-    <joda.version>2.10.13</joda.version>
-    <assertjcore.version>3.21.0</assertjcore.version>
     <extentreport.version>5.0.8</extentreport.version>
-    <reflection.version>0.10.2</reflection.version>
-    <maven.compiler.target>8</maven.compiler.target>
-    <restassured.version>5.2.0</restassured.version>
-    <testng.version>7.1.0</testng.version>
-    <owner.version>1.0.12</owner.version>
-    <jackson.version>2.14.1</jackson.version>
+    <maven.compiler.source>17</maven.compiler.source>
     <appium.java.version>7.6.0</appium.java.version>
-    <maven.compiler.source>8</maven.compiler.source>
+    <assertjcore.version>3.24.1</assertjcore.version>
+    <jackson.version>2.14.1</jackson.version>
+    <junit.jupiter.version>5.8.2</junit.jupiter.version>
+    <restassured.version>5.3.0</restassured.version>
+    <joda.version>2.10.13</joda.version>
+    <lombok.version>1.18.28</lombok.version>
+    <maven.compiler.target>17</maven.compiler.target>
+    <testng.version>7.7.1</testng.version>
+    <noexception.version>1.6.2</noexception.version>
+    <reflection.version>0.10.2</reflection.version>
+    <owner.version>1.0.12</owner.version>
   </properties>
 </project>
 

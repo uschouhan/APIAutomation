@@ -1,0 +1,49 @@
+{
+    "orders": [
+        {
+            "symbolName": "BANKNIFTY",
+            "scripExchg": "nse_fo",
+            "exchange": "NFO",
+            "producttype": "Carry Forward",
+            "ordertype": "MARKET",
+            "segment":"DERIVATIVESSEG",
+            "qty":1
+        },
+        {
+            "symbolName": "PNB",
+            "scripExchg": "nse_cm",
+            "exchange": "NSE",
+            "producttype": "Delivery",
+             "ordertype": "MARKET",
+            "segment":"CASHSEG",
+             "qty":1
+        },
+        {
+            "symbolName": "GOLDPETAL",
+            "scripExchg": "mcx_fo",
+            "exchange": "MCX",
+            "producttype": "Carry Forward",
+             "ordertype": "MARKET",
+            "segment":"COMDTYSEG",
+             "qty":1
+        },
+        {
+           "symbolName": "DHANIYA",
+            "scripExchg": "ncx_fo",
+            "exchange": "NCDEX",
+            "producttype": "Carry Forward",
+             "ordertype": "MARKET",
+            "segment":"COMDTYSEG",
+             "qty":1
+        },
+        {
+           "symbolName": "USDINR",
+            "scripExchg": "cde_fo",
+            "exchange": "CDS",
+            "producttype": "Carry Forward",
+             "ordertype": "MARKET",
+            "segment":"CURNCYSEG",
+             "qty":1
+        }
+    ]
+}
