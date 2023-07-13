@@ -551,6 +551,20 @@ public final class InvokeApis {
         return response;
     }
     
+    public Response invokeDeleteBasket(String basketId) {
+    	Map<String, Object> queryParams = new HashMap<>();
+    	queryParams.put("basketId", basketId);
+        Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
+                .headers("authorization","Bearer "+getNonTradingAccessTokenId())
+                .queryParams(queryParams)
+                .log()
+                .all()
+                .delete(CREATE_BASKET_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
     public Response refreshToken(RefreshTokenPOJO refreshPojoData) {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.TRADE_BASE_URL + REFRESH_TOKEN_ENDPOINT);
         Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)

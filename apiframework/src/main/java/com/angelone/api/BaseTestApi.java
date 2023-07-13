@@ -469,6 +469,12 @@ public class BaseTestApi {
 
 		return basketDataEq;
 	}
+	
+	public Response callDeleteBasketApi(String basketId) {
+		Response response = setupApi.invokeDeleteBasket(basketId);
+		return response;
+	}
+	
 
 	public Response callCreateBasketApi(List<CreateBasketPOJO> basketData) {
 		JSONObject obj = new JSONObject();
@@ -478,6 +484,7 @@ public class BaseTestApi {
 		Response response = setupApi.invokeCreateBasket(obj);
 		return response;
 	}
+
 
 	@SneakyThrows
 	public String refreshToken(String userDetails) {

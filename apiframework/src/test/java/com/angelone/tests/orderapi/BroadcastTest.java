@@ -182,6 +182,8 @@ public class BroadcastTest extends BaseClass {
 			}
 		}
 		Response callCreateBasketApi = baseAPI.callCreateBasketApi(objdata);
+		String basketId = callCreateBasketApi.jsonPath().getString("data.basketId");
+		Response callDeleteBasketApi = baseAPI.callDeleteBasketApi(basketId);
 	}
 	
 	public void readTestData() throws Exception {
