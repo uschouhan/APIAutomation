@@ -433,31 +433,32 @@ public class BaseTestApi {
 
 	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName,
 			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,
-			String producttype, String exchange, String ordertype, String price, Integer qty, String variety) {
+			String producttype, String exchange, String ordertype, String price, Integer qty) {
 		CreateBasketPOJO basketDataEq = null;
+		String variety=null;
 		switch (exchange) {
-		case "NFO":
+		case "NFO": variety = helper.orderTypeCheckForEquity();
 			basketDataEq = CreateBasketMapper.createBasketForFNO( token,  scripExchg,  exchgName,
 					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
 		case "BSE":
-		case "NSE":
+		case "NSE": variety = helper.orderTypeCheckForEquity();
 			basketDataEq = CreateBasketMapper.createBasketForEquity( token,  scripExchg,  exchgName,
 					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
-		case "MCX":
+		case "MCX":variety = helper.orderTypeCheckForComodity();
 			basketDataEq = CreateBasketMapper.createBasketForCommodityMCX( token,  scripExchg,  exchgName,
 					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
-		case "NCDEX":
+		case "NCDEX":variety=helper.orderTypeCheckForComodity();
 			basketDataEq = CreateBasketMapper.createBasketForCommodityNCDEX( token,  scripExchg,  exchgName,
 					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
-		case "CDS":
+		case "CDS": variety= helper.orderTypeCheckForCurrency();
 			basketDataEq = CreateBasketMapper.createBasketFoCurrency( token,  scripExchg,  exchgName,
 					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);

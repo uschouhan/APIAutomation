@@ -25,6 +25,7 @@ public final class CreateBasketMapper {
 		readValue.setScripIsin(scripIsin);
 		readValue.setScripToken(token);
 		readValue.setSymbolName(symbolName);
+		readValue.setSymbolname(symbolName);
 		readValue.setDetails(details);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
@@ -56,6 +57,7 @@ public final class CreateBasketMapper {
 		readValue.setScripIsin(scripIsin);
 		readValue.setScripToken(token);
 		readValue.setSymbolName(symbolName);
+		readValue.setSymbolname(symbolName);
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
@@ -86,6 +88,7 @@ public final class CreateBasketMapper {
 		readValue.setScripIsin(scripIsin);
 		readValue.setScripToken(token);
 		readValue.setSymbolName(symbolName);
+		readValue.setSymbolname(symbolName);
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
@@ -116,6 +119,7 @@ public final class CreateBasketMapper {
 		readValue.setScripIsin(scripIsin);
 		readValue.setScripToken(token);
 		readValue.setSymbolName(symbolName);
+		readValue.setSymbolname(symbolName);
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
@@ -145,6 +149,7 @@ public final class CreateBasketMapper {
 		readValue.setScripIsin(scripIsin);
 		readValue.setScripToken(token);
 		readValue.setSymbolName(symbolName);
+		readValue.setSymbolname(symbolName);
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);

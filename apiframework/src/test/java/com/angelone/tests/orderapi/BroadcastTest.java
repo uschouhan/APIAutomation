@@ -159,9 +159,9 @@ public class BroadcastTest extends BaseClass {
 				 String details = callgetSecurityInfo.jsonPath().getString("data.desc");
 				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
-				 String variety = helper.orderTypeCheckForEquity();
+				// String variety = helper.orderTypeCheckForEquity();
 				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
-						 "01 Jan 1980", tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty, variety);
+						 "01 Jan 1980", tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty);
 				 objdata.add(createBasketData);
 			}
 			else
@@ -175,9 +175,9 @@ public class BroadcastTest extends BaseClass {
 				 String details = callgetSecurityInfo.jsonPath().getString("data.desc");
 				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
-				 String variety = helper.orderTypeCheckForEquity();
+				 //String variety = helper.orderTypeCheckForEquity();
 				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
-						 expiryDate, tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty, variety);
+						 expiryDate, tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty);
 				 objdata.add(createBasketData);
 			}
 		}
