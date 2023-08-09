@@ -13,7 +13,7 @@ public final class CreateBasketMapper {
 
 	@SneakyThrows
 	public static CreateBasketPOJO createBasketForEquity(String token, String scripExchg, String exchgName,
-			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,
+			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,String transType,
 			String producttype, String exchange, String ordertype, String price, Integer qty, String variety) {
 		CreateBasketPOJO readValue = new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/basketOrderCash.json"),
@@ -29,6 +29,7 @@ public final class CreateBasketMapper {
 		readValue.setDetails(details);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
+		readValue.setTransactiontype(transType);
 		readValue.setProducttype(producttype);
 		readValue.setExpirydate(expiryDate);
 		readValue.setExchange(exchange);
@@ -44,7 +45,7 @@ public final class CreateBasketMapper {
 
 	@SneakyThrows
 	public static CreateBasketPOJO createBasketForFNO(String token, String scripExchg, String exchgName,
-			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,
+			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,String transType,
 			String producttype, String exchange, String ordertype, String price, Integer qty, String variety) {
 		
 		CreateBasketPOJO readValue = new ObjectMapper()
@@ -61,6 +62,7 @@ public final class CreateBasketMapper {
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
+		readValue.setTransactiontype(transType);
 		readValue.setProducttype(producttype);
 		readValue.setExpirydate(expiryDate);
 		readValue.setExchange(exchange);
@@ -76,7 +78,7 @@ public final class CreateBasketMapper {
 
 	@SneakyThrows
 	public static CreateBasketPOJO createBasketForCommodityMCX(String token,String scripExchg,String exchgName,String scripIsin,String symbolName,String details,String expiryDate,
-			String tradeSymbol,String producttype,String exchange,String ordertype,String price,Integer qty,String variety) {
+			String tradeSymbol,String transType,String producttype,String exchange,String ordertype,String price,Integer qty,String variety) {
 		
 		CreateBasketPOJO readValue = new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/basketOrderCommodityMCX.json"),
@@ -92,6 +94,7 @@ public final class CreateBasketMapper {
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
+		readValue.setTransactiontype(transType);
 		readValue.setProducttype(producttype);
 		readValue.setExpirydate(expiryDate);
 		readValue.setExchange(exchange);
@@ -107,7 +110,7 @@ public final class CreateBasketMapper {
 	
 	@SneakyThrows
 	public static CreateBasketPOJO createBasketForCommodityNCDEX(String token,String scripExchg,String exchgName,String scripIsin,String symbolName,String details,String expiryDate,
-			String tradeSymbol,String producttype,String exchange,String ordertype,String price,Integer qty,String variety) {
+			String tradeSymbol,String transType,String producttype,String exchange,String ordertype,String price,Integer qty,String variety) {
 		
 		CreateBasketPOJO readValue = new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/basketOrderCommodityNCDEX.json"),
@@ -123,6 +126,7 @@ public final class CreateBasketMapper {
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
+		readValue.setTransactiontype(transType);
 		readValue.setProducttype(producttype);
 		readValue.setExpirydate(expiryDate);
 		readValue.setExchange(exchange);
@@ -138,7 +142,7 @@ public final class CreateBasketMapper {
 	
 	@SneakyThrows
 	public static CreateBasketPOJO createBasketFoCurrency(String token,String scripExchg,String exchgName,String scripIsin,String symbolName,String details,String expiryDate,
-			String tradeSymbol,String producttype,String exchange,String ordertype,String price,Integer qty,String variety) {
+			String tradeSymbol,String transType,String producttype,String exchange,String ordertype,String price,Integer qty,String variety) {
 		CreateBasketPOJO readValue = new ObjectMapper()
 				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/basketOrderCurrency.json"),
 						CreateBasketPOJO.class);
@@ -153,6 +157,7 @@ public final class CreateBasketMapper {
 		readValue.setDetails(expiryDate);
 		readValue.setTradeSymbol(tradeSymbol);
 		readValue.setIsinCode(scripIsin);
+		readValue.setTransactiontype(transType);
 		readValue.setProducttype(producttype);
 		readValue.setExpirydate(expiryDate);
 		readValue.setExchange(exchange);

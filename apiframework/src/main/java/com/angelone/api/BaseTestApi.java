@@ -432,35 +432,35 @@ public class BaseTestApi {
 	}
 
 	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName,
-			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,
+			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,String transType,
 			String producttype, String exchange, String ordertype, String price, Integer qty) {
 		CreateBasketPOJO basketDataEq = null;
 		String variety=null;
 		switch (exchange) {
 		case "NFO": variety = helper.orderTypeCheckForEquity();
 			basketDataEq = CreateBasketMapper.createBasketForFNO( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
 		case "BSE":
 		case "NSE": variety = helper.orderTypeCheckForEquity();
 			basketDataEq = CreateBasketMapper.createBasketForEquity( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
 		case "MCX":variety = helper.orderTypeCheckForComodity();
 			basketDataEq = CreateBasketMapper.createBasketForCommodityMCX( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
 		case "NCDEX":variety=helper.orderTypeCheckForComodity();
 			basketDataEq = CreateBasketMapper.createBasketForCommodityNCDEX( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
 		case "CDS": variety= helper.orderTypeCheckForCurrency();
 			basketDataEq = CreateBasketMapper.createBasketFoCurrency( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,
+					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;
 		default:
@@ -476,10 +476,13 @@ public class BaseTestApi {
 	}
 	
 
-	public Response callCreateBasketApi(List<CreateBasketPOJO> basketData) {
+	public Response callCreateBasketApi(String basketName,List<CreateBasketPOJO> basketData) {
 		JSONObject obj = new JSONObject();
 		obj.put("orders", basketData);
-		obj.put("basketName", "BASKET-"+UUID.randomUUID().toString());
+		if(basketName.isEmpty() || Objects.isNull(basketName))
+			obj.put("basketName", "BASKET-"+UUID.randomUUID().toString());
+		else
+			obj.put("basketName", basketName);
 		System.out.println(obj.toString());
 		Response response = setupApi.invokeCreateBasket(obj);
 		return response;

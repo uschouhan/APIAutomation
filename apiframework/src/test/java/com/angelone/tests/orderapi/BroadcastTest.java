@@ -119,8 +119,9 @@ public class BroadcastTest extends BaseClass {
 	@Test(enabled = true)
 	public void broadcastTestForFNOOptions() throws IOException, InterruptedException {
 		//String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
-		//String fnoSymbolToken = baseAPI.getLowerPriceScripId("RELIANCE CE", "DERIVATIVESSEG","nse_fo",2.4);
-		String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
+		String fnoSymbolToken = baseAPI.getLowerPriceScripId("BANKNIFTY 48000 CE", "ALLOPTIONS", "nse_fo",
+			50.0);
+		//String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
 		//Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("mcx_fo", token);
 		//String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 		//System.out.println("Trading symbol "+ tradingSymbol);
@@ -146,6 +147,7 @@ public class BroadcastTest extends BaseClass {
 			String symbolName = basketData.getJSONObject(i).getString("symbolName");
 			String scripExchg = basketData.getJSONObject(i).getString("scripExchg");
 			String exchange = basketData.getJSONObject(i).getString("exchange");
+			String transType = basketData.getJSONObject(i).getString("transactiontype");
 			String producttype = basketData.getJSONObject(i).getString("producttype");
 			String ordertype = basketData.getJSONObject(i).getString("ordertype");
 			String segment = basketData.getJSONObject(i).getString("segment");
@@ -161,7 +163,7 @@ public class BroadcastTest extends BaseClass {
 				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
 				// String variety = helper.orderTypeCheckForEquity();
 				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
-						 "01 Jan 1980", tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty);
+						 "01 Jan 1980", tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
 				 objdata.add(createBasketData);
 			}
 			else
@@ -177,13 +179,13 @@ public class BroadcastTest extends BaseClass {
 				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
 				 //String variety = helper.orderTypeCheckForEquity();
 				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
-						 expiryDate, tradeSymbol, producttype, exchange, ordertype, ltpPrice, qty);
+						 expiryDate, tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
 				 objdata.add(createBasketData);
 			}
 		}
-		Response callCreateBasketApi = baseAPI.callCreateBasketApi(objdata);
+		Response callCreateBasketApi = baseAPI.callCreateBasketApi("TestBasket",objdata);
 		String basketId = callCreateBasketApi.jsonPath().getString("data.basketId");
-		Response callDeleteBasketApi = baseAPI.callDeleteBasketApi(basketId);
+		//Response callDeleteBasketApi = baseAPI.callDeleteBasketApi(basketId);
 	}
 	
 	public void readTestData() throws Exception {
