@@ -431,7 +431,7 @@ public class BaseTestApi {
 		return setupApi.getNonTradingAccessTokenId();
 	}
 
-	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName,
+	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName,String exchId,
 			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,String transType,
 			String producttype, String exchange, String ordertype, String price, Integer qty) {
 		CreateBasketPOJO basketDataEq = null;
@@ -444,7 +444,7 @@ public class BaseTestApi {
 			break;
 		case "BSE":
 		case "NSE": variety = helper.orderTypeCheckForEquity();
-			basketDataEq = CreateBasketMapper.createBasketForEquity( token,  scripExchg,  exchgName,
+			basketDataEq = CreateBasketMapper.createBasketForEquity( token,  scripExchg,  exchgName,exchId,
 					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
 					 producttype,  exchange,  ordertype,  price,  qty,  variety);
 			break;

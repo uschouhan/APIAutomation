@@ -31,7 +31,7 @@
              "qty":1
         },
            {
-            "symbolName": "SBIN",
+            "symbolName": "YESBANK",
             "scripExchg": "nse_cm",
             "exchange": "NSE",
             "transactiontype": "S",

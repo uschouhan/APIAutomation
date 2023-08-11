@@ -137,7 +137,7 @@ public class BroadcastTest extends BaseClass {
 		//System.out.println("Trading symbol "+ tradingSymbol);
 		Helper helper = new Helper();
 		List<CreateBasketPOJO> objdata = new ArrayList<>();
-		 String dataFileName = "data/basketOrderData.json";
+		 String dataFileName = "data/basketOrderDataBse.json";
 		 InputStream datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
 		JSONTokener tokener = new JSONTokener(datais);
 		JSONObject object = new JSONObject(tokener);
@@ -147,6 +147,7 @@ public class BroadcastTest extends BaseClass {
 			String symbolName = basketData.getJSONObject(i).getString("symbolName");
 			String scripExchg = basketData.getJSONObject(i).getString("scripExchg");
 			String exchange = basketData.getJSONObject(i).getString("exchange");
+			String exchgId = basketData.getJSONObject(i).getString("exchgId");
 			String transType = basketData.getJSONObject(i).getString("transactiontype");
 			String producttype = basketData.getJSONObject(i).getString("producttype");
 			String ordertype = basketData.getJSONObject(i).getString("ordertype");
@@ -162,7 +163,7 @@ public class BroadcastTest extends BaseClass {
 				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
 				// String variety = helper.orderTypeCheckForEquity();
-				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
+				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange, exchgId,scripIsin, symbolName, details, 
 						 "01 Jan 1980", tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
 				 objdata.add(createBasketData);
 			}
@@ -178,12 +179,12 @@ public class BroadcastTest extends BaseClass {
 				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
 				 //String variety = helper.orderTypeCheckForEquity();
-				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, tradingSymbol, scripIsin, symbolName, details, 
+				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange,exchgId, scripIsin, symbolName, details, 
 						 expiryDate, tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
 				 objdata.add(createBasketData);
 			}
 		}
-		Response callCreateBasketApi = baseAPI.callCreateBasketApi("TestBasket",objdata);
+		Response callCreateBasketApi = baseAPI.callCreateBasketApi("TestNew",objdata);
 		String basketId = callCreateBasketApi.jsonPath().getString("data.basketId");
 		//Response callDeleteBasketApi = baseAPI.callDeleteBasketApi(basketId);
 	}

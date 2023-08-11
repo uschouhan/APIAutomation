@@ -12,7 +12,7 @@ public final class CreateBasketMapper {
 	}
 
 	@SneakyThrows
-	public static CreateBasketPOJO createBasketForEquity(String token, String scripExchg, String exchgName,
+	public static CreateBasketPOJO createBasketForEquity(String token, String scripExchg, String exchgName,String exchangeId,
 			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,String transType,
 			String producttype, String exchange, String ordertype, String price, Integer qty, String variety) {
 		CreateBasketPOJO readValue = new ObjectMapper()
@@ -21,6 +21,9 @@ public final class CreateBasketMapper {
 		readValue.setToken(token);
 		readValue.setScripCode(token);
 		readValue.setScripExchg(scripExchg);
+		readValue.setExchgId(exchangeId);
+		readValue.setAsset(Integer.valueOf(exchangeId));
+		readValue.setMktSegID(exchangeId);
 		readValue.setExchgName(exchgName);
 		readValue.setScripIsin(scripIsin);
 		readValue.setScripToken(token);
@@ -37,7 +40,7 @@ public final class CreateBasketMapper {
 		readValue.setPrice(price);
 		readValue.setQuantity(qty);
 		readValue.setSymboltoken(token);
-		readValue.setTradeSymbol(tradeSymbol);
+		readValue.setTradingsymbol(tradeSymbol);
 		readValue.setVariety(variety);
 		return readValue;
 	}
@@ -70,7 +73,7 @@ public final class CreateBasketMapper {
 		readValue.setPrice(price);
 		readValue.setQuantity(qty);
 		readValue.setSymboltoken(token);
-		readValue.setTradeSymbol(tradeSymbol);
+		readValue.setTradingsymbol(tradeSymbol);
 		readValue.setVariety(variety);
 		return readValue;
 	}
@@ -102,7 +105,7 @@ public final class CreateBasketMapper {
 		readValue.setPrice(price);
 		readValue.setQuantity(qty);
 		readValue.setSymboltoken(token);
-		readValue.setTradeSymbol(tradeSymbol);
+		readValue.setTradingsymbol(tradeSymbol);
 		readValue.setVariety(variety);
 		return readValue;
 	
@@ -134,7 +137,7 @@ public final class CreateBasketMapper {
 		readValue.setPrice(price);
 		readValue.setQuantity(qty);
 		readValue.setSymboltoken(token);
-		readValue.setTradeSymbol(tradeSymbol);
+		readValue.setTradingsymbol(tradeSymbol);
 		readValue.setVariety(variety);
 		return readValue;
 		
@@ -165,7 +168,7 @@ public final class CreateBasketMapper {
 		readValue.setPrice(price);
 		readValue.setQuantity(qty);
 		readValue.setSymboltoken(token);
-		readValue.setTradeSymbol(tradeSymbol);
+		readValue.setTradingsymbol(tradeSymbol);
 		readValue.setVariety(variety);
 		return readValue;
 	}
