@@ -189,6 +189,22 @@ public class BroadcastTest extends BaseClass {
 		//Response callDeleteBasketApi = baseAPI.callDeleteBasketApi(basketId);
 	}
 	
+	@Test
+	public void deleteAllBaskets() throws Exception {
+		Response callgetBasketListApi = baseAPI.callgetBasketListApi();
+		JSONObject object = new JSONObject(callgetBasketListApi.asString());
+		JSONArray jsonArray = object.getJSONArray("data");
+		List<String> basketIds = new ArrayList<>();
+		for (int i = 0; i < jsonArray.length(); i++)
+		{
+			String basketId = jsonArray.getJSONObject(i).getString("basketId");
+			basketIds.add(basketId);
+		}
+		
+		basketIds.forEach(bId->baseAPI.callDeleteBasketApi(bId));	
+	}
+	
+	
 	public void readTestData() throws Exception {
         InputStream datais = null;
         JSONObject testData;

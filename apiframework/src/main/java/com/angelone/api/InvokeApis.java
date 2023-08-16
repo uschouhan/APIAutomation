@@ -93,6 +93,7 @@ public final class InvokeApis {
 	private static final String GETALL_SYMBOL_ENDPOINT = ApiConfigFactory.getConfig().getAllSymbolEndpoint();
 	private static final String GET_SECURITY_INFO_ENDPOINT = ApiConfigFactory.getConfig().getSecurityInfoEndpoint();
 	private static final String CREATE_BASKET_ENDPOINT = ApiConfigFactory.getConfig().createBasketEndpoint();
+	private static final String GET_BASKET_LIST_ENDPOINT = ApiConfigFactory.getConfig().getBasketListEndpoint();
 
     public String getToken() {
 		return token;
@@ -560,6 +561,18 @@ public final class InvokeApis {
                 .log()
                 .all()
                 .delete(CREATE_BASKET_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+    
+    public Response getBasketList() {
+ 
+        Response response = BaseRequestSpecification.getTradeRequestSpec().contentType(ContentType.JSON)
+                .headers("authorization","Bearer "+getNonTradingAccessTokenId())
+                .log()
+                .all()
+                .get(GET_BASKET_LIST_ENDPOINT);
         System.out.println("########  Api Response ########");
         response.then().log().all(true);
         return response;

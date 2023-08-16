@@ -475,6 +475,11 @@ public class BaseTestApi {
 		return response;
 	}
 	
+	public Response callgetBasketListApi() {
+		Response response = setupApi.getBasketList();
+		return response;
+	}
+	
 
 	public Response callCreateBasketApi(String basketName,List<CreateBasketPOJO> basketData) {
 		JSONObject obj = new JSONObject();

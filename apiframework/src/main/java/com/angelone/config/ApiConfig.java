@@ -50,6 +50,9 @@ public interface ApiConfig extends Config {
   @Key("CREATE_BASKET_ENDPOINT")
   String createBasketEndpoint();
   
+  @Key("GET_BASKET_LIST_ENDPOINT")
+  String getBasketListEndpoint();
+  
   @Key("LOGIN_OTP_ENDPOINT")
   String getLoginOTPEndpoint();
   
