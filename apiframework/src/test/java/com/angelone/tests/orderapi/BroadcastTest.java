@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
@@ -137,72 +138,95 @@ public class BroadcastTest extends BaseClass {
 		//System.out.println("Trading symbol "+ tradingSymbol);
 		Helper helper = new Helper();
 		List<CreateBasketPOJO> objdata = new ArrayList<>();
-		 String dataFileName = "data/basketOrderDataBse.json";
+		 String dataFileName = "data/basketOrderDataMCX.json";
 		 InputStream datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
 		JSONTokener tokener = new JSONTokener(datais);
 		JSONObject object = new JSONObject(tokener);
 		JSONArray basketData = object.getJSONArray("orders");
 		//basketData.forEach(data->System.out.println(data.toString()));
 		for (int i = 0; i < basketData.length(); i++) {
-			String symbolName = basketData.getJSONObject(i).getString("symbolName");
-			String scripExchg = basketData.getJSONObject(i).getString("scripExchg");
-			String exchange = basketData.getJSONObject(i).getString("exchange");
-			String exchgId = basketData.getJSONObject(i).getString("exchgId");
-			String transType = basketData.getJSONObject(i).getString("transactiontype");
-			String producttype = basketData.getJSONObject(i).getString("producttype");
-			String ordertype = basketData.getJSONObject(i).getString("ordertype");
-			String segment = basketData.getJSONObject(i).getString("segment");
-			Integer qty = basketData.getJSONObject(i).getInt("qty");
-			if(segment.equalsIgnoreCase("CASHSEG"))
-			{
-				 String token = baseAPI.getSciptIdforEquity(symbolName,exchange);
-				 Response callgetSecurityInfo = baseAPI.callgetSecurityInfo(scripExchg, token);
-				 String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
-				 String scripIsin = callgetSecurityInfo.jsonPath().getString("data.isin");
-				 String details = callgetSecurityInfo.jsonPath().getString("data.desc");
-				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
-				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
-				// String variety = helper.orderTypeCheckForEquity();
-				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange, exchgId,scripIsin, symbolName, details, 
+            String symbolName = basketData.getJSONObject(i).getString("symbolName");
+            String scripExchg = basketData.getJSONObject(i).getString("scripExchg");
+            String exchange = basketData.getJSONObject(i).getString("exchange");
+            String exchgId = basketData.getJSONObject(i).getString("exchgId");
+            String transType = basketData.getJSONObject(i).getString("transactiontype");
+            String producttype = basketData.getJSONObject(i).getString("producttype");
+            String ordertype = basketData.getJSONObject(i).getString("ordertype");
+            String segment = basketData.getJSONObject(i).getString("segment");
+            Integer qty = basketData.getJSONObject(i).getInt("qty");
+            if(segment.equalsIgnoreCase("CASHSEG"))
+            {
+                String token = baseAPI.getSciptIdforEquity(symbolName,exchange);
+                Response callgetSecurityInfo = baseAPI.callgetSecurityInfo(scripExchg, token);
+                String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+                String scripIsin = callgetSecurityInfo.jsonPath().getString("data.isin");
+                String details = callgetSecurityInfo.jsonPath().getString("data.desc");
+                String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+                String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
+                
+               if(transType.equals("B")&&(ordertype.equalsIgnoreCase("LIMIT"))){
+            	  
+            	   CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange, exchgId,scripIsin, symbolName, details,
+  						 "01 Jan 1980", tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
+                   objdata.add(createBasketData);  
+      
+            }
+               else if(transType.equals("S")&&(ordertype.equalsIgnoreCase("LIMIT"))){
+            	
+             	 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange, exchgId,scripIsin, symbolName, details,
 						 "01 Jan 1980", tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
-				 objdata.add(createBasketData);
-			}
-			else
-			{
-				 List<String> sciptTokenAndExpiryFromSearchApi = baseAPI.getSciptTokenAndExpiryFromSearchApi(symbolName, segment);
-				 String token = sciptTokenAndExpiryFromSearchApi.get(0);
-				 String expiryDate = sciptTokenAndExpiryFromSearchApi.get(1);
-				 Response callgetSecurityInfo = baseAPI.callgetSecurityInfo(scripExchg, token);
-				 String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
-				 String scripIsin = callgetSecurityInfo.jsonPath().getString("data.isin");
-				 String details = callgetSecurityInfo.jsonPath().getString("data.desc");
-				 String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
-				 String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
-				 //String variety = helper.orderTypeCheckForEquity();
-				 CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange,exchgId, scripIsin, symbolName, details, 
-						 expiryDate, tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
-				 objdata.add(createBasketData);
-			}
-		}
-		Response callCreateBasketApi = baseAPI.callCreateBasketApi("TestNew",objdata);
-		String basketId = callCreateBasketApi.jsonPath().getString("data.basketId");
+                 objdata.add(createBasketData);  
+            	   
+               }
+               
+               else 
+               {
+            	   CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange, exchgId,scripIsin, symbolName, details,
+  						 "01 Jan 1980", tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
+                   objdata.add(createBasketData);  
+               }
+            }
+            else
+            {
+                List<String> sciptTokenAndExpiryFromSearchApi = baseAPI.getSciptTokenAndExpiryFromSearchApi(symbolName, segment);
+                String token = sciptTokenAndExpiryFromSearchApi.get(0);
+                String expiryDate = sciptTokenAndExpiryFromSearchApi.get(1);
+                Response callgetSecurityInfo = baseAPI.callgetSecurityInfo(scripExchg, token);
+                String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+                String scripIsin = callgetSecurityInfo.jsonPath().getString("data.isin");
+                String details = callgetSecurityInfo.jsonPath().getString("data.desc");
+                String tradeSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+                String ltpPrice = baseAPI.getLTPPrice(token, scripExchg);
+                //String variety = helper.orderTypeCheckForEquity();
+                CreateBasketPOJO createBasketData = baseAPI.createBasketData(token, scripExchg, exchange, exchgId,scripIsin, symbolName, details,
+                		expiryDate, tradeSymbol,transType, producttype, exchange, ordertype, ltpPrice, qty);
+                  objdata.add(createBasketData);  
+               
+            }
+        }
+        Response callCreateBasketApi = baseAPI.callCreateBasketApi("TestBasket",objdata);
+        String basketId=callCreateBasketApi.jsonPath().getString("data.basketId");
+        //return basketId;
 		//Response callDeleteBasketApi = baseAPI.callDeleteBasketApi(basketId);
 	}
 	
 	@Test
 	public void deleteAllBaskets() throws Exception {
-		Response callgetBasketListApi = baseAPI.callgetBasketListApi();
-		JSONObject object = new JSONObject(callgetBasketListApi.asString());
-		JSONArray jsonArray = object.getJSONArray("data");
-		List<String> basketIds = new ArrayList<>();
-		for (int i = 0; i < jsonArray.length(); i++)
-		{
-			String basketId = jsonArray.getJSONObject(i).getString("basketId");
-			basketIds.add(basketId);
-		}
-		
-		basketIds.forEach(bId->baseAPI.callDeleteBasketApi(bId));	
-	}
+        Response callgetBasketListApi = baseAPI.callgetBasketListApi();
+        JSONObject object = new JSONObject(callgetBasketListApi.asString());
+        Object listBasket = object.get("data");
+        if (Objects.nonNull(listBasket) && listBasket instanceof org.json.JSONArray) {
+            JSONArray jsonArray = object.getJSONArray("data");
+            List<String> basketIds = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                String basketId = jsonArray.getJSONObject(i).getString("basketId");
+                basketIds.add(basketId);
+            }
+            basketIds.forEach(bId -> baseAPI.callDeleteBasketApi(bId));
+        }
+        else
+            System.out.println("No exising Basket Found ...");
+    }
 	
 	
 	public void readTestData() throws Exception {

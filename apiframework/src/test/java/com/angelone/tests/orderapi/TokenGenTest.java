@@ -87,16 +87,16 @@ public class TokenGenTest extends BaseTestApi {
     void modifyEquityOrder() throws IOException {
         //Generate User Mpin Token
         String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
-        String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+        String secKey = "aAJALJFLJLSLFJ@##@!12123a";
         generateUserToken(userdetails, secKey);
         Helper helper = new Helper();
         // get LTP price to manipulate Limit Price
-        String pLtp = getLTPPrice("10666", "nse_cm");
+        String pLtp = getLTPPrice("3045", "nse_cm");
         String ltpPrice = helper.BuyroundoffValueToCancelOrder(pLtp);
         System.out.println("Post rounding off LTP value = " + ltpPrice);
         String variety = helper.orderTypeCheckForEquity();
         // Place Market Orders
-        Response response = placeStockOrder("LIMIT", ltpPrice, "DELIVERY", "10666", "PNB-EQ", variety);
+        Response response = placeStockOrder("LIMIT", ltpPrice, "DELIVERY", "3045", "SBIN-EQ", variety);
         String orderNum = response.jsonPath().getString("data.orderid");
         // Call getOrderBook
         Response callOrdersApi = getOrderBook();// OrderBookAPi
@@ -212,8 +212,8 @@ public class TokenGenTest extends BaseTestApi {
     @Test(enabled = true)
     public void testGetWatchlist() throws Exception {
         String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
-        //getNonTradingAccessToken(userdetails);
-        getNonTradingAccessTokenWithoutOtp(userdetails);
+        getNonTradingAccessToken(userdetails);
+       // getNonTradingAccessTokenWithoutOtp(userdetails);
         Response watchlists = getWatchLists();
         if(watchlists.getStatusCode()==401)
         {
