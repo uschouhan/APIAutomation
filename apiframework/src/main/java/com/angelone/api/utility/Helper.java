@@ -272,6 +272,7 @@ public class Helper {
 		return jwtToken;
 	}
 
+	@SneakyThrows
 	 public String genJTWTokenUAT(String UserID,String secret){
 		 	// String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 	        //String secret = System.getProperty("AMXJWTSecretKey") ;
@@ -293,10 +294,13 @@ public class Helper {
 
 	        payload.put("userData", userdata);
 	        payload.put("iss","angel");
-	        payload.put("exp","1736316461");
-	        payload.put("iat", "1673244461");
+	        Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+			String exp = prop.getProperty("exp");
+			String iat = prop.getProperty("iat");
+	        payload.put("exp",exp);
+	        payload.put("iat", iat);
 
-	        System.out.println(GenerateJWT(headers, payload, secret));
+	        System.out.println("JWT Token = "+GenerateJWT(headers, payload, secret));
 	        String token=GenerateJWT(headers, payload, secret);
 	        return token;
 	 }
