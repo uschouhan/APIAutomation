@@ -1,6 +1,8 @@
 package com.angelone.api.utility;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -17,6 +19,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.mail.Authenticator;
 import javax.mail.Flags;
@@ -34,6 +37,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -268,6 +272,86 @@ public class Helper {
 		return jwtToken;
 	}
 
+	@SneakyThrows
+	 public String genJTWTokenUAT(String UserID,String secret){
+		 	// String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+	        //String secret = System.getProperty("AMXJWTSecretKey") ;
+	        //String encodedString = Base64.getEncoder().encodeToString(secret.getBytes());
+
+	        JSONObject headers = new JSONObject();
+	        JSONObject payload = new JSONObject();
+	        JSONObject userdata = new JSONObject();
+
+	        headers.put("alg", "HS256");
+	        headers.put("typ", "JWT");
+
+	        userdata.put("country_code", "");
+	        userdata.put("mob_no", "");
+	        userdata.put("user_id",UserID);
+	        userdata.put("source", "TESTSUITE");
+	        userdata.put("app_id", "pqa_1");
+	        userdata.put("created_at", "2023-01-09T11:37:41.092792305+05:30");
+
+	        payload.put("userData", userdata);
+	        payload.put("iss","angel");
+	        Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+			String exp = prop.getProperty("exp");
+			String iat = prop.getProperty("iat");
+	        payload.put("exp",exp);
+	        payload.put("iat", iat);
+
+	        System.out.println("JWT Token = "+GenerateJWT(headers, payload, secret));
+	        String token=GenerateJWT(headers, payload, secret);
+	        return token;
+	 }
+	 
+	    public String GenerateJWT(JSONObject Headers,JSONObject Payload, String secret) {
+	        String JWT="";
+	        if(Headers.get("alg").toString().equals("HS256")) {
+	            String signature = hmacSha256(encode(Headers.toString().getBytes()) + "." + encode(Payload.toString().getBytes()), secret);
+	            JWT = encode(Headers.toString().getBytes()) + "." + encode(Payload.toString().getBytes()) + "." + signature;
+	        }else if(Headers.get("alg").toString().equals("HS512")) {
+	            String signature = hmacSha512(encode(Headers.toString().getBytes()) + "." + encode(Payload.toString().getBytes()), secret);
+	            JWT = encode(Headers.toString().getBytes()) + "." + encode(Payload.toString().getBytes()) + "." + signature;
+	        }
+	        return JWT;
+	    }
+	    
+	    private static String encode(byte[] bytes) {
+	        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+	    }
+	    
+	    private String hmacSha256(String data, String secret) {
+	        try {
+
+	            byte[] hash = secret.getBytes(StandardCharsets.UTF_8);
+	            Mac sha256Hmac = Mac.getInstance("HmacSHA256");
+	            SecretKeySpec secretKey = new SecretKeySpec(hash, "HmacSHA256");
+	            sha256Hmac.init(secretKey);
+
+	            byte[] signedBytes = sha256Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+
+	            return encode(signedBytes);
+	        } catch (Exception ex) {
+	            return null;
+	        }
+	    }
+	
+	    private String hmacSha512(String data, String secret) {
+	        try {
+
+	            byte[] hash = secret.getBytes(StandardCharsets.UTF_8);
+	            Mac sha512Hmac = Mac.getInstance("HmacSHA512");
+	            SecretKeySpec secretKey = new SecretKeySpec(hash, "HmacSHA512");
+	            sha512Hmac.init(secretKey);
+
+	            byte[] signedBytes = sha512Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+
+	            return encode(signedBytes);
+	        } catch (NoSuchAlgorithmException | InvalidKeyException | java.security.InvalidKeyException ex) {
+	            return null;
+	        }
+	    }
 	public String BuyroundoffValueToCancelOrder(String ltp1) {
 		double lt = Double.parseDouble(ltp1);
 		double per = lt * 2 / 100;

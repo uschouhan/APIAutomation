@@ -372,7 +372,8 @@ public class BaseTestApi {
 	private String genUserToken(String userId, String mpin, String secret) {
 
 		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
-		String jwtToken = helper.genJTWToken(userDetails, secret);
+		//String jwtToken = helper.genJTWToken(userDetails, secret);
+		String jwtToken = helper.genJTWTokenUAT(userId,secret);
 		Thread.sleep(5000);
 		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
 		Response response = setupApi.getUserTokenViaMPIN(userMpin, jwtToken);
