@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import org.testng.SkipException;
 
 import com.angelone.api.utility.Helper;
+import com.angelone.config.factory.ApiConfigFactory;
 
 import io.restassured.response.Response;
 
@@ -68,10 +69,14 @@ public class BaseTestApi {
 
 	public String getLTPPrice(String scriptId, String segment) {
 		String ltpPrice;
+		Response response;
 		List<String> symbolId = new ArrayList<>();
 		symbolId.add(scriptId);
 		LTPPricePOJO ltpprice = LTPPriceData.getLTPPrice(segment, symbolId);
-		Response response = setupApi.getLTPPrice(ltpprice);
+		if (ApiConfigFactory.getConfig().environment().equalsIgnoreCase("uat"))
+			response = setupApi.getLTPPriceInProd(ltpprice);
+		else
+			response = setupApi.getLTPPrice(ltpprice);
 		if (response.statusCode() == 200 && Objects.nonNull(response)) {
 			ltpPrice = response.jsonPath().getString("data[0].tradePrice");
 			Double ltp = Double.valueOf(ltpPrice);
@@ -372,8 +377,8 @@ public class BaseTestApi {
 	private String genUserToken(String userId, String mpin, String secret) {
 
 		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
-		//String jwtToken = helper.genJTWToken(userDetails, secret);
-		String jwtToken = helper.genJTWTokenUAT(userId,secret);
+		// String jwtToken = helper.genJTWToken(userDetails, secret);
+		String jwtToken = helper.genJTWTokenUAT(userId, secret);
 		Thread.sleep(5000);
 		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
 		Response response = setupApi.getUserTokenViaMPIN(userMpin, jwtToken);
@@ -384,6 +389,20 @@ public class BaseTestApi {
 			throw new SkipException("Couldnt generate MPIN Access Token for User .Hence skipping tests");
 		System.out.println("User Mpin Token = " + setupApi.getToken());
 		return setupApi.getToken();
+	}
+
+	@SneakyThrows
+	public String genUserTokenInProd() {
+		String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		String userId = "U50049267";
+		String mpin = "2222";
+		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
+		// String jwtToken = helper.genJTWToken(userDetails, secret);
+		String jwtToken = helper.genJTWTokenUAT(userId, secret);
+		Thread.sleep(5000);
+		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
+		Response response = setupApi.getUserTokenViaMPINinProd(userMpin, jwtToken);
+		return response.jsonPath().getString("data.accesstoken");
 	}
 
 	public Response getOrderBook() {
@@ -432,37 +451,41 @@ public class BaseTestApi {
 		return setupApi.getNonTradingAccessTokenId();
 	}
 
-	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName,String exchId,
-			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,String transType,
-			String producttype, String exchange, String ordertype, String price, Integer qty) {
+	public CreateBasketPOJO createBasketData(String token, String scripExchg, String exchgName, String exchId,
+			String scripIsin, String symbolName, String details, String expiryDate, String tradeSymbol,
+			String transType, String producttype, String exchange, String ordertype, String price, Integer qty) {
 		CreateBasketPOJO basketDataEq = null;
-		String variety=null;
+		String variety = null;
 		switch (exchange) {
-		case "NFO": variety = helper.orderTypeCheckForEquity();
-			basketDataEq = CreateBasketMapper.createBasketForFNO( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
-					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+		case "NFO":
+			variety = helper.orderTypeCheckForEquity();
+			basketDataEq = CreateBasketMapper.createBasketForFNO(token, scripExchg, exchgName, scripIsin, symbolName,
+					details, expiryDate, tradeSymbol, transType, producttype, exchange, ordertype, price, qty, variety);
 			break;
 		case "BSE":
-		case "NSE": variety = helper.orderTypeCheckForEquity();
-			basketDataEq = CreateBasketMapper.createBasketForEquity( token,  scripExchg,  exchgName,exchId,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
-					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+		case "NSE":
+			variety = helper.orderTypeCheckForEquity();
+			basketDataEq = CreateBasketMapper.createBasketForEquity(token, scripExchg, exchgName, exchId, scripIsin,
+					symbolName, details, expiryDate, tradeSymbol, transType, producttype, exchange, ordertype, price,
+					qty, variety);
 			break;
-		case "MCX":variety = helper.orderTypeCheckForComodity();
-			basketDataEq = CreateBasketMapper.createBasketForCommodityMCX( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
-					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+		case "MCX":
+			variety = helper.orderTypeCheckForComodity();
+			basketDataEq = CreateBasketMapper.createBasketForCommodityMCX(token, scripExchg, exchgName, scripIsin,
+					symbolName, details, expiryDate, tradeSymbol, transType, producttype, exchange, ordertype, price,
+					qty, variety);
 			break;
-		case "NCDEX":variety=helper.orderTypeCheckForComodity();
-			basketDataEq = CreateBasketMapper.createBasketForCommodityNCDEX( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
-					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+		case "NCDEX":
+			variety = helper.orderTypeCheckForComodity();
+			basketDataEq = CreateBasketMapper.createBasketForCommodityNCDEX(token, scripExchg, exchgName, scripIsin,
+					symbolName, details, expiryDate, tradeSymbol, transType, producttype, exchange, ordertype, price,
+					qty, variety);
 			break;
-		case "CDS": variety= helper.orderTypeCheckForCurrency();
-			basketDataEq = CreateBasketMapper.createBasketFoCurrency( token,  scripExchg,  exchgName,
-					 scripIsin,  symbolName,  details,  expiryDate,  tradeSymbol,transType,
-					 producttype,  exchange,  ordertype,  price,  qty,  variety);
+		case "CDS":
+			variety = helper.orderTypeCheckForCurrency();
+			basketDataEq = CreateBasketMapper.createBasketFoCurrency(token, scripExchg, exchgName, scripIsin,
+					symbolName, details, expiryDate, tradeSymbol, transType, producttype, exchange, ordertype, price,
+					qty, variety);
 			break;
 		default:
 			System.out.println("Invalid Segment");
@@ -470,30 +493,28 @@ public class BaseTestApi {
 
 		return basketDataEq;
 	}
-	
+
 	public Response callDeleteBasketApi(String basketId) {
 		Response response = setupApi.invokeDeleteBasket(basketId);
 		return response;
 	}
-	
+
 	public Response callgetBasketListApi() {
 		Response response = setupApi.getBasketList();
 		return response;
 	}
-	
 
-	public Response callCreateBasketApi(String basketName,List<CreateBasketPOJO> basketData) {
+	public Response callCreateBasketApi(String basketName, List<CreateBasketPOJO> basketData) {
 		JSONObject obj = new JSONObject();
 		obj.put("orders", basketData);
-		if(basketName.isEmpty() || Objects.isNull(basketName))
-			obj.put("basketName", "BASKET-"+UUID.randomUUID().toString());
+		if (basketName.isEmpty() || Objects.isNull(basketName))
+			obj.put("basketName", "BASKET-" + UUID.randomUUID().toString());
 		else
 			obj.put("basketName", basketName);
 		System.out.println(obj.toString());
 		Response response = setupApi.invokeCreateBasket(obj);
 		return response;
 	}
-
 
 	@SneakyThrows
 	public String refreshToken(String userDetails) {
@@ -536,7 +557,11 @@ public class BaseTestApi {
 			String password = creden[2];
 			String clientId = creden[3];
 			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
-			String oldTradeToken = prop.getProperty(clientId);
+			String oldTradeToken;
+			if (ApiConfigFactory.getConfig().environment().equalsIgnoreCase("uat"))
+				oldTradeToken = prop.getProperty("uat." + clientId);
+			else
+				oldTradeToken = prop.getProperty("prod." + clientId);
 			String requestId = genLoginToken(mobileNum, emailId, password, oldTradeToken);
 			String otp = helper.getOtpFromMail(emailId, password);
 			nonTradedToken = verifyLoginToken(requestId, mobileNum, otp, clientId);
@@ -558,7 +583,10 @@ public class BaseTestApi {
 		try {
 			String clientId = creden[3];
 			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
-			oldTradeToken = prop.getProperty(clientId);
+			if (ApiConfigFactory.getConfig().environment().equalsIgnoreCase("uat"))
+				oldTradeToken = prop.getProperty("uat." + clientId);
+			else
+				oldTradeToken = prop.getProperty("prod." + clientId);
 			setupApi.setNonTradingAccessTokenId(oldTradeToken);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Client Id missing in tentNG xml file");

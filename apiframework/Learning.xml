@@ -5,7 +5,6 @@
 		<listener class-name="com.angelone.listeners.TestListener" />
 	</listeners>
 	<parameter name="testng.metrics.report.name" value="SyntheticMonitoringApiRun.html" />
-	<parameter name="testng.metrics.report.appendTimestamp" value="True" />
 	<test thread-count="1" name="GM2">
 		<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222" />
 		<classes>

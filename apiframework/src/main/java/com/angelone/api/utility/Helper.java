@@ -5,9 +5,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -468,18 +470,31 @@ public class Helper {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = calendar.get(Calendar.MINUTE);
-		if (hour >= 9 && hour <= 14) {
-			if (hour == 9 && minute < 15)
-				return "AMO";
-			else
-				return "NORMAL";
-		} else if (hour == 15) {
-			if (minute < 30)
-				return "NORMAL";
-			else
-				return "AMO";
+//		if (hour >= 9 && hour <= 14) {
+//			if (hour == 9 && minute < 15)
+//				return "AMO";
+//			else
+//				return "NORMAL";
+//		} else if (hour == 15) {
+//			if (minute < 30)
+//				return "NORMAL";
+//			else
+//				return "AMO";
+//
+//		} else
+//			return "AMO";
+		LocalTime timeToCheck = LocalTime.of(hour, minute);
+		DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
+		if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+			return "AMO";
+		}
+		// Check if the time is between 9:15 am and 3:30 pm
+		LocalTime startTime = LocalTime.of(9, 15);
+		LocalTime endTime = LocalTime.of(15, 30);
 
-		} else
+		if(!timeToCheck.isBefore(startTime) && !timeToCheck.isAfter(endTime))
+			return "NORMAL";
+		else
 			return "AMO";
 	}
 
@@ -487,18 +502,31 @@ public class Helper {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = calendar.get(Calendar.MINUTE);
-		if (hour >= 9 && hour <= 16) {
-			if (hour == 9 && minute < 1)
-				return "AMO";
-			else
-				return "NORMAL";
-		} else if (hour == 17) {
-			if (minute < 1)
-				return "NORMAL";
-			else
-				return "AMO";
+//		if (hour >= 9 && hour <= 16) {
+//			if (hour == 9 && minute < 1)
+//				return "AMO";
+//			else
+//				return "NORMAL";
+//		} else if (hour == 17) {
+//			if (minute < 1)
+//				return "NORMAL";
+//			else
+//				return "AMO";
+//
+//		} else
+//			return "AMO";
+		LocalTime timeToCheck = LocalTime.of(hour, minute);
+		DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
+		if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+			return "AMO";
+		}
+		// Check if the time is between 9:15 am and 3:30 pm
+		LocalTime startTime = LocalTime.of(9, 15);
+		LocalTime endTime = LocalTime.of(17, 0);
 
-		} else
+		if(!timeToCheck.isBefore(startTime) && !timeToCheck.isAfter(endTime))
+			return "NORMAL";
+		else
 			return "AMO";
 	}
 
@@ -506,18 +534,31 @@ public class Helper {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Kolkata"));
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = calendar.get(Calendar.MINUTE);
-		if (hour >= 9 && hour <= 22) {
-			if (hour == 9 && minute < 1)
-				return "AMO";
-			else
-				return "NORMAL";
-		} else if (hour == 23) {
-			if (minute < 59)
-				return "NORMAL";
-			else
-				return "AMO";
+//		if (hour >= 9 && hour <= 22) {
+//			if (hour == 9 && minute < 1)
+//				return "AMO";
+//			else
+//				return "NORMAL";
+//		} else if (hour == 23) {
+//			if (minute < 59)
+//				return "NORMAL";
+//			else
+//				return "AMO";
+//
+//		} else
+//			return "AMO";
+		LocalTime timeToCheck = LocalTime.of(hour, minute);
+		DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
+		if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
+			return "AMO";
+		}
+		// Check if the time is between 9:15 am and 3:30 pm
+		LocalTime startTime = LocalTime.of(9, 0);
+		LocalTime endTime = LocalTime.of(23, 59);
 
-		} else
+		if(!timeToCheck.isBefore(startTime) && !timeToCheck.isAfter(endTime))
+			return "NORMAL";
+		else
 			return "AMO";
 	}
 

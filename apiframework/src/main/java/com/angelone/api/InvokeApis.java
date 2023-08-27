@@ -13,10 +13,14 @@ import com.angelone.api.pojo.*;
 import com.angelone.api.utility.Helper;
 import com.angelone.config.factory.ApiConfigFactory;
 import com.angelone.testdataMapper.GetLoginOTP;
+import com.angelone.testdataMapper.LoginMpinMapper;
+import com.angelone.testdataMapper.UserDATAJWTMapper;
 import com.angelone.testdataMapper.VerifyLoginOtpMapper;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import lombok.SneakyThrows;
 
 public final class InvokeApis {
 	
@@ -146,6 +150,20 @@ public final class InvokeApis {
         return response;
     }
 
+    public Response getUserTokenViaMPINinProd(LoginMpinPOJO userDetails, String jwtToken) {
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LOGIN_MPIN_ENDPOINT);
+        Response response = RestAssured.given().contentType(ContentType.JSON).baseUri("https://amx.angeltrade.com")
+                .headers(getHeadersMpin(jwtToken))
+                .body(userDetails)
+                .log()
+                .all()
+                .post(LOGIN_MPIN_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    
     /**
      * Method to construct headers for userToken api via MPIN
      *
@@ -347,6 +365,7 @@ public final class InvokeApis {
      * @return
      */
     public Response getLTPPrice(LTPPricePOJO ltprice) {
+    	
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LTP_PRICE_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeaderForLtpPrice())
@@ -358,6 +377,31 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
+    
+    @SneakyThrows
+  public Response getLTPPriceInProd(LTPPricePOJO ltprice) {
+	  	Helper helper = new Helper();
+	  	String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
+		String userId="U50049267";
+		String mpin="2222";
+		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
+		//String jwtToken = helper.genJTWToken(userDetails, secret);
+		String jwtToken = helper.genJTWTokenUAT(userId,secret);
+		Thread.sleep(5000);
+		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
+		Response response = getUserTokenViaMPINinProd(userMpin, jwtToken);
+
+        Response responseForLtpPrice = RestAssured.given().contentType(ContentType.JSON).baseUri("https://amx.angeltrade.com")
+                .headers("Authorization", "Bearer " + response.jsonPath().getString("data.accesstoken"))
+                .body(ltprice)
+                .log()
+                .all()
+                .post(LTP_PRICE_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        responseForLtpPrice.then().log().all(true);
+        return responseForLtpPrice;
+    }
+    
 
     private Map<String, ?> getHeaderForLtpPrice() {
         // TODO Auto-generated method stub
