@@ -1,6 +1,7 @@
 package com.angelone.api;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -354,6 +355,25 @@ public class BaseTestApi {
 		return response;
 	}
 
+	@SneakyThrows
+	public void generateUserToken(String userCredentials) {
+		userDetails = userCredentials;
+		Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+		secretKey=ApiConfigFactory.getConfig().secretKey();
+		String[] creden = userCredentials.split(":");
+		try {
+			String userId = creden[3];
+			String mpin = creden[4];
+			genUserToken(userId, mpin, secretKey);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println(
+					"UserId/Password/Secretkey Missing in testng xml file .Please provide if willing to use api call");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Issue while generating token.");
+		}
+	}
+
 	public void generateUserToken(String userCredentials, String secret) {
 		userDetails = userCredentials;
 		secretKey = secret;
@@ -372,7 +392,6 @@ public class BaseTestApi {
 			System.out.println("Issue while generating token.");
 		}
 	}
-
 	@SneakyThrows
 	private String genUserToken(String userId, String mpin, String secret) {
 
@@ -513,6 +532,74 @@ public class BaseTestApi {
 			obj.put("basketName", basketName);
 		System.out.println(obj.toString());
 		Response response = setupApi.invokeCreateBasket(obj);
+		return response;
+	}
+
+	public Response callgetStockSipListApi() {
+		Response response = setupApi.invokeGetStockSipList("EQUITY");
+		return response;
+	}
+
+	public Response callDeleteStockSipApi(String sip_id) {
+		JSONObject object = new JSONObject();
+		Response listOfStocks = callgetStockSipListApi();
+		//String data = listOfStocks.jsonPath().getString("data");
+		JSONObject jdata = new JSONObject(listOfStocks.asString());
+		JSONArray listOfSips = jdata.getJSONArray("data");
+			for (int i = 0; i < listOfSips.length(); i++) {
+				String sipid = listOfSips.getJSONObject(i).getString("sip_id");
+				//String segment = jsonArray.getJSONObject(i).getString("segment");
+			if(sipid.equalsIgnoreCase(sip_id))
+			{
+				object.put("order_type",listOfSips.getJSONObject(i).getString("order_type"));
+				object.put("order_value",listOfSips.getJSONObject(i).getInt("order_value"));
+				object.put("frequency",listOfSips.getJSONObject(i).getString("frequency"));
+				object.put("status","CANCEL");
+				object.put("start_date",listOfSips.getJSONObject(i).getString("start_date"));
+				object.put("strategy_code","SIP_Spark_Web");
+				break;
+			}
+		}
+		if(Objects.nonNull(object)) {
+			Response response = setupApi.invokeDeleteStockSip(sip_id, object);
+			return response;
+		}
+		else {
+			System.out.println("Couldnt find sip id in list");
+			return null;
+		}
+	}
+
+	public void cancelAllStockSip()
+	{
+		Response response = callgetStockSipListApi();
+		JSONObject jdata = new JSONObject(response.asString());
+		JSONArray listOfSips = jdata.getJSONArray("data");
+		for (int i = 0; i < listOfSips.length(); i++) {
+			String status = listOfSips.getJSONObject(i).getString("status");
+			if(status.equalsIgnoreCase("ACTIVE"))
+			{
+				JSONObject object = new JSONObject();
+				String sipid = listOfSips.getJSONObject(i).getString("sip_id");
+				object.put("order_type",listOfSips.getJSONObject(i).getString("order_type"));
+				object.put("order_value",listOfSips.getJSONObject(i).getInt("order_value"));
+				object.put("frequency",listOfSips.getJSONObject(i).getString("frequency"));
+				object.put("status","CANCEL");
+				object.put("start_date",listOfSips.getJSONObject(i).getString("start_date"));
+				object.put("strategy_code","SIP_Spark_Web");
+				setupApi.invokeDeleteStockSip(sipid, object);
+			}
+		}
+	}
+
+	public Response callCreateStockSipApi(String instrument_type,String instrument_id,String instrument_name,String instrument_trade_symbol,String instrument_symbol
+			,String order_value,String frequency,String order_type,String exchange,String start_date) {
+		CreateStockSIPPOJO createStockSIPPOJO = CreateStockSIPMapper.stockSIP(instrument_type, instrument_id, instrument_name, instrument_trade_symbol, instrument_symbol
+				, order_value, frequency, order_type, exchange, start_date);
+		ArrayList<String> tags = new ArrayList<>();
+		tags.add("alpha");
+		createStockSIPPOJO.setTags(tags);
+		Response response = setupApi.invokeCreateStockSIP(createStockSIPPOJO);
 		return response;
 	}
 

@@ -227,8 +227,23 @@ public class BroadcastTest extends BaseClass {
         else
             System.out.println("No exising Basket Found ...");
     }
-	
-	
+
+	@Test
+	public void createStockSIPTest() {
+		String sipStartDate = Helper.getNextMonthDateForStockSIP();
+		Response createRes = baseAPI.callCreateStockSipApi("EQUITY","11915","YES BANK LIMITED",
+				"YESBANK-EQ","YESBANK","1","MONTHLY","QTY","NSE",sipStartDate);
+		String sipId = createRes.jsonPath().getString("data.sip_id");
+		//String sipId="3c0a480a-4721-11ee-b112-0a58a9feac02";
+		//Response response = baseAPI.callgetStockSipListApi();
+		//baseAPI.callDeleteStockSipApi(sipId);
+	}
+
+	@Test
+	public void deleteAllSipOrder() {
+		baseAPI.cancelAllStockSip();
+	}
+
 	public void readTestData() throws Exception {
         InputStream datais = null;
         JSONObject testData;

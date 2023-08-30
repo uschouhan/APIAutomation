@@ -27,7 +27,7 @@ public class BaseClass {
 	public void Setup(@Optional("9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222")String userDetails) {
 		baseAPI = new BaseTestApi();
 		// Generate User Mpin Token
-		baseAPI.generateUserToken(userDetails, SECRET_KEY);
+		baseAPI.generateUserToken(userDetails);
 		// Generate NonTraded Access Token
 		//baseAPI.getNonTradingAccessToken(userDetails);
 		baseAPI.getNonTradingAccessTokenWithoutOtp(userDetails);

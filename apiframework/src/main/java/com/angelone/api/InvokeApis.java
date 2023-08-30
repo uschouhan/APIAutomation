@@ -98,6 +98,8 @@ public final class InvokeApis {
 	private static final String GET_SECURITY_INFO_ENDPOINT = ApiConfigFactory.getConfig().getSecurityInfoEndpoint();
 	private static final String CREATE_BASKET_ENDPOINT = ApiConfigFactory.getConfig().createBasketEndpoint();
 	private static final String GET_BASKET_LIST_ENDPOINT = ApiConfigFactory.getConfig().getBasketListEndpoint();
+    private static final String GET_CREATE_STOCKSIP_ENDPOINT = ApiConfigFactory.getConfig().createStockSipEndpoint();
+
 
     public String getToken() {
 		return token;
@@ -595,7 +597,38 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
     }
-    
+
+    public Response invokeCreateStockSIP(CreateStockSIPPOJO data) {
+        Response response = BaseRequestSpecification.getStockSIPBaseSpec().contentType(ContentType.JSON)
+                .headers("authorization","Bearer "+getNonTradingAccessTokenId())
+                .headers("accesstoken",getNonTradingAccessTokenId())
+                .headers("applicationname","SparkAutomation")
+                .body(data)
+                .log()
+                .all()
+                .post(GET_CREATE_STOCKSIP_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
+    public Response invokeGetStockSipList(String intrumentType)
+    {
+        Map<String, Object> queryParams = new HashMap<>();
+        queryParams.put("instrument-type", intrumentType);
+        Response response = BaseRequestSpecification.getStockSIPBaseSpec().contentType(ContentType.JSON)
+                .headers("authorization","Bearer "+getNonTradingAccessTokenId())
+                .headers("accesstoken",getNonTradingAccessTokenId())
+                .headers("applicationname","SparkAutomation")
+                .queryParams(queryParams)
+                .log()
+                .all()
+                .get(GET_CREATE_STOCKSIP_ENDPOINT);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
+
     public Response invokeDeleteBasket(String basketId) {
     	Map<String, Object> queryParams = new HashMap<>();
     	queryParams.put("basketId", basketId);
@@ -1326,4 +1359,20 @@ public final class InvokeApis {
         response.then().log().all(true);
         return response;
 }
+
+    public Response invokeDeleteStockSip(String sipId,JSONObject body) {
+
+        String url = GET_CREATE_STOCKSIP_ENDPOINT+"/"+sipId;
+        Response response = BaseRequestSpecification.getStockSIPBaseSpec().contentType(ContentType.JSON)
+                .headers("authorization","Bearer "+getNonTradingAccessTokenId())
+                .headers("accesstoken",getNonTradingAccessTokenId())
+                .headers("applicationname","SparkAutomation")
+                .body(body.toString())
+                .log()
+                .all()
+                .put(url);
+        System.out.println("########  Api Response ########");
+        response.then().log().all(true);
+        return response;
+    }
 }

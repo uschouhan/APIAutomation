@@ -264,6 +264,30 @@ public interface ApiConfig extends Config {
 
   @Key("${environment}.PG_ACTUATOR_INFO_ENDPOINT")
   String getPGActuatorInfoEndpoint();
+
+  @Key("${environment}.REPORT_EXCHANGE_BASE_URL")
+  String reportexchangebaseurl();
+  @Key("${environment}.REPORT_EXCHANGE_BASE_ENDPOINT")
+  String reportexchangebaseendpoint();
+
+
+  @Key("${environment}.REPORT_EXCHANGE_BASESCRIPDETAIL_ENDPOINT")
+
+  String reportexchangebasescripdetaisendpoint();
+  @Key("${environment}.INSTA_TRADE_BASE_ENDPOINT")
+  String instatradebasaendpoint();
+  @Key("${environment}.ORDER_CHARGES_ENDPOINT")
+  String orderchargesendpoint();
+  @Key("${environment}.EQUITY_TRANSACTION_ENDPOINT")
+  String equitytransactionendpoint();
+
+  //SIP endpoints
+  @Key("${environment}.STOCK_SIP_BASE_URL")
+  String stockSipBaseUrl();
+
+  @Key("${environment}.CREATE_STOCK_SIP_ENDPOINT")
+  String createStockSipEndpoint();
+
   //######### Test Data #########
   
   @Key("${environment}.SECRET_KEY")
@@ -313,20 +337,4 @@ public interface ApiConfig extends Config {
   
   @Key("${environment}.COMODITY_SYMBOL_NCDEX_TOKEN")
   String comodityNcdexSymbolToken();
-
-  @Key("${environment}.REPORT_EXCHANGE_BASE_URL")
-  String reportexchangebaseurl();
-  @Key("${environment}.REPORT_EXCHANGE_BASE_ENDPOINT")
-  String reportexchangebaseendpoint();
-
-
-  @Key("${environment}.REPORT_EXCHANGE_BASESCRIPDETAIL_ENDPOINT")
-
-  String reportexchangebasescripdetaisendpoint();
-  @Key("${environment}.INSTA_TRADE_BASE_ENDPOINT")
-  String instatradebasaendpoint();
-  @Key("${environment}.ORDER_CHARGES_ENDPOINT")
-  String orderchargesendpoint();
-  @Key("${environment}.EQUITY_TRANSACTION_ENDPOINT")
-  String equitytransactionendpoint();
 }

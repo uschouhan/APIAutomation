@@ -32,6 +32,7 @@ public final class BaseRequestSpecification {
   public static final String PG_TRANSACTION_BASE_URL = ApiConfigFactory.getConfig().getPGTransactionBaseURL();
   public static final String PG_BASE_URL = ApiConfigFactory.getConfig().getPGBaseURL();
   public static final String PG_ACTUATOR_BASEURL = ApiConfigFactory.getConfig().getPGActuatorBaseURL();
+  private static final String STOCK_SIP_BASE_ENDPOINT = ApiConfigFactory.getConfig().stockSipBaseUrl();
 
   
   public static RequestSpecification getDefaultRequestSpec() {
@@ -40,8 +41,16 @@ public final class BaseRequestSpecification {
       .contentType(ContentType.JSON)
       .baseUri(BASE_URL);
   }
-  
-  public static RequestSpecification getGttRequestSpec() {
+
+	public static RequestSpecification getStockSIPBaseSpec() {
+		return RestAssured
+				.given()
+				.contentType(ContentType.JSON)
+				.baseUri(STOCK_SIP_BASE_ENDPOINT);
+	}
+
+
+	public static RequestSpecification getGttRequestSpec() {
 	    return RestAssured
 	      .given()
 	      .contentType(ContentType.JSON)

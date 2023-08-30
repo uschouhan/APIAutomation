@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -744,6 +745,16 @@ public class Helper {
 		long days = duration.toDays();
 		System.out.println("Number of days between " + fromDate + " and " + toDate + ": " + days);
 		return days;
+	}
+
+	public static String getNextMonthDateForStockSIP()
+	{
+		LocalDateTime currentDate = LocalDateTime.now();
+		LocalDateTime nextMonthDate = currentDate.plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		String formattedDate = nextMonthDate.format(formatter) + " 09:30:35";
+		System.out.println(formattedDate);
+		return formattedDate;
 	}
 
 	public static void updatePropertyValue(String fileName , String key ,String value) {
