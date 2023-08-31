@@ -1,11 +1,7 @@
 package com.angelone.api;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import org.json.JSONObject;
 
@@ -262,15 +258,19 @@ public final class InvokeApis {
      * @return orderDetails
      */
     public Response placeOrder(PlaceOrderDetailsPOJO placeOrderDetails) {
+        String uniqueNum = UUID.randomUUID().toString();
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CREATE_ORDER_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
+                .headers("X-Order-Uniqueno",uniqueNum)
                 .body(placeOrderDetails)
                 .log()
                 .all()
                 .post(CREATE_ORDER_ENDPOINT);
         System.out.println("########  Api Response ########");
         response.then().log().all(true);
+        String orderNum = response.jsonPath().getString("data.orderid");
+        Helper.uniqueOrderIdMap.put(orderNum,uniqueNum);
         return response;
     }
 
@@ -281,15 +281,18 @@ public final class InvokeApis {
      * @return orderDetails
      */
     public Response placeGttOrder(CreateGttOrderPOJO placeOrderDetails) {
- 
+        String uniqueNum = UUID.randomUUID().toString();
     	Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
+                .headers("X-Order-Uniqueno",uniqueNum)
                 .body(placeOrderDetails)
                 .log()
                 .all()
                 .post(GTT_CREATERULE_ENDPOINT);
         System.out.println("########  Api Response ########");
         response.then().log().all(true);
+        String orderNum = response.jsonPath().getString("data.id");
+        Helper.uniqueOrderIdMap.put(orderNum,uniqueNum);
         return response;
     }
 
@@ -301,9 +304,11 @@ public final class InvokeApis {
      * @return orderDetails
      */
     public Response modifyGttOrder(ModifyGttOrderPOJO modifyGttOrderData) {
- 
+        String orderId = String.valueOf(modifyGttOrderData.getId());
+        String uniqueNum = Helper.uniqueOrderIdMap.get(orderId);
     	Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
+                .headers("X-Order-Uniqueno",uniqueNum)
                 .body(modifyGttOrderData)
                 .log()
                 .all()
@@ -327,6 +332,7 @@ public final class InvokeApis {
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + MODIFY_ORDER_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
+                .headers("X-Order-Uniqueno",Helper.uniqueOrderIdMap.get(modifyOrderDetails.getOrderid()))
                 .body(modifyOrderDetails)
                 .log()
                 .all()
@@ -454,6 +460,7 @@ public final class InvokeApis {
     public Response gttCancelOrderApi(GttCancelOrderPOJO orderStatusData) {
         Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
+                .headers("X-Order-Uniqueno",Helper.uniqueOrderIdMap.get(orderStatusData.getId()))
                 .body(orderStatusData)
                 .log()
                 .all()
@@ -477,9 +484,11 @@ public final class InvokeApis {
     }
     
     public Response cancelOrder(CancelOrderPOJO cancelOrderDetails) {
+        String orderNum = Helper.uniqueOrderIdMap.get(cancelOrderDetails.getOrderid());
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CANCEL_ORDER_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
+                .headers("X-Order-Uniqueno",orderNum)
                 .body(cancelOrderDetails)
                 .log()
                 .all()

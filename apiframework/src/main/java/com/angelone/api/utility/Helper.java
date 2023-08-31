@@ -55,7 +55,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.InvalidKeyException;
 
 public class Helper {
-
+	public static Map<String,String> uniqueOrderIdMap = new HashMap<>();
 	public String decodeData(String data) {
 
 		ChromeOptions options = new ChromeOptions();
