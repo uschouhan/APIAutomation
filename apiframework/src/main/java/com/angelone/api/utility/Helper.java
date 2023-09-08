@@ -1,6 +1,8 @@
 package com.angelone.api.utility;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -573,6 +575,23 @@ public class Helper {
 		UUID uuid5 = UUID5.fromUTF8(formattedString);
 		System.out.println(uuid5.version());
 		return uuid5.toString();
+	}
+
+	public static String getCurrentDeviceIP()  {
+		String urlString = "http://checkip.amazonaws.com/";
+		URL url = null;
+		try {
+			url = new URL(urlString);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
+			return br.readLine();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+
+		}
+
 	}
 
 	public String modifyJsonData(String jsonFilePath, String value) throws Exception {

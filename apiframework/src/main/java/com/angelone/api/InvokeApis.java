@@ -1,5 +1,6 @@
 package com.angelone.api;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.*;
 
@@ -174,13 +175,12 @@ public final class InvokeApis {
         m.put("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8");
         m.put("ApplicationName", "SparkAutomation");
         m.put("Connection", "keep-alive");
-        m.put("Origin", "http://uattrade.angelbroking.com");
-        m.put("Referer", "http://uattrade.angelbroking.com/");
         m.put("Content-Type", "application/json");
         m.put("X-AppID", "");
-        m.put("X-ClientLocalIP", "172.29.24.126");
-        m.put("X-ClientPublicIP", "172.29.24.126");
+        m.put("X-ClientLocalIP", "");
+        m.put("X-ClientPublicIP", Helper.getCurrentDeviceIP());
         m.put("X-DeviceID", Helper.generateDeviceId());
+        m.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
         m.put("X-GM-ID", "1");
         m.put("X-SystemInfo", "SparkAutomation");
         m.put("X-Location", "SparkAutomation");
@@ -220,15 +220,14 @@ public final class InvokeApis {
      * @return headers as map
      */
     private static Map<String, Object> getHeaders() {
-
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("X-SourceID", "5");
         m.put("X-UserType", "1");
-        m.put("X-ClientLocalIP", "172.29.24.126");
-        m.put("X-ClientPublicIP", "172.29.24.126");
+        m.put("X-ClientPublicIP", Helper.getCurrentDeviceIP());
+        m.put("X-DeviceID", Helper.generateDeviceId());
+        m.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
         m.put("X-MACAddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-OperatingSystem", "Ubuntu");
-        m.put("X-DeviceID", Helper.generateDeviceId());
         m.put("Content-Type", "application/json");
         return m;
     }
@@ -353,8 +352,9 @@ public final class InvokeApis {
         m.put("ApplicationName", "SparkAutomation");
         m.put("X-SourceID", "3");
         m.put("X-UserType", "1");
-        m.put("X-ClientLocalIP", "172.29.24.126");
-        m.put("X-ClientPublicIP", "172.29.24.126");
+        m.put("X-ClientPublicIP", Helper.getCurrentDeviceIP());
+        m.put("X-DeviceID", Helper.generateDeviceId());
+        m.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
         m.put("X-MACAddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-Request-Id", "07df2222-4dfb-49a5-b3f1-f309182ce93a");
         m.put("X-AppID", "");
@@ -547,9 +547,9 @@ public final class InvokeApis {
     private static Map<String, Object> getOTPHeaders() {
 
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("x-clientlocalip", "172.29.24.126");
-        m.put("x-clientpublicip", "172.29.24.126");
-        m.put("x-deviceid", Helper.generateDeviceId());
+        m.put("X-ClientPublicIP", Helper.getCurrentDeviceIP());
+        m.put("X-DeviceID", Helper.generateDeviceId());
+        m.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
         m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-operatingsystem", "Ubuntu");
         m.put("x-sourceid", "5");
@@ -567,9 +567,9 @@ public final class InvokeApis {
     private static Map<String, Object> getOTPHeadersForCaptchaApi(String oldNonTradeToken) {
 
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("x-clientlocalip", "172.29.24.126");
-        m.put("x-clientpublicip", "172.29.24.126");
-        m.put("x-deviceid", Helper.generateDeviceId());
+        m.put("X-ClientPublicIP", Helper.getCurrentDeviceIP());
+        m.put("X-DeviceID", Helper.generateDeviceId());
+        m.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36");
         m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-operatingsystem", "Ubuntu");
         m.put("x-sourceid", "5");
