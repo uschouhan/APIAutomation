@@ -570,7 +570,9 @@ public class Helper {
 				randomString.substring(8, 12), randomString.substring(12, 16), randomString.substring(16, 20),
 				randomString.substring(20));
 		System.out.println(formattedString);
-		return formattedString;
+		UUID uuid5 = UUID5.fromUTF8(formattedString);
+		System.out.println(uuid5.version());
+		return uuid5.toString();
 	}
 
 	public String modifyJsonData(String jsonFilePath, String value) throws Exception {

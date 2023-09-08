@@ -181,15 +181,15 @@ public final class InvokeApis {
         m.put("X-ClientLocalIP", "172.29.24.126");
         m.put("X-ClientPublicIP", "172.29.24.126");
         m.put("X-DeviceID", Helper.generateDeviceId());
-        m.put("X-GM-ID", "undefined");
-        m.put("X-SystemInfo", "aliqua ad");
-        m.put("X-Location", "aliqua ad");
+        m.put("X-GM-ID", "1");
+        m.put("X-SystemInfo", "SparkAutomation");
+        m.put("X-Location", "SparkAutomation");
         m.put("X-SourceID", "3");
         m.put("X-UserType", "1");
         m.put("X-MACAddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-OperatingSystem", "Ubuntu");
         m.put("X-ProductVersion", "");
-        m.put("X-Request-Id", "");
+        m.put("X-Request-Id", "07df2222-4dfb-49a5-b3f1-f309182ce93a");
         m.put("Authorization", "Bearer " + jwtToken);
         return m;
     }
@@ -351,15 +351,15 @@ public final class InvokeApis {
 
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("ApplicationName", "SparkAutomation");
-        m.put("X-SourceID", "aliqua ad");
-        m.put("X-UserType", "aliqua ad");
-        m.put("X-ClientLocalIP", "aliqua ad");
-        m.put("X-ClientPublicIP", "aliqua ad");
-        m.put("X-MACAddress", "aliqua ad");
-        m.put("X-Request-Id", "aliqua ad");
-        m.put("X-AppID", "aliqua ad");
-        m.put("X-SystemInfo", "aliqua ad");
-        m.put("X-Location", "aliqua ad");
+        m.put("X-SourceID", "3");
+        m.put("X-UserType", "1");
+        m.put("X-ClientLocalIP", "172.29.24.126");
+        m.put("X-ClientPublicIP", "172.29.24.126");
+        m.put("X-MACAddress", "00:25:96:FF:FE:12:34:56");
+        m.put("X-Request-Id", "07df2222-4dfb-49a5-b3f1-f309182ce93a");
+        m.put("X-AppID", "");
+        m.put("X-SystemInfo", "SparkAutomation");
+        m.put("X-Location", "SparkAutomation");
         m.put("Content-Type", "application/json");
         m.put("Authorization", "Bearer " + token);
         return m;
@@ -547,8 +547,8 @@ public final class InvokeApis {
     private static Map<String, Object> getOTPHeaders() {
 
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("x-clientlocalip", "1.2.3.4");
-        m.put("x-clientpublicip", "1.2.3.4");
+        m.put("x-clientlocalip", "172.29.24.126");
+        m.put("x-clientpublicip", "172.29.24.126");
         m.put("x-deviceid", Helper.generateDeviceId());
         m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-operatingsystem", "Ubuntu");
@@ -567,8 +567,8 @@ public final class InvokeApis {
     private static Map<String, Object> getOTPHeadersForCaptchaApi(String oldNonTradeToken) {
 
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("x-clientlocalip", "1.2.3.4");
-        m.put("x-clientpublicip", "1.2.3.4");
+        m.put("x-clientlocalip", "172.29.24.126");
+        m.put("x-clientpublicip", "172.29.24.126");
         m.put("x-deviceid", Helper.generateDeviceId());
         m.put("x-macaddress", "00:25:96:FF:FE:12:34:56");
         m.put("X-operatingsystem", "Ubuntu");

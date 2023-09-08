@@ -238,7 +238,6 @@ public class BroadcastTest extends BaseClass {
 		//Response response = baseAPI.callgetStockSipListApi();
 		//baseAPI.callDeleteStockSipApi(sipId);
 	}
-
 	@Test
 	public void deleteAllSipOrder() {
 		baseAPI.cancelAllStockSip();
