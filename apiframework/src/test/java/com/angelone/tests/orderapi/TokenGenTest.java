@@ -513,7 +513,8 @@ public class TokenGenTest extends BaseTestApi {
 
     @Test(enabled = true)
     void getOrders() throws IOException {
-        String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+        Helper utils = new Helper();
+        String userdetails = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222:284733";
         String secKey = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
         generateUserToken(userdetails, secKey);
         Response callOrdersApi = getOrderBook();// OrderBookAPi
@@ -525,7 +526,16 @@ public class TokenGenTest extends BaseTestApi {
 
 
         datafiltered.forEach(orderId -> {
-            System.out.println("order id -" + orderId.getAmoOrderId() + "order status " + orderId.getOrderstatus() + "Order Text " + orderId.getText());
+            System.out.println("order id -" + orderId.getAmoOrderId() + " order status " + orderId.getOrderstatus() + "Order Text " + orderId.getText());
+        });
+
+        datafiltered.forEach(orderId -> {
+            if (orderId.getExchange().equalsIgnoreCase("MCX") || orderId.getExchange().equalsIgnoreCase("NCDEX"))
+                cancelOrder(orderId.getOrderid(), utils.orderTypeCheckForComodity());
+            else if (orderId.getExchange().equalsIgnoreCase("CDS"))
+               cancelOrder(orderId.getOrderid(), utils.orderTypeCheckForCurrency());
+            else
+                cancelOrder(orderId.getOrderid(), utils.orderTypeCheckForEquity());
         });
 
         // Response response = placeStockOrder("BSE", "MARKET", "0.0","DELIVERY",

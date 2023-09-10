@@ -305,6 +305,8 @@ public final class InvokeApis {
     public Response modifyGttOrder(ModifyGttOrderPOJO modifyGttOrderData) {
         String orderId = String.valueOf(modifyGttOrderData.getId());
         String uniqueNum = Helper.uniqueOrderIdMap.get(orderId);
+        if(Objects.isNull(uniqueNum))
+            uniqueNum="4934d726-393f-4267-bef9-6b1b1a49ff34";//hard coding value to avoid null pointer exception
     	Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
                 .headers("X-Order-Uniqueno",uniqueNum)
@@ -328,10 +330,13 @@ public final class InvokeApis {
      * @return orderDetails
      */
     public Response modifyOrderApi(ModifyOrderPOJO modifyOrderDetails) {
+        String uNum = Helper.uniqueOrderIdMap.get(modifyOrderDetails.getOrderid());
+        if(Objects.isNull(uNum))
+            uNum="4934d726-393f-4267-bef9-6b1b1a49ff34";
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + MODIFY_ORDER_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
-                .headers("X-Order-Uniqueno",Helper.uniqueOrderIdMap.get(modifyOrderDetails.getOrderid()))
+                .headers("X-Order-Uniqueno",uNum)
                 .body(modifyOrderDetails)
                 .log()
                 .all()
@@ -458,9 +463,12 @@ public final class InvokeApis {
     }
     
     public Response gttCancelOrderApi(GttCancelOrderPOJO orderStatusData) {
+        String uNum = Helper.uniqueOrderIdMap.get(orderStatusData.getId());
+        if(Objects.isNull(uNum))
+            uNum="4934d726-393f-4267-bef9-6b1b1a49ff34";
         Response response = BaseRequestSpecification.getGttRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
-                .headers("X-Order-Uniqueno",Helper.uniqueOrderIdMap.get(orderStatusData.getId()))
+                .headers("X-Order-Uniqueno",uNum)
                 .body(orderStatusData)
                 .log()
                 .all()
@@ -485,6 +493,8 @@ public final class InvokeApis {
     
     public Response cancelOrder(CancelOrderPOJO cancelOrderDetails) {
         String orderNum = Helper.uniqueOrderIdMap.get(cancelOrderDetails.getOrderid());
+        if(Objects.isNull(orderNum))
+            orderNum="4934d726-393f-4267-bef9-6b1b1a49ff34";
         System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + CANCEL_ORDER_ENDPOINT);
         Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
                 .headers(getHeadersForOrder())
