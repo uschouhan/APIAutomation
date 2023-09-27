@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONArray;
@@ -120,12 +121,20 @@ public class BroadcastTest extends BaseClass {
 	@Test(enabled = true)
 	public void broadcastTestForFNOOptions() throws IOException, InterruptedException {
 		//String fnoSymbolToken = baseAPI.getSciptIdforEquity("PNB","BSE");
-		String fnoSymbolToken = baseAPI.getLowerPriceScripId("BANKNIFTY 48000 CE", "ALLOPTIONS", "nse_fo",
-			50.0);
+		String fnoSymbolToken = baseAPI.getLowerPriceScripId("SENSEX CE", "ALLOPTIONS","bse_fo",20.0);
 		//String token = baseAPI.getSciptTokenFromSearchApi("USDINR", "CURNCYSEG");
 		//Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("mcx_fo", token);
 		//String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 		//System.out.println("Trading symbol "+ tradingSymbol);
+	}
+
+	@SneakyThrows
+	@Test
+	public void lowPrice() {
+		String currencySymbolToken = baseAPI.getLowerPriceScripId("USDINR 88.75 CE", "CURNCYSEG","cde_fo",5.00);
+		Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("cde_fo", currencySymbolToken);
+		String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
+		System.out.println("Trading symbol "+ tradingSymbol);
 	}
 
 	@Test(enabled = true)
