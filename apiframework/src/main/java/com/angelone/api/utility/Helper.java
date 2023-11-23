@@ -578,7 +578,7 @@ public class Helper {
 	}
 
 	public static String getCurrentDeviceIP()  {
-		String urlString = "http://checkip.amazonaws.com/";
+		String urlString = "https://checkip.amazonaws.com/";
 		URL url = null;
 		try {
 			url = new URL(urlString);
