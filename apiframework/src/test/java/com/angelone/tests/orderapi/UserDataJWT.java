@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
-import org.apache.logging.log4j.core.util.IOUtils;
 import org.assertj.core.api.Assertions;
 import org.json.JSONArray;
 import org.json.JSONObject;
