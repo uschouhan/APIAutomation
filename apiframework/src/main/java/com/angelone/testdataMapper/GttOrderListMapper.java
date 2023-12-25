@@ -15,7 +15,7 @@ public final class GttOrderListMapper {
 	@SneakyThrows
 	public static GttOrderListPOJO setGttOrderListData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/gttOrderList.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/gttOrderList.json"),
 						GttOrderListPOJO.class);
 
 	}
@@ -23,7 +23,7 @@ public final class GttOrderListMapper {
 	@SneakyThrows
 	public static GttOrderListPOJO setGttOrderListData(Integer count,Integer page, List<String> status) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/gttOrderList.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/gttOrderList.json"),
 						GttOrderListPOJO.class)
 				.setCount(count).setPage(page).setStatus(status);
 	}

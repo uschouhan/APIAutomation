@@ -13,7 +13,7 @@ public final class GttOrderStatusMapper {
 	@SneakyThrows
 	public static GttOrderStatusPOJO setOrderStatusData(String id) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getGttOrderStatus.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getGttOrderStatus.json"),
 						GttOrderStatusPOJO.class)
 				.setId(id);
 

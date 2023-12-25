@@ -131,7 +131,7 @@ public class BroadcastTest extends BaseClass {
 	@SneakyThrows
 	@Test
 	public void lowPrice() {
-		String currencySymbolToken = baseAPI.getLowerPriceScripId("USDINR 88.75 CE", "CURNCYSEG","cde_fo",5.00);
+		String currencySymbolToken = baseAPI.getLowerPriceScripId("USDINR CE", "CURNCYSEG","cde_fo",5.00);
 		Response callgetSecurityInfo = baseAPI.callgetSecurityInfo("cde_fo", currencySymbolToken);
 		String tradingSymbol = callgetSecurityInfo.jsonPath().getString("data.trdSymbol");
 		System.out.println("Trading symbol "+ tradingSymbol);

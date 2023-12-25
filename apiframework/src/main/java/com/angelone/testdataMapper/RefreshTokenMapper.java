@@ -15,7 +15,7 @@ public final class RefreshTokenMapper {
 	@SneakyThrows
 	public static RefreshTokenPOJO setRefreshTokenData(String refresh_token) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/refreshToken.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/refreshToken.json"),
 						RefreshTokenPOJO.class)
 				.setRefresh_token(refresh_token);
 						

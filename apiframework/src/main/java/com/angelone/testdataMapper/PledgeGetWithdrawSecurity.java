@@ -15,7 +15,7 @@ public final class PledgeGetWithdrawSecurity {
 	@SneakyThrows
 	public static PledgeGetWithdrawSecurityPOJO getWithdrawSecurityData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getWithdrawSecurity.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getWithdrawSecurity.json"),
 						PledgeGetWithdrawSecurityPOJO.class);
 
 	}
@@ -24,7 +24,7 @@ public final class PledgeGetWithdrawSecurity {
 	@SneakyThrows
 	public static PledgeGetWithdrawSecurityPOJO getWithdrawSecurityData(String party_code) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getWithdrawSecurity.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getWithdrawSecurity.json"),
 						PledgeGetWithdrawSecurityPOJO.class)
 			.setParty_code(party_code);
 			

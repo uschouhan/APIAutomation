@@ -1,0 +1,15 @@
+[
+  {
+    "watchlistId": 16685830080,
+    "watchlistName": "broadcast",
+    "watchlistOrder": 1,
+    "Isdefault": true,
+    "scripDetails": [
+      {
+        "mktSegId": 2,
+        "token": "%s",
+        "scripOrder": 1
+      }
+    ]
+  }
+]
