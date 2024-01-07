@@ -33,7 +33,9 @@ public class TestDemo {
 		String user = "7021633598:nikhil.kolwalkar@angelbroking.com:lgacdmzwhstmcbnl:N213207:2222";
 		String secret="db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 		BaseTestApi baseTest = new BaseTestApi();
-		baseTest.getNonTradingAccessToken(user);
+		String ntt = Helper.generateNonTradeToken("8220609624","R50015710","db3a62b2-45f6-4b6c-a74b-80ce27491bb7");
+		System.out.println("NonTradeToken "+ ntt);
+		//baseTest.getNonTradingAccessToken(user);
 	}
 
 	public String orderTypeCheckForComodity() {

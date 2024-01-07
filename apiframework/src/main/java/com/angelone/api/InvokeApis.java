@@ -739,7 +739,7 @@ public final class InvokeApis {
                 .all()
                 .get(GET_SEARCH_ENDPOINT);
         System.out.println("########  Api Response ########");
-        response.then().log().body(true);
+        //response.then().log().body(true);
         return response;
     }
 

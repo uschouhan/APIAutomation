@@ -55,7 +55,9 @@ import com.angelone.api.pojo.UserDataJWT_POJO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.InvalidKeyException;
-
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.algorithms.Algorithm;
 public class Helper {
 	public static Map<String,String> uniqueOrderIdMap = new HashMap<>();
 	public String decodeData(String data) {
@@ -325,6 +327,37 @@ public class Helper {
 	    private static String encode(byte[] bytes) {
 	        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
 	    }
+
+	public static String generateNonTradeToken(String mobNo, String userId, String secretToken) {
+
+		// Build the user data payload
+		Map<String, Object> userData = new HashMap<>();
+		userData.put("country_code", "");
+		userData.put("mob_no", mobNo);
+		userData.put("user_id", userId);
+		userData.put("source", "SPARK");
+		userData.put("app_id", "56567");
+		userData.put("created_at", "2023-11-06T09:00:36.266295484Z");
+		userData.put("dataCenter", "");
+
+		Date issuedAt = new Date();
+		Date expirationDate = new Date(issuedAt.getTime() + 604800000); // 1 week later
+
+		Algorithm algorithm = Algorithm.HMAC256(secretToken);
+
+		// Build the JWT payload
+		JWTCreator.Builder jwtBuilder = JWT.create()
+				.withIssuer("angel")
+				.withIssuedAt(issuedAt)
+				.withExpiresAt(expirationDate)
+				.withClaim("userData", userData)
+				.withClaim("user_type", "client")
+				.withClaim("token_type", "non_trade_access_token")
+				.withClaim("source", "SPARK")
+				.withClaim("device_id", "4af4fb8f-79fa-5bce-9c8c-9680daae8c5f")
+				.withClaim("act", new HashMap<>());
+		return jwtBuilder.sign(algorithm);
+	}
 	    
 	    private String hmacSha256(String data, String secret) {
 	        try {
