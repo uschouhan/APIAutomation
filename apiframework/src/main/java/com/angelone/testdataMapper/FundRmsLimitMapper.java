@@ -15,7 +15,7 @@ public final class FundRmsLimitMapper {
 	@SneakyThrows
 	public static FundRmsLimitPOJO getFundData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/fundRmsLimit.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/fundRmsLimit.json"),
 						FundRmsLimitPOJO.class);
 
 	}
@@ -23,7 +23,7 @@ public final class FundRmsLimitMapper {
 	@SneakyThrows
 	public static FundRmsLimitPOJO getFundData(String exchange,String product ,String segment) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/fundRmsLimit.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/fundRmsLimit.json"),
 						FundRmsLimitPOJO.class)
 				.setExchange(exchange)
 				.setProduct(product)

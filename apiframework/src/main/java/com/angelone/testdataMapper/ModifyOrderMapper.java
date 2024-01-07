@@ -14,7 +14,7 @@ public final class ModifyOrderMapper {
 	@SneakyThrows
 	public static ModifyOrderPOJO modifyOrder() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/modifyOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/modifyOrder.json"),
 						ModifyOrderPOJO.class);
 	}
 
@@ -23,7 +23,7 @@ public final class ModifyOrderMapper {
 			String orderValidityDate,String orderId,String ordertype,String precision,String price,
 			String quantity,String symboltoken,String triggerprice,String variety) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/modifyOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/modifyOrder.json"),
 						ModifyOrderPOJO.class)
 				.setDisclosedquantity(disclosedquantity)
 				.setDuration(duration)

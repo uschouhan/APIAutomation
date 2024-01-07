@@ -13,7 +13,7 @@ public final class UserTestData {
 	@SneakyThrows
 	public static UserDetailsPOJO getUserDetails() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/postUser.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/postUser.json"),
 						UserDetailsPOJO.class);
 
 	}
@@ -21,7 +21,7 @@ public final class UserTestData {
 	@SneakyThrows
 	public static UserDetailsPOJO getUserDetails(String userId, String password) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/postUser.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/postUser.json"),
 						UserDetailsPOJO.class)
 				.setUserid(userId)
 				.setPassorpin(password);

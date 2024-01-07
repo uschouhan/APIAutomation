@@ -16,7 +16,7 @@ public final class LTPPriceData {
 	@SneakyThrows
 	public static LTPPricePOJO getLTPPrice() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/LTPPrice.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/LTPPrice.json"),
 						LTPPricePOJO.class);
 
 	}
@@ -24,7 +24,7 @@ public final class LTPPriceData {
 	@SneakyThrows
 	public static LTPPricePOJO getLTPPrice(String exchange, List<String> scriptId) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/LTPPrice.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/LTPPrice.json"),
 						LTPPricePOJO.class)
 				.setExchange(exchange)
 				.setTokens(scriptId);
@@ -37,7 +37,7 @@ public final class LTPPriceData {
 		List<String> symbolId = new ArrayList<>();
 		symbolId.add(scriptId);
  		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/LTPPrice.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/LTPPrice.json"),
 						LTPPricePOJO.class)
 				.setTokens(symbolId);
 

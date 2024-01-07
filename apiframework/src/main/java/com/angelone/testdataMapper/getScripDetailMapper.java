@@ -15,13 +15,13 @@ public class getScripDetailMapper {
     @SneakyThrows
     public static getScripDetailPOJO getScripDetail() {
         return new ObjectMapper()
-                .readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getScripDetail.json"),
+                .readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getScripDetail.json"),
                         getScripDetailPOJO.class);
 }
     @SneakyThrows
     public static getScripDetailPOJO getScripDetail(String exchange, String symbol,String flag) {
         return new ObjectMapper()
-                .readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getScripDetail.json"),
+                .readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getScripDetail.json"),
                         getScripDetailPOJO.class)
                 .setSymbol(symbol)
                 .setExchange(exchange)
