@@ -3,8 +3,6 @@ package com.angelone.tests.orderapi;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.SneakyThrows;
 import org.json.JSONObject;
 
