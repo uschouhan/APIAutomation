@@ -374,6 +374,8 @@ public class BaseTestApi {
 		}
 	}
 
+
+
 	public void generateUserToken(String userCredentials, String secret) {
 		userDetails = userCredentials;
 		secretKey = secret;
@@ -397,7 +399,8 @@ public class BaseTestApi {
 
 		UserDataJWT_POJO userDetails = UserDATAJWTMapper.getUserDetails(userId);
 		// String jwtToken = helper.genJTWToken(userDetails, secret);
-		String jwtToken = helper.genJTWTokenUAT(userId, secret);
+		//String jwtToken = helper.genJTWTokenUAT(userId, secret);
+		String jwtToken = helper.generateJWTForTradeToken("",userId, secret);
 		Thread.sleep(5000);
 		LoginMpinPOJO userMpin = LoginMpinMapper.getUserDetails(userId, mpin);
 		Response response = setupApi.getUserTokenViaMPIN(userMpin, jwtToken);

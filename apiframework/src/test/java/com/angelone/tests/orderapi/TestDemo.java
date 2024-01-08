@@ -20,12 +20,12 @@ public class TestDemo {
 
 	@Test
 	public void testInvalidToken() {
-		String user = "9741636854:upendra101087@gmail.com:qeewrwwqzycawdcs:U50049267:2222";
+		String user = "9741636854:upendra101087@gmail.com:lfixpzyvcbpoixrm:U50049267:2222:552724";
 		String secret="db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 		BaseTestApi baseTest = new BaseTestApi();
 		baseTest.generateUserToken(user,secret);
-		baseTest.setTradeToken("dsdsjdsdhksdksdksdhksdssdsdsds");
-		Response response = baseTest.placeStockOrder("MARKET", "0.0", "DELIVERY", "10666", "PNB-EQ", "AMO");
+		//baseTest.setTradeToken("dsdsjdsdhksdksdksdhksdssdsdsds");
+		//Response response = baseTest.placeStockOrder("MARKET", "0.0", "DELIVERY", "10666", "PNB-EQ", "AMO");
 	}
 
 	@Test

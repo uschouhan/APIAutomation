@@ -50,6 +50,31 @@ public class JwtGenerator {
         return jwtBuilder.sign(algorithm);
     }
 
+    public static String generateJWTForTradeToken(String mobNo, String userId, String secretToken) {
+
+        // Build the user data payload
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("country_code", "");
+        userData.put("user_id", userId);
+        userData.put("created_at", "2023-11-06T09:00:36.266295484Z");
+        userData.put("mob_no", mobNo);
+        userData.put("source", "SPARK");
+        userData.put("app_id", "56567");
+
+        Date issuedAt = new Date();
+        Date expirationDate = new Date(issuedAt.getTime() + 604800000); // 1 week later
+
+        Algorithm algorithm = Algorithm.HMAC256(secretToken);
+
+        // Build the JWT payload
+        JWTCreator.Builder jwtBuilder = JWT.create()
+                .withIssuer("angel")
+                .withIssuedAt(issuedAt)
+                .withExpiresAt(expirationDate)
+                .withClaim("userData", userData);
+        return jwtBuilder.sign(algorithm);
+    }
+
     public static void main(String[] args) {
         // Example usage
         String mobNo = "9620052526";    // Replace with the actual mobile number
@@ -60,58 +85,7 @@ public class JwtGenerator {
         System.out.println("Generated JWT Token: " + jwtToken);
     }
 
-    public static String generateNTToken(String userId,String mobileNum,String secretToken) {
-       // String secret = System.getProperty("AMXJWTSecretKey") ;
-        //String encodedString = Base64.getEncoder().encodeToString(secret.getBytes());
 
-        JSONObject headers = new JSONObject();
-        JSONObject payload = new JSONObject();
-        JSONObject userdata = new JSONObject();
-
-        headers.put("alg", "HS256");
-        headers.put("typ", "JWT");
-
-        userdata.put("country_code", "");
-        userdata.put("mob_no", mobileNum);
-        userdata.put("user_id",userId);
-        userdata.put("created_at", "2023-01-09T11:37:41.092792305+05:30");
-        userdata.put("source", "SPARK");
-        userdata.put("app_id", "56567");
-        //userdata.put("source", "TESTSUITE");
-        //userdata.put("app_id", "pqa_1");
-        payload.put("userData", userdata);
-        payload.put("iss","angel");
-        payload.put("exp",1730419200);
-        payload.put("iat", 1673244461);
-        payload.put("user_type", "client");
-        payload.put("token_type", "non_trade_access_token");
-        payload.put("source","SPARK");
-        payload.put("device_id","b1ff6c29-e36d-4157-9a67-f483b2927726");
-
-        String token=GenerateJWT(headers, payload, secretToken);
-        return token;
-//        HashMap<String, Object> headers = new HashMap<>();
-//        headers.put("alg", "HS256");
-//        headers.put("typ", "JWT");
-//        ReportFactory.PassTest("success:jwt");
-//        JWTToken jwt = new JWTToken("aAJALJFLJLSLFJ@##@!12123a");
-//        ReportFactory.PassTest("success:jwt");
-//        jwt.addHeaders(headers);
-//        HashMap<String, Object> claims = new HashMap<>();
-//        HashMap<String, String> userData = new HashMap<>();
-//        userData.put("country_code", "");
-//        userData.put("mob_no", "9999999999");
-//        userData.put("user_id", UserID);
-//        userData.put("source", "SPARK");
-//        userData.put("app_id", "12345");
-//        userData.put("created_at", "2023-04-10T21:02:45.577201+05:30");
-//        userData.put("dataCenter", "");
-//        claims.put("userData", userData);
-//        claims.put("iss", "angel");
-//        jwt.addClaims(claims);
-//        System.out.println(jwt.GenerateJWT());
-//        return jwt.GenerateJWT();
-    }
 
     public static String GenerateJWT(JSONObject Headers,JSONObject Payload, String secret) {
         String JWT="";
