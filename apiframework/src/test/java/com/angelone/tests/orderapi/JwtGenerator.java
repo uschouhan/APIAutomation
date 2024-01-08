@@ -20,10 +20,7 @@ import static org.aeonbits.owner.util.Base64.encode;
 public class JwtGenerator {
 
     public static String generateJwtToken(String mobNo, String userId, String secretToken) {
-        // Set the expiration time for the token (e.g., 1 hour)
-        long expirationTimeMillis = System.currentTimeMillis() + 3600000; // 1 hour
-        //Date expirationDate = new Date(expirationTimeMillis);
-
+        
         // Build the user data payload
         Map<String, Object> userData = new HashMap<>();
         userData.put("country_code", "");
@@ -35,7 +32,7 @@ public class JwtGenerator {
         userData.put("dataCenter", "");
 
         Date issuedAt = new Date();
-        Date expirationDate = new Date(issuedAt.getTime() + 3600000); // 1 hour later
+        Date expirationDate = new Date(issuedAt.getTime() + 604800000); // 1 week later
 
         Algorithm algorithm = Algorithm.HMAC256(secretToken);
 
