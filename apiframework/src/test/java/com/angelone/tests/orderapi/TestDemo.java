@@ -30,11 +30,11 @@ public class TestDemo {
 
 	@Test
 	public void genNonTradeToken() {
-		String user = "7021633598:nikhil.kolwalkar@angelbroking.com:lgacdmzwhstmcbnl:N213207:2222";
+		String user = "9702610281:nikhil.kolwalkar@angelbroking.com:lgacdmzwhstmcbnl:M51705285:0000";
 		String secret="db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
 		BaseTestApi baseTest = new BaseTestApi();
-		String ntt = Helper.generateNonTradeToken("8220609624","R50015710","db3a62b2-45f6-4b6c-a74b-80ce27491bb7");
-		System.out.println("NonTradeToken "+ ntt);
+		String ntt = Helper.generateNonTradeToken("9702610281","M51705285","db3a62b2-45f6-4b6c-a74b-80ce27491bb7");
+		//System.out.println("NonTradeToken "+ ntt);
 		//baseTest.getNonTradingAccessToken(user);
 	}
 

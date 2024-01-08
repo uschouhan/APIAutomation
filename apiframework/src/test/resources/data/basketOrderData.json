@@ -1,74 +1,29 @@
 {
-    "orders": [
-        {
-            "symbolName": "BANKNIFTY",
-            "scripExchg": "nse_fo",
-            "exchange": "NFO",
-            "transactiontype": "B",
-            "producttype": "Carry Forward",
-            "ordertype": "MARKET",
-            "segment":"DERIVATIVESSEG",
-            "qty":1
-        },
-         {
-            "symbolName": "NIFTY",
-            "scripExchg": "nse_fo",
-            "exchange": "NFO",
-            "transactiontype": "S",
-            "producttype": "Carry Forward",
-            "ordertype": "MARKET",
-            "segment":"DERIVATIVESSEG",
-            "qty":1
-        },
-        {
-            "symbolName": "PNB",
-            "scripExchg": "nse_cm",
-            "exchange": "NSE",
-            "transactiontype": "S",
-            "producttype": "Delivery",
-             "ordertype": "MARKET",
-            "segment":"CASHSEG",
-             "qty":1
-        },
-           {
-            "symbolName": "YESBANK",
-            "scripExchg": "nse_cm",
-            "exchange": "NSE",
-            "transactiontype": "S",
-            "producttype": "Delivery",
-             "ordertype": "MARKET",
-            "segment":"CASHSEG",
-             "qty":1
-        },
-        {
-            "symbolName": "GOLDPETAL",
-            "scripExchg": "mcx_fo",
-            "exchange": "MCX",
-            "transactiontype": "S",
-            "producttype": "Carry Forward",
-             "ordertype": "MARKET",
-            "segment":"COMDTYSEG",
-             "qty":1
-        },
-        {
-           "symbolName": "DHANIYA",
-            "scripExchg": "ncx_fo",
-            "exchange": "NCDEX",
-            "transactiontype": "S",
-            "producttype": "Carry Forward",
-             "ordertype": "MARKET",
-            "segment":"COMDTYSEG",
-             "qty":1
-        },
-        {
-           "symbolName": "USDINR",
-            "scripExchg": "cde_fo",
-            "exchange": "CDS",
-            "transactiontype": "S",
-            "producttype": "Carry Forward",
-             "ordertype": "MARKET",
-            "segment":"CURNCYSEG",
-             "qty":1
-        }
-    ]
+  "orders": [
+    {
+      "symbolName": "MAHABANK",
+      "scripExchg": "nse_cm",
+      "exchange": "NSE",
+      "exchgId": "1",
+      "transactiontype": "B",
+      "producttype": "Delivery",
+      "ordertype": "LIMIT",
+      "segment":"CASHSEG",
+      "qty":1
+    },
+    {
+      "symbolName": "PNB",
+      "scripExchg": "nse_cm",
+      "exchange": "NSE",
+      "exchgId": "1",
+      "transactiontype": "B",
+      "producttype": "Delivery",
+      "ordertype": "LIMIT",
+      "segment":"CASHSEG",
+      "qty":1
+    }
+  ]
+
+
+
 }

@@ -2,3 +2,9 @@
 /.apt_generated_tests/
 /target/
 /test-output/
+/.idea/.gitignore
+/.idea/aws.xml
+/.idea/compiler.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/vcs.xml

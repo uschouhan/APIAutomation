@@ -644,7 +644,7 @@ public final class InvokeApis {
                 .all()
                 .get(GET_CREATE_STOCKSIP_ENDPOINT);
         System.out.println("########  Api Response ########");
-        response.then().log().all(true);
+        //response.then().log().all(true);
         return response;
     }
 

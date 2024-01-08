@@ -60,6 +60,32 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 public class Helper {
 	public static Map<String,String> uniqueOrderIdMap = new HashMap<>();
+	public String generateJWTForTradeToken(String mobNo, String userId, String secretToken) {
+
+		// Build the user data payload
+		Map<String, Object> userData = new HashMap<>();
+		userData.put("country_code", "");
+		userData.put("user_id", userId);
+		userData.put("created_at", "2023-11-06T09:00:36.266295484Z");
+		userData.put("mob_no", mobNo);
+		userData.put("source", "SPARK");
+		userData.put("app_id", "56567");
+
+		Date issuedAt = new Date();
+		Date expirationDate = new Date(issuedAt.getTime() + 604800000); // 1 week later
+
+		Algorithm algorithm = Algorithm.HMAC256(secretToken);
+
+		// Build the JWT payload
+		JWTCreator.Builder jwtBuilder = JWT.create()
+				.withIssuer("angel")
+				.withIssuedAt(issuedAt)
+				.withExpiresAt(expirationDate)
+				.withClaim("userData", userData);
+		String jwtTradeToken = jwtBuilder.sign(algorithm);
+		System.out.println("jwtTradeToken: " + jwtTradeToken);
+		return jwtTradeToken;
+	}
 	public String decodeData(String data) {
 
 		ChromeOptions options = new ChromeOptions();
@@ -356,7 +382,9 @@ public class Helper {
 				.withClaim("source", "SPARK")
 				.withClaim("device_id", "4af4fb8f-79fa-5bce-9c8c-9680daae8c5f")
 				.withClaim("act", new HashMap<>());
-		return jwtBuilder.sign(algorithm);
+		String nttToken = jwtBuilder.sign(algorithm);
+		System.out.println("NonTradeToken = "+nttToken);
+		return nttToken;
 	}
 	    
 	    private String hmacSha256(String data, String secret) {
