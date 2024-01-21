@@ -137,8 +137,8 @@ public final class InvokeApis {
      * @return userDetals
      */
     public Response getUserTokenViaMPIN(LoginMpinPOJO userDetails, String jwtToken) {
-        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LOGIN_MPIN_ENDPOINT);
-        Response response = BaseRequestSpecification.getDefaultRequestSpec().contentType(ContentType.JSON)
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.LOGIN_BASE_URL + LOGIN_MPIN_ENDPOINT);
+        Response response = BaseRequestSpecification.getDefaultRequestSpecForLogin().contentType(ContentType.JSON)
                 .headers(getHeadersMpin(jwtToken))
                 .body(userDetails)
                 .log()
@@ -150,8 +150,8 @@ public final class InvokeApis {
     }
 
     public Response getUserTokenViaMPINinProd(LoginMpinPOJO userDetails, String jwtToken) {
-        System.out.println(" ########## API Called : " + BaseRequestSpecification.BASE_URL + LOGIN_MPIN_ENDPOINT);
-        Response response = RestAssured.given().contentType(ContentType.JSON).baseUri("https://amx.angeltrade.com")
+        System.out.println(" ########## API Called : " + BaseRequestSpecification.LOGIN_BASE_URL + LOGIN_MPIN_ENDPOINT);
+        Response response = RestAssured.given().contentType(ContentType.JSON).baseUri("https://login-service.angelone.in")
                 .headers(getHeadersMpin(jwtToken))
                 .body(userDetails)
                 .log()
