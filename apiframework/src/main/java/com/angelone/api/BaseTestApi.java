@@ -687,6 +687,30 @@ public class BaseTestApi {
 		return oldTradeToken;
 	}
 
+	public String generateNTTTokenNew(String userDetails)
+	{
+		secretKey=ApiConfigFactory.getConfig().secretKey();
+		String[] creden = userDetails.split(":");
+		String nonTradeToken="";
+		try {
+			String mobileNum = creden[0];
+			String emailId = creden[1];
+			String password = creden[2];
+			String clientId = creden[3];
+			String mpin = creden[4];
+			System.out.println("Generating Non Trade Token ...");
+			nonTradeToken = Helper.generateNonTradeToken(mobileNum, clientId, secretKey);
+			setupApi.setNonTradingAccessTokenId(nonTradeToken);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println(
+					"mobNumber or emailId or Password Missing in testng xml file .Please provide if willing to use api call");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Issue while generating LoginToken.");
+		}
+		return nonTradeToken;
+	}
+
 	public String setTradeToken(String token) {
 		setupApi.setToken(token);
 		return setupApi.getToken();

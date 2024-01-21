@@ -147,7 +147,7 @@ public class BroadcastTest extends BaseClass {
 		//System.out.println("Trading symbol "+ tradingSymbol);
 		Helper helper = new Helper();
 		List<CreateBasketPOJO> objdata = new ArrayList<>();
-		 String dataFileName = "data/basketOrderDataMCX.json";
+		 String dataFileName = "data/basketOrderData.json";
 		 InputStream datais = getClass().getClassLoader().getResourceAsStream(dataFileName);
 		JSONTokener tokener = new JSONTokener(datais);
 		JSONObject object = new JSONObject(tokener);
