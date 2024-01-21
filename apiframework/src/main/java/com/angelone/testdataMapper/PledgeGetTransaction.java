@@ -15,7 +15,7 @@ public final class PledgeGetTransaction {
 	@SneakyThrows
 	public static PledgeGetTransactionPOJO getPledgeTransactionData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getPledgeTransaction.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getPledgeTransaction.json"),
 						PledgeGetTransactionPOJO.class);
 
 	}
@@ -24,7 +24,7 @@ public final class PledgeGetTransaction {
 	@SneakyThrows
 	public static PledgeGetTransactionPOJO getPledgeTransactionData(String party_code) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getPledgeTransaction.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getPledgeTransaction.json"),
 						PledgeGetTransactionPOJO.class)
 			.setParty_code(party_code);
 			

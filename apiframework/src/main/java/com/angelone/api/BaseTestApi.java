@@ -358,7 +358,7 @@ public class BaseTestApi {
 	@SneakyThrows
 	public void generateUserToken(String userCredentials) {
 		userDetails = userCredentials;
-		Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+		Properties prop = Helper.readPropertiesFile("src/main/resources/api-data.properties");
 		secretKey=ApiConfigFactory.getConfig().secretKey();
 		String[] creden = userCredentials.split(":");
 		try {
@@ -610,7 +610,7 @@ public class BaseTestApi {
 	public String refreshToken(String userDetails) {
 		String[] creden = userDetails.split(":");
 		String clientId = creden[3];
-		Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+		Properties prop = Helper.readPropertiesFile("src/main/resources/api-data.properties");
 		String oldTradeToken = prop.getProperty(clientId);
 		RefreshTokenPOJO setRefreshTokenData = RefreshTokenMapper.setRefreshTokenData(oldTradeToken);
 		Response response = setupApi.refreshToken(setRefreshTokenData);
@@ -646,7 +646,7 @@ public class BaseTestApi {
 			String emailId = creden[1];
 			String password = creden[2];
 			String clientId = creden[3];
-			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+			Properties prop = Helper.readPropertiesFile("src/main/resources/api-data.properties");
 			String oldTradeToken;
 			if (ApiConfigFactory.getConfig().environment().equalsIgnoreCase("uat"))
 				oldTradeToken = prop.getProperty("uat." + clientId);
@@ -672,7 +672,7 @@ public class BaseTestApi {
 		String oldTradeToken = "";
 		try {
 			String clientId = creden[3];
-			Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
+			Properties prop = Helper.readPropertiesFile("src/main/resources/api-data.properties");
 			if (ApiConfigFactory.getConfig().environment().equalsIgnoreCase("uat"))
 				oldTradeToken = prop.getProperty("uat." + clientId);
 			else
@@ -1018,7 +1018,7 @@ public class BaseTestApi {
 	}
 
 	public static void updatePropertyValue(String fileName, String key, String value) {
-		String propertyFilePath = "src/test/resources/" + fileName;
+		String propertyFilePath = "src/main/resources/" + fileName;
 		try {
 			PropertiesConfiguration conf = new PropertiesConfiguration(propertyFilePath);
 			conf.setProperty(key, value);

@@ -14,7 +14,7 @@ public final class MarginAmountMapper {
 	@SneakyThrows
 	public static MarginAmountPOJO getMarginAmountData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/marginAmount.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/marginAmount.json"),
 						MarginAmountPOJO.class);
 
 	}
@@ -22,7 +22,7 @@ public final class MarginAmountMapper {
 	@SneakyThrows
 	public static MarginAmountPOJO getMarginAmountData(String partyCode) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/marginAmount.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/marginAmount.json"),
 						MarginAmountPOJO.class)
 				.setParty_code(partyCode);
 			

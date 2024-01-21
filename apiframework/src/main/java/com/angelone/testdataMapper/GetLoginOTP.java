@@ -13,7 +13,7 @@ public final class GetLoginOTP {
 	@SneakyThrows
 	public static LoginOtpPOJO getOtp(String mobNumber) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getLoginOtp.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getLoginOtp.json"),
 						LoginOtpPOJO.class)
 				.setMob_no(mobNumber);
 
@@ -22,7 +22,7 @@ public final class GetLoginOTP {
 	@SneakyThrows
 	public static LoginOtpPOJO getUserDetails(String countryCode, String mobNo,String isOtpResend,String userId) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getLoginOtp.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getLoginOtp.json"),
 						LoginOtpPOJO.class)
 				.setCountry_code(countryCode)
 				.setMob_no(mobNo)

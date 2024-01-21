@@ -13,7 +13,7 @@ public final class CreateStockSIPMapper {
 	@SneakyThrows
 	public static CreateStockSIPPOJO stockSIP() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/createStockSIP.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/createStockSIP.json"),
 						CreateStockSIPPOJO.class);
 	}
 
@@ -21,7 +21,7 @@ public final class CreateStockSIPMapper {
 	public static CreateStockSIPPOJO stockSIP(String instrument_type,String instrument_id,String instrument_name,String instrument_trade_symbol,String instrument_symbol
 	,String order_value,String frequency,String order_type,String exchange,String start_date) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/createStockSIP.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/createStockSIP.json"),
 						CreateStockSIPPOJO.class)
 				.setInstrument_type(instrument_type)
 				.setInstrument_id(instrument_id)

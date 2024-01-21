@@ -13,7 +13,7 @@ public final class OptionsDataMapper {
 	@SneakyThrows
 	public static OptionsPOJO getOptionsData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/OptionsData.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/OptionsData.json"),
 						OptionsPOJO.class);
 
 	}
@@ -22,7 +22,7 @@ public final class OptionsDataMapper {
 	@SneakyThrows
 	public static OptionsPOJO getOptionsData(String stockxchangecode,String expirydate) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/OptionsData.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/OptionsData.json"),
 						OptionsPOJO.class)
 				.setStockxchangecode(stockxchangecode)
 				.setExpirydate(expirydate);

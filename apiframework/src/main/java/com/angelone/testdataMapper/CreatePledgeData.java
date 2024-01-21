@@ -15,7 +15,7 @@ public final class CreatePledgeData {
 	@SneakyThrows
 	public static CreatePledgePOJO createPledgeData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getUserSecurity.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getUserSecurity.json"),
 						CreatePledgePOJO.class);
 
 	}
@@ -24,7 +24,7 @@ public final class CreatePledgeData {
 	@SneakyThrows
 	public static CreatePledgePOJO createPledgeData(String party_code) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getUserSecurity.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getUserSecurity.json"),
 						CreatePledgePOJO.class)
 			.setParty_code(party_code);
 			
