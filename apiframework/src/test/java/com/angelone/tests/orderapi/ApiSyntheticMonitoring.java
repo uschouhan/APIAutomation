@@ -1042,7 +1042,7 @@ public class ApiSyntheticMonitoring extends BaseClass {
 		Assertions.assertThat(ifscCode).as("ifscCode is null").isNotBlank().isNotEmpty().isNotNull();
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testSetWatchlist() throws Exception {
 		String jsonFilePath = "requests/setWatchlistData.json";
 		String scriptId = "10666";
