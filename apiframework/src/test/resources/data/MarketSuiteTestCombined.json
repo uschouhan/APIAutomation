@@ -1,0 +1,184 @@
+{
+   "Orders_Positions_RealtimeUpdateOfLTP_Equity_NSE":{
+     "tradingSym":"TATAMOTORS-EQ",
+     "scriptId":"3456",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+     "scriptname":"TATAMOTORS"
+  },
+   "Orders_Positions_RealtimeUpdateOfLTP_Equity_BSE":{
+    "scriptId":"539437",
+    "tradingSym":"IDFCFIRSTB",
+     "exchange":"BSE",
+      "quantity":"2",
+      "stoploss":"0",
+       "pLtp":"0.0",
+    "transactiontype" :"BUY",
+    "triggerprice" :"0.0",
+   "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+   "scriptname":"IDFCFIRSTB"
+  },
+   "ShortOverView_VerifyOptionChainDetails_FNO":{
+    "scriptName":"RELIANCE",
+    "segment":"F&O",
+    "exchange": "NSE FO"
+  },
+  "Funds_Withdraw_Verify_FundWithdrawal":{
+  "amount":"1.00"
+  },
+  "Orders_Sell_From_Holding":{
+    "scriptName":"IFCI",
+    "qty" : "1"
+  },
+  "Order_Buy_From_Holding":{
+    "scriptName":"IFCI",
+    "qty" : "1"
+  },
+  "Orders_Sell_Intraday_Cash":{
+    "scriptName":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Orders_Buy_Margin_Cash":{
+    "scriptName":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Orders_Positions_Verify_SellMore_OrderFlow":{
+    "scriptName":"SOUTHBANK",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1"
+  },
+  "Orders_Positions_Verify_BuyMore_OrderFlow":{
+    "scriptName":"SOUTHBANK",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1"
+  },
+  "LongOverview_FundamentalTabDetails_Equity":{
+    "scriptname":"ASIANPAINT",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Charts_SellOrder_Cash":{
+    "scriptName":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "LongOverview_DerivativeTabDetails_LowerHalfData_FNO":{
+"scriptname":"ASIANPAINT",
+"segment":"F&O",
+"exchange":"NSE FO"
+},
+"LongOverview_StockDetails_Equity":{
+"scriptname":"ASIANPAINT",
+"segment":"F&O",
+"exchange":"NSE FO"
+},
+"Sell_Page_ErrorMsg":{
+	"scripname":"IFCI",
+	"qty":"1",
+    "sector":"Cash",
+    "segment": "NSE" 
+    },
+     "Spark_AddEquity_BSE_Buy_Stoploss_Cancelorder":{
+    "scriptname":"ZOMATO",
+    "segment":"BSE",
+    "sector":"Cash",
+    "qty":"1"
+    },
+    "Spark_AddEquity_NSE_Positions_Stoploss_Openorder_Cancel":{
+    "scriptname":"ZOMATO",
+    "segment":"NSE",
+    "sector":"Cash"
+    },
+    "Charts_BuyOrder_Cash":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Spark_AddEquity_NSE_Positions_Stoploss_Openorder_VerifySLTag":{
+     "scriptname":"ZOMATO",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+     "Orders_PositionsConversion_Margin_To_Delivery_Equity_NSE":{
+    "scriptId":"5097",
+    "tradingSym":"ZOMATO-EQ",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"MARGIN",
+    "variety":"NORMAL",
+   "scriptname":"ZOMATO"
+  },
+  "Spark_AddEquity_Buy_Limit_Openorder_VerifyLTPBroadcast":{
+  "scriptname":"ZOMATO",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_PositionsConversion_Intraday_To_Delivery_Equity_BSE":{
+    "scriptId":"543320",
+    "tradingSym":"ZOMATO",
+     "exchange":"BSE",
+      "quantity":"1",
+      "stoploss":"0",
+       "pLtp":"0.0",
+    "transactiontype" :"BUY",
+    "triggerprice" :"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"ZOMATO"
+    },
+    "Orders_PositionsConversion_Intraday_To_Margin_AddEquity_NSE":{
+    "scriptId":"4745",
+    "tradingSym":"BANKINDIA-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+    "scriptname":"BANKINDIA"
+  },
+  "coverOrder_Buy_Equity_OpenOrder_Verify_Cancel":{
+    "scriptname":"WIPRO",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "bracketOrder_Buy_Equity":{
+    "scriptname":"WIPRO",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Watchlist_LTPBroadcast_Cash":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Watchlist_LTPBroadcast_FNO":{
+    "scriptname":"ITC",
+    "segment":"F&O",
+    "exchange": "NSE FO"
+  },
+  "Watchlist_CreateEditDelete":{
+    "watchlistName":"TestWatchlist"
+  },
+   "Orders_Cancel_IntradayOrder":{
+    "scriptId":"17722",
+    "tradingSym":"DEN-EQ",
+     "exchange":"NSE",
+      "quantity":"1",
+      "stoploss":"0",
+       "pLtp":"0.0",
+    "transactiontype" :"BUY",
+    "triggerprice" :"0.0",
+   "ordertype":"LIMIT",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"DEN"
+  }
+ }

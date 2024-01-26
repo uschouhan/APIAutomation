@@ -9,9 +9,7 @@
 		<parameter name="UserCredentials" value="9741636854:upendra101087@gmail.com:lfixpzyvcbpoixrm:U50049267:2222:552724" />
 		<classes>
 			<class name="com.angelone.tests.orderapi.ApiSyntheticMonitoring">
-				<methods>
-					<include name="testSetWatchlist" />
-				</methods>
+
 			</class>
 		</classes>
 	</test>

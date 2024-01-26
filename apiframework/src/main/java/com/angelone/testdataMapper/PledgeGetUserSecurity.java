@@ -14,7 +14,7 @@ public final class PledgeGetUserSecurity {
 	@SneakyThrows
 	public static PledgeGetUserSecurityPOJO getUserSecurityData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getUserSecurity.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getUserSecurity.json"),
 						PledgeGetUserSecurityPOJO.class);
 
 	}
@@ -23,7 +23,7 @@ public final class PledgeGetUserSecurity {
 	@SneakyThrows
 	public static PledgeGetUserSecurityPOJO getUserSecurityData(String party_code) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getUserSecurity.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getUserSecurity.json"),
 						PledgeGetUserSecurityPOJO.class)
 			.setParty_code(party_code);
 			

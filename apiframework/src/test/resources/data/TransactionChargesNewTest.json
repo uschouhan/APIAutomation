@@ -1,0 +1,54 @@
+{
+ "GTT_Verify_Charges_Buy_Cash_NSE":{
+   "scriptname":"DISHTV",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "GTT_Verify_Charges_Sell_Cash_NSE":{
+    "scriptname":"DISHTV",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "StopLoss_Verify_Charges_Buy_Cash_NSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "StopLoss_Verify_Charges_Sell_Cash_NSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "CoverOrder_Verify_Charges_Buy_Cash_NSE":{
+    "scriptname":"SBIN",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "BracketOrder_Verify_Charges_Buy_Cash_NSE":{
+    "scriptname":"SBIN",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "Positions_Verify_Charges_Exit_ClosedPositions_Intraday_Buy_Cash_NSE":{
+	 "scriptId":"3499",
+    "tradingSym":"TATASTEEL-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"TATASTEEL",
+   "qty":"1"  
+  },
+  "OrderHistory_Verify_Charges_Exit_ReOrder_Intraday_Buy_Cash_NSE":{
+	 "scriptId":"3499",
+    "tradingSym":"TATASTEEL-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"TATASTEEL",
+   "qty":"1"  
+  }
+
+
+}

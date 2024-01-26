@@ -1,0 +1,222 @@
+{
+  "Portfolio_Holdings_Verify_AverageTradePriceDetails":{
+    "scriptName":"IFCI"
+  },
+  "Portfolio_Holdings_LongOverview_StockDetails":{
+    "scriptName":"IFCI"
+  },
+  "Portfolio_Holdings_Search_StockInHoldings":{
+    "scriptName":"IFCI"
+  },
+  "Portfolio_Buy_From_Holdings":{
+   "tradingSym":"IFCI-EQ",
+     "scriptId":"1491",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptName":"IFCI",
+    "Qty" : "1"
+  },
+  "Portfolio_Sell_From_Holdings":{
+   "tradingSym":"IFCI-EQ",
+    "scriptId":"1491",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptName":"IFCI",
+    "Qty" : "1"
+  },
+   "Portfolio_Holdings_Buy_Intraday_Verify_Quantity":{
+    "scriptName":"DEN",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"17722",
+    "tradingSym":"DEN-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "variety":"NORMAL",
+     "producttype":"INTRADAY",
+   	"qty":"1" 
+  },
+  "Portfolio_Sell_From_Holdings_T2TStock":{
+    "scriptName":"ADL",
+     "qty" : "1"
+  },
+  "Portfolio_Holdings_Verify_TradeHistory":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Sell_From_Holding":{
+    "scriptname":"IFCI",
+     "Qty" : "1",
+     "scriptname2" : "IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "Partial_Sell_From_Holding":{
+    "scriptname":"IFCI",
+     "Qty" : "2",
+     "QtySell" : "1",
+     "scriptname2" : "IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "Orders_Sell_From_Holding_Squareoff_from_Watchlist":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"1491",
+    "tradingSym":"IFCI-EQ",
+	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+	"pLtp":"0.0",
+    "quantity":"1",
+    "transactiontypee":"SELL",
+    "triggerprice":"0.0",
+    "stoploss":"0" 
+  },
+  "Portfolio_VerifyHoldingsDetailScreen":{
+  "scriptName":"IFCI"
+},
+   "Portfolio_Verify_Broadcast":{
+    "scriptName":"IFCI"
+
+  },
+  "Portfolio_Holdings_Verify_CurrentHoldings_BreakUpDetails":{
+    "scriptname":"IFCI"
+  },
+  "Portfolio_FilterBy_Delivery_ProductType":{
+    "scriptName":"IFCI"
+  },
+  "Orders_Buy_Margin_Verify_Portfolio_FilterBy_Margin_ProductType_SameDay":{
+   "tradingSym":"MAHABANK-EQ",
+    "scriptId":"11377",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"MARGIN",
+    "variety":"NORMAL",
+    "scriptName":"MAHABANK",
+    "Qty" : "1"
+  },
+  "Orders_Buy_T2TStock_Sell_From_Positions_VerifyErrorMessage_SameDay":{
+    "scriptName":"ADL",
+      "tradingSym":"ADL-BE",
+     "scriptId":"248",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  "Portfolio_Holdings_Verify_LTCG_STCG":{
+    "scriptName":"IFCI",
+    "scriptName2":"IOC",
+    "tradingSym":"IOC-EQ",
+    "scriptId":"1624",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  "Portfolio_Sell_From_Holdings__Verify_AMO_AlwaysOnMsg":{
+  "scriptName":"IFCI",
+     "qty" : "1"
+  
+  },
+  "Portfolio_Holdings_Verify_UnsettledQty_TradableQty":{
+    "scriptName":"IFCI",
+    "scriptName2":"IOC",
+    "tradingSym":"IOC-EQ",
+    "scriptId":"1624",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  "Portfolio_Equity_Buy_And_Sell_Squareoff":{
+    "scriptname":"IFCI",
+     "Qty" : "10",
+    "buyAction":"Buy",
+    "sellAction":"Sell"
+  },
+  "Order_Buy_From_Holding":{
+    "scriptName":"IFCI",
+    "qty" : "1"
+  },
+  "Add_Stock_From_Holding_Verify_In_WatchList":{
+    "scriptName":"IFCI"
+  },
+  "Portfolio_Holdings_Verify_TradableQty_InSellOrderPad":{
+    "scriptName":"IFCI",
+    "symboltoken": "1491"
+  },
+  "Portfolio_Holdings_Verify_ATP_Functionality":{
+   "tradingSym":"RPOWER-EQ",
+     "scriptId":"15259",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptName":"IFCI",
+    "scriptName2":"RPOWER"
+  },
+  "Portfolio_Holdings_Verify_TradableQty_And_PledgeQty_Calculation":{
+   "tradingSym":"IFCI-EQ",
+     "scriptId":"1491",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptName":"IFCI"
+  },
+  "Portfolio_Holdings_FilterBy_Different_Sector": {
+    "scriptId":"5948",
+    "tradingSym":"SOUTHBANK-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptId2":"14366",
+    "tradingSym2":"IDEA-EQ",
+    "scriptId3":"11377",
+    "tradingSym3":"MAHABANK-EQ",
+     "scriptId4":"15259",
+     "tradingSym4":"RPOWER-EQ",
+      "scriptId5":"3403",
+     "tradingSym5":"AJOONI-EQ",
+      "scriptId6":"1491",
+     "tradingSym6":"IFCI-EQ",
+     "scriptId7":"8833",
+     "tradingSym7":"BCG-EQ"
+     
+	},
+  "Portfolio_Holdings_Verify_TodaysGL_Percentage_Calculation_Buy_Morethan_Sell":{
+    "scriptId":"16249",
+    "tradingSym":"INFIBEAM-EQ",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptname":"INFIBEAM",
+    "qty" : "1"
+  },
+  "Portfolio_Holdings_Verify_TodaysGL_Percentage_Calculation_Sell_Morethan_Buy":{
+    "scriptId":"1491",
+    "tradingSym":"IFCI-EQ",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+    "scriptname":"IFCI",
+    "qty" : "1"
+  },
+  "Portfolio_WatchList_VerifyDDPI_options": {
+    "scriptName": "COALINDIA",
+    "segment": "Cash",
+    "exchange": "NSE"
+  }
+}

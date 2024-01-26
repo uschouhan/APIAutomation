@@ -1,0 +1,26 @@
+{
+    "Funds_Withdraw_Verify_FundWithdrawal":{
+    "amount":"1.00"
+  },
+  "Funds_AddFunds_OtherUPI_Navigation":{
+  "amount":"10",
+  "upiname":"1234@ybl"
+  },
+  	
+  "Funds_AddFunds_NetBanking_Navigation":{
+  "amount":"50.00"
+  },
+  "Funds_InsufficientFunds_OrderRejection_Sleeve_Redesign": {
+		"scriptName": "IDFCFIRSTB",
+		"scriptName2": "DRREDDY",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "10000"
+	},
+	"Orders_Buy_OrderPad_PlaceOrder_MoreThan_AvailableMargin_VerifyAddFunds": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty":"1000"
+	}
+}

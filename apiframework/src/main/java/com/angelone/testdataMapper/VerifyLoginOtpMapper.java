@@ -13,7 +13,7 @@ public final class VerifyLoginOtpMapper {
 	@SneakyThrows
 	public static VerifyLoginOtpPOJO verifyOtp(String mobNum) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/verifyLoginOtp.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/verifyLoginOtp.json"),
 						VerifyLoginOtpPOJO.class);
 
 	}
@@ -21,7 +21,7 @@ public final class VerifyLoginOtpMapper {
 	@SneakyThrows
 	public static VerifyLoginOtpPOJO verifyOtp(String requestId,String countryCode, String mobNo,String otp,String source,String appId,String reqTokenFlag) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/verifyLoginOtp.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/verifyLoginOtp.json"),
 						VerifyLoginOtpPOJO.class)
 				.setRequest_id(requestId)
 				.setCountry_code(countryCode)
@@ -36,7 +36,7 @@ public final class VerifyLoginOtpMapper {
 	@SneakyThrows
 	public static VerifyLoginOtpPOJO verifyOtp(String requestId,String mobNo,String otp) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/verifyLoginOtp.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/verifyLoginOtp.json"),
 						VerifyLoginOtpPOJO.class)
 				.setRequest_id(requestId)
 				.setMob_no(mobNo)

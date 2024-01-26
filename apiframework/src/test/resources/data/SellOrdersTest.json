@@ -1,0 +1,426 @@
+{
+   "Orders_Sell_Modify_OpenOrder":{
+    "scriptname":"IDFCFIRSTB",
+    "exchange":"NSE",
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+	"ordertype":"LIMIT",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+	"pLtp":"0.0",
+    "quantity":"1",
+    "transactiontypee":"SELL",
+    "triggerprice":"0.0",
+    "stoploss":"0"
+    
+  },
+  "GTT_Sell_Verify_AddAlert_CompletePOA_ShortSleeveMsg":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Sell_OrderPadError_ErrorMessage_Equity_Delivery":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "Qty" : "1"
+  },
+  "Sell_OrderPadError_ErrorMessage_Equity_Intraday":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "Qty" : "1"
+  },
+  "Sell_OrderPadError_ErrorMessage_FnO_Intraday":{
+    "scriptname":"TCS",
+    "segment":"F&O",
+    "exchange":"NSE FO",
+    "Qty" : "1"
+  },
+  "Sell_OrderPadError_ErrorMessage_FnO_CarryForward":{
+  "scriptname":"TCS",
+    "segment":"F&O",
+    "exchange":"NSE FO",
+    "Qty" : "1"
+  },
+  "Sell_OrderPadError_ErrorMessage_Currency_Intraday":{
+  "scriptname":"USDINR",
+   "segment":"Currency",
+    "exchange":"NSECDS",
+    "Qty" : "1"
+  },
+  "Sell_OrderPadError_ErrorMessage_Currency_CarryForward":{
+  "scriptname":"USDINR",
+   "segment":"Currency",
+    "exchange":"NSECDS",
+    "Qty" : "1"
+  },
+  "Orders_Sell_Intraday_MarketOrder":{
+    "scriptname":"ASHOKLEY",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    
+    "Orders_Sell_Intraday_DisclosedQuantity_MarketOrder":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Sell_Intraday_Validity_Day_MarketOrder":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Sell_Intraday_Validity_IOC_MarketOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Sell_Intraday_Validity_IOC_LimitOrder":{
+    "scriptName":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "quantity" :"1"
+  },
+     "Orders_Sell_Intraday_LimitOrder":{
+    "scriptname":"ONGC",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Sell_Margin_LimitOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+"Orders_Sell_Margin_Validity_IOC_MarketOrder":{
+    "scriptname":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Orders_Sell_Margin_Validity_IOC_LimitOrder":{
+    "scriptname":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"16249",
+    "tradingSym":"INFIBEAM-EQ",
+    "ordertype":"MARKET",
+    "producttype":"MARGIN",
+    "variety":"NORMAL",
+    "pLtp":"0.0",
+    "quantity":"1",
+    "transactiontypee":"BUY",
+    "triggerprice":"0.0",
+    "stoploss":"0"
+  },
+  "Orders_Sell_Margin_DisclosedQuantity_MarketOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "Orders_Sell_Intraday_MarketOrder_PartialSquareoff_Equity":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+
+  "Orders_Sell_DiscloseQty_PendingOrder_Equity":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "Qty" : "2",
+    "Disclosedqty":"1"
+  },
+  "Sell_Margin_MarketOrder_Equity":{
+     "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+     "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"MARGIN",
+    "variety":"NORMAL"
+  },
+  "Orders_Sell_Intraday_MarketOrder_Positions_Verify_TradeHistory":{
+     "scriptname":"IDFCFIRSTB",
+    "basketID": "0",
+    "disclosedquantity": "0",
+    "duration": "DAY",
+    "exchange": "NSE",
+    "multiplier": "1",
+    "orderValidityDate": "",
+    "ordertag": "",
+    "ordertype": "MARKET",
+    "precision": "2",
+    "price": "0.0",
+    "producttype": "INTRADAY",
+    "quantity": "1",
+    "squareoff": "0",
+    "stoploss": "0",
+    "strategyCode": "0",
+    "symboltoken": "11184",
+    "tickSize": "1",
+    "tradingsymbol": "IDFCFIRSTB-EQ",
+    "trailTickYesNo": "NO",
+    "trailingStopLoss": "0",
+    "transactiontype": "SELL",
+    "triggerprice": "0.0",
+    "variety": "NORMAL"
+  },
+  "Orders_Intraday_Modify_Equity":{
+  "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "Orders_Sell_Intraday_Validity_Day_LimitOrder":{
+   "scriptName":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "quantity" :"1"
+  
+  },
+  "SellOrders_BestFive_OrderPad_MarketDepth_PlusMinusCTA_Verify":{
+   "scriptId":"13528",
+  "scriptId2":"533239",
+  "scriptId3":"1151",
+  "scriptId4":"251731",
+    "quantity":"1"
+  },
+   "Orders_SellIntraday_Modify_Commodity":{
+    "scriptId":"255321",
+    "pLtp":"0.0",
+    "ordertype":"LIMIT",   
+    "producttype2":"INTRADAY",
+    "variety":"NORMAL",
+    "scriptname":"GOLDPETAL",
+    "Qty" : "1",  
+    "basketID": "0",
+    "disclosedquantity": "0",
+    "duration": "DAY",   
+    "exchange2": "MCX",
+    "multiplier": "1",
+    "orderValidityDate": "",
+    "ordertag": "",
+    "precision": "2", 
+    "quantity": "1",
+    "squareoff": "0",
+    "stoploss": "0",
+    "strategyCode": "0",
+    "symboltoken2": "256556",
+    "tickSize": "1",
+    "tickSize2": "100.0",
+    "tradingsymbol2": "GOLDPETAL23AUGFUT",
+    "trailTickYesNo": "NO",
+    "trailingStopLoss": "0",
+    "transactiontype": "SELL",
+    "triggerprice": "0.0"
+  },
+  "Orders_SellIntraday_Modify_Currency":{  
+    "pLtp":"0.0",
+    "ordertype":"LIMIT",
+    "producttype2":"INTRADAY",
+    "variety":"NORMAL",
+    "scriptname":"USDINR",
+    "Qty" : "1", 
+    "basketID": "0",
+    "disclosedquantity": "0",
+    "duration": "DAY",
+    "exchange": "CDS",
+    "multiplier": "1",
+    "orderValidityDate": "",
+    "ordertag": "",
+    "precision": "2",
+    "quantity": "1",
+    "squareoff": "0",
+    "stoploss": "0",
+    "strategyCode": "0",
+    "symboltoken": "6321",
+    "tickSize": "1",
+    "tickSize2": "100.0",
+    "tradingsymbol": "USDINR23AUGFUT", 
+    "trailTickYesNo": "NO",
+    "trailingStopLoss": "0",
+    "transactiontype": "SELL",
+    "triggerprice": "0.0"
+  },
+  "Orders_Sell_Modify_OpenOrder_Delivery_Equity":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+	"ordertype":"LIMIT",
+	"ordertype2":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+	"pLtp":"0.0",
+    "quantity":"1",
+    "transactiontypee":"SELL",
+    "transactiontype":"BUY",
+    "triggerprice":"0.0",
+    "stoploss":"0"
+  },
+   "Orders_Equity_Sell_Intraday_Exit_ClosedPositions_SellMore_OrderFlow":{
+      "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+	"ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+	"pLtp":"0.0",
+    "quantity":"1",
+    "transactiontypee":"SELL",
+    "triggerprice":"0.0",
+    "stoploss":"0"
+  },
+  "Orders_Sell_Commodity_CF_Positions_SellMore_VerifyOrderRejected":{
+ 	"basketID": "0",
+	"disclosedquantity": "0",
+	"duration": "DAY",
+	"exchange": "MCX",
+	"multiplier": "1",
+	"orderValidityDate": "",
+	"ordertag": "",
+	"ordertype":"MARKET",
+ 	"precision": "2",
+     "producttype3":"CARRYFORWARD",
+     "producttype2":"CF",
+    "quantity": "1",
+    "quantity2": "10",
+    "squareoff": "0",
+    "stoploss": "0",
+    "strategyCode": "0",
+     "symboltoken": "256556",
+    "tickSize": "1",
+     "tradingsymbol":"GOLDPETAL23AUGFUT",
+    "trailTickYesNo": "NO",
+    "trailingStopLoss": "0",
+    "transactiontype": "SELL",
+    "triggerprice": "0.0",
+     "variety":"NORMAL",
+	"scriptname":"GOLDPETAL"
+  },
+  "Orders_SellIntraday_Modify_Equity":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Orders_WatchlistSell_Verify_MarginCheckbox_NotDisplayed_Orderpad":{
+  "scriptName":"RPOWER",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "quantity":"1"
+  },
+  "Orders_HomePageMarketIndicesSell_Verify_MarginCheckbox_NotDisplayed_Orderpad":{
+    "quantity":"1"
+  },
+  "Orders_ChartsSell_Verify_MarginCheckbox_NotDisplayed_Orderpad":{
+  "scriptName":"RPOWER",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Verify_DeliverSell_OrderPadMessage_For_Scrip_No_HoldingsPortfolio":{
+  "scriptName":"RPOWER",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Verify_DeliverSell_From_Charts_OrderPadMessage_For_Scrip_No_HoldingsPortfolio":{
+  "scriptName":"HATHWAY",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "Verify_OrderPadMessage_DeliverySell_For_QtyMoreThanHoldings_FromPortfolio":{
+  "scriptName":"IFCI"
+  },
+  "Orders_Buy_Margin_Sell_From_Watchlist_Verify_MarginCheckbox_Displayed_Orderpad":{
+   "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Orders_Buy_Margin_Sell_From_Charts_Verify_MarginCheckbox_Displayed_Orderpad":{
+  "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Orders_Buy_Margin_Sell_From_Watchlist_Verify_MaxQuantitySellOrderpad_Equal_AvailableQTYPositions":{
+  "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Orders_Buy_Margin_Sell_From_Charts_Verify_MaxQuantitySellOrderpad_Equal_AvailableQTYPositions":{
+  "scriptName":"EASEMYTRIP",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Buy_Margin_Sell_From_Positions_Verify_MaxQuantitySellOrderpad_Equal_AvailableQTYPositions":{
+    "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Buy_Margin_Sell_From_Watchlist_Verify_ErrorMsgQtyMoreThanMaxQuantitySellOrderpad":{
+    "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Buy_Margin_Sell_Verify_Quantity_InvestmentGuide_Equal_AvailableQTYPositions":{
+    "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_Buy_Margin_Sell_From_Charts_Verify_ErrorMsgQtyMoreThanMaxQuantitySellOrderpad":{
+     "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE"
+    },
+    "Orders_PortfolioSell_Verify_MarginCheckbox_NotDisplayed_Orderpad":{
+    "scriptName":"IFCI"
+    },
+    "Orders_Sell_From_Watchlist_SquareOff_From_Positions":{
+     "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Sell_SGB_With_No_Shares_VerifyErrorMessage":{
+  "scriptname":"SGBD29VIII"
+  },
+    "Orders_Sell_From_Watchlist_SquareOff_From_Positions_With100_Quantity":{
+   "scriptName":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"100"
+  },
+  "Orders_Sell_From_Watchlist_SquareOff_From_Charts":{
+   "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1"
+  },
+  "Orders_Sell_Delivery_And_Intraday_And_Margin_IOC_LimitPrice_Zero":{
+    "scriptName":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "quantity" :"1",
+    "tradingSym": "IFCI-EQ",
+	"scriptId": "1491",
+	"ordertype": "MARKET",
+	"pLtp":"0.0",
+	"producttype": "MARGIN",
+	"variety": "NORMAL"
+  },
+  "Orders_Sell_Equity_Verify_AMO_PopUpMsg":{
+	"scriptName": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Sell_Commodity_Verify_AMO_PopUpMsg":{
+	"scriptName": "GOLDPETAL",
+		"segment": "COMMODITY",
+		"exchange": "MCX",
+		"quantity": "1"
+	}
+ }

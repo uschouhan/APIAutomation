@@ -14,7 +14,7 @@ public final class GetSecurityInfoMapper {
     @SneakyThrows
     public static GetSecurityInfoPOJO getsecurityinfo() {
         return new ObjectMapper()
-                .readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getSecurityInfo.json"),
+                .readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getSecurityInfo.json"),
                         GetSecurityInfoPOJO.class);
 
     }
@@ -22,7 +22,7 @@ public final class GetSecurityInfoMapper {
     @SneakyThrows
     public static GetSecurityInfoPOJO getsecurityinfo(String exchange, String symbol) {
         return new ObjectMapper()
-                .readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/getSecurityInfo.json"),
+                .readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/getSecurityInfo.json"),
                         GetSecurityInfoPOJO.class)
                 .setSymbol(symbol)
                 .setExchange(exchange);

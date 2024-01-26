@@ -1,0 +1,33 @@
+testMethod,tcName,scriptname,segment,exchange,txnType,productType,callPut,strikePrice,expiryDate,enabled
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Delivery_Buy_Cash_NSE,IRFC,Cash,NSE,BUY,DELIVERY,NA,NA,NA,Yes
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Delivery_Buy_Cash_BSE,IRFC,Cash,BSE,BUY,DELIVERY,NA,NA,NA,No
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Cash_NSE,IFCI,Cash,NSE,BUY,INTRADAY,NA,NA,NA,No
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Cash_BSE,IFCI,Cash,BSE,BUY,INTRADAY,NA,NA,NA,Yes
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Sell_Cash_BSE,IFCI,Cash,BSE,SELL,INTRADAY,NA,NA,NA,Yes
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Sell_Cash_NSE,IFCI,Cash,NSE,SELL,INTRADAY,NA,NA,NA,No
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Margin_Buy_Cash_NSE,IRFC,Cash,NSE,BUY,MARGIN,NA,NA,NA,No
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Margin_Buy_Cash_BSE,IRFC,Cash,BSE,BUY,MARGIN,NA,NA,NA,Yes
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Margin_Sell_Cash_NSE,IRFC,Cash,NSE,SELL,MARGIN,NA,NA,NA,Yes
+orderPadVerifyTxnCharges,OrderPad_Verify_Charges_Margin_Sell_Cash_BSE,IRFC,Cash,BSE,SELL,MARGIN,NA,NA,NA,No
+portfolioHoldingsVerifyTxnCharges,OrderPad_Verify_Charges_Holdings_Sell_Cash_NSE,IRFC,Cash,NSE,SELL,INTRADAY,NA,NA,NA,Yes
+portfolioHoldingsVerifyTxnCharges,OrderPad_Verify_Charges_Holdings_Sell_Cash_BSE,IRFC,Cash,BSE,SELL,INTRADAY,NA,NA,NA,Yes
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Future_NFO,BANKNIFTY,F&O,NSE FO,BUY,INTRADAY,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Option_NFO,BANKNIFTY,F&O,NSE FO,BUY,INTRADAY,CE,48500,22 JUN 2023,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Future_NFO,BANKNIFTY,F&O,NSE FO,SELL,INTRADAY,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Option_NFO,BANKNIFTY,F&O,NSE FO,SELL,INTRADAY,CE,48500,22 JUN 2023,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Buy_Future_NFO,BANKNIFTY,F&O,NSE FO,BUY,CARRYFORWARD,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Buy_Option_NFO,BANKNIFTY,F&O,NSE FO,BUY,CARRYFORWARD,CE,48500,22 JUN 2023,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Sell_Future_NFO,BANKNIFTY,F&O,NSE FO,SELL,CARRYFORWARD,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Sell_Option_NFO,BANKNIFTY,F&O,NSE FO,SELL,CARRYFORWARD,CE,48500,22 JUN 2023,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Currency_CDS,USDINR,Currency,NSECDS,BUY,INTRADAY,NA,NA,NA,Yes
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Buy_Commodity_MCX,GOLDPETAL,Commodity,MCX,BUY,INTRADAY,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Sell_Currency_CDS,USDINR,Currency,NSECDS,SELL,INTRADAY,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_Intraday_Sell_Commodity_MCX,GOLDPETAL,Commodity,MCX,SELL,INTRADAY,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Buy_Currency_CDS,USDINR,Currency,NSECDS,BUY,CARRYFORWARD,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Buy_Commodity_MCX,GOLDPETAL,Commodity,MCX,BUY,CARRYFORWARD,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Sell_Currency_CDS,USDINR,Currency,NSECDS,SELL,CARRYFORWARD,NA,NA,NA,No
+FNOorderPadVerifyTxnCharges,OrderPad_Verify_Charges_CarryForward_Sell_Commodity_MCX,GOLDPETAL,Commodity,MCX,SELL,CARRYFORWARD,NA,NA,NA,No
+positionExitVerifyTxnCharges,Positions_Verify_Charges_Exit_Intraday_Buy_Cash_NSE,PNB,Cash,NSE,BUY,INTRADAY,NA,NA,NA,Yes
+positionExitVerifyTxnCharges,Positions_Verify_Charges_Exit_Intraday_Buy_Cash_BSE,PNB,Cash,BSE,BUY,INTRADAY,NA,NA,NA,No
+positionExitVerifyTxnCharges,Positions_Verify_Charges_Exit_Delivery_Buy_Cash_NSE,PNB,Cash,NSE,BUY,DELIVERY,NA,NA,NA,No
+positionExitVerifyTxnCharges,Positions_Verify_Charges_Exit_Delivery_Buy_Cash_BSE,PNB,Cash,BSE,BUY,DELIVERY,NA,NA,NA,Yes

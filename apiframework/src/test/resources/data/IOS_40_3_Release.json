@@ -1,0 +1,81 @@
+
+{
+"Orders_BuyOnMargin_VerifyMessage_FlagZero_B2BUser":{
+"scriptname":"IDEA",
+"segment":"Cash",
+"exchange":"NSE"
+},
+"Orders_VerifySplitOrder_Details_NiftyFnO":{
+"scriptname":"NIFTY",
+  "scriptname2":"NIFTY CE 23000",
+"segment":"Opt",
+"exchange":"NSE FO"
+
+},
+"Orders_VerifySplitOrder_ErrorMsg_MaxQty_FnO":{
+  "scriptname":"BANKNIFTY",
+  "scriptname2":"BANKNIFTY CE 50000",
+"segment":"Opt",
+"exchange":"NSE FO"
+
+},
+"Orders_VerifySplitOrder_ErrorMsg_MaxQty_Commodity":{
+"scriptname":"GOLDPETAL",
+"segment":"Commodity",
+"exchange":"MCX"
+},
+"Orders_VerifySplitOrder_ErrorMsg_MaxQty_Currency":{
+  "scriptname":"USDINR",
+  "scriptname2":"USDINR CE 83",
+"segment":"Currency",
+"exchange":"NSECDS"
+
+},
+"Orders_VerifySplitOrder_Details_FnO":{
+  "scriptname":"BANKNIFTY",
+  "scriptname2":"BANKNIFTY CE 50000",
+"segment":"Opt",
+"exchange":"NSE FO"
+
+},
+"Orders_VerifySplitOrder_Details_Currency":{
+"scriptname":"USDINR",
+  "scriptname2":"USDINR CE 83",
+"segment":"Currency",
+"exchange":"NSECDS"
+
+
+},
+"Orders_VerifySplitOrder_Details_Commodity":{
+"scriptname":"GOLDPETAL",
+"segment":"Commodity",
+"exchange":"MCX"
+
+},
+"Funds_AddFunds_DisplayAmountInWordFormat":{
+    "amount":"1000",
+    "amount2":"4361041",
+    "amount3":"1234567890"
+  },
+"OptionChain_Verify_StrikePrice_FnO":{
+    "scriptName":"INFY",
+    "segment":"F&O",
+    "exchange": "NSE FO"
+  },
+"OptionChain_Verify_StrikePrice_Commodity":{
+   "scriptName":"CRUDEOIL",
+    "segment":"Commodity",
+    "exchange":"MCX"
+  },
+"OptionChain_Verify_StrikePrice_Currency":{
+    "scriptName":"USDINR",
+    "segment":"Currency",
+    "exchange":"NSECDS"
+  },
+  "GTT_Sell_Verify_AddAlert_CompletePOA_ShortSleeveMsg":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  }
+
+}

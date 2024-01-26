@@ -1,0 +1,6 @@
+scriptname,segment,exchange
+NIFTY,Indices,NSE
+SENSEX,Indices,BSE
+BANKNIFTY,Indices,NSE
+FINNIFTY,Indices,NSE
+INDIA VIX,Indices,NSE

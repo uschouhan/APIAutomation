@@ -1,0 +1,135 @@
+{
+    "Charts_BuyAndSell_SquareOff_FNO_VerifyInClosedPositions":{
+    "scriptname":"BANKNIFTY CE 44000",
+    "scriptname2":"BANKNIFTY",
+    "segment":"F&O",
+    "exchange":"NSE FO",
+    "quantity":"1"
+  },
+   "Charts_BuyAndSell_OpenOrder_CancelOrder_Currency":{
+   "scriptname":"USDINR",
+    "segment":"Currency",
+    "exchange":"NSECDS",
+    "quantity" :"1"
+    },
+
+    "Charts_BuyAndSell_OpenOrder_CancelOrder_FNO":{
+    "scriptname":"FINNIFTY",
+     "Qty" : "1",
+    "segment":"F&O",
+    "exchange":"NSE FO",
+    "producttype":"CARRY FORWARD"
+    
+},
+    "Charts_BuyAndSell_OpenOrder_CancelOrder_Commodity":{
+   "scriptname":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "quantity" :"1"
+
+    },
+    "Orders_Positions_Charts_MTM":{
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+   "scriptname":"IDFCFIRSTB"
+  },
+  "Charts_Buy_Currency_Verify_AMO_AlwaysON_PopUpMsg":{
+   "scriptname":"USDINR",
+    "segment":"Currency",
+    "exchange":"NSECDS",
+    "quantity" :"1"
+    },
+    "Charts_Equity_Buy_And_Sell_Squareoff":{
+    "scriptname":"PNBGILTS",
+     "Qty" : "1",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "buyAction":"Buy",
+    "sellAction":"Sell",
+    "producttype":"DELIVERY"
+  },
+ "Charts_Verify_ChartsIQ":{
+    "scriptname":"PNBGILTS",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Charts_Verify_CTAs_FnOEnabled_And_FnONotEnabled":{
+   "scriptName":"NIFTY",
+    "segment":"Indices",
+    "exchange":"NSE",
+    "scriptName2":"INDIA VIX",
+    "scriptName3":"MIDCPNIFTY",
+    "segment2":"F&O",
+    "exchange2":"NSE FO",
+    "scriptName4":"MIDCPNIFTY CE",
+  },
+  "Charts_Verify_ChartsIQ_From_OpenOrders_MCX":{
+    "basketID": "0",
+    "disclosedquantity": "0",
+    "duration": "DAY",
+    "exchange2": "MCX",
+    "multiplier": "1",
+    "orderValidityDate": "",
+    "ordertag": "",
+    "ordertype":"LIMIT",
+    "precision": "2",
+    "producttype2":"INTRADAY",
+    "quantity": "1",
+    "squareoff": "0",
+    "stoploss": "0",
+    "strategyCode": "0",
+    "tickSize2": "100.0",
+    "trailTickYesNo": "NO",
+    "trailingStopLoss": "0",
+    "transactiontype": "BUY",
+    "triggerprice": "0.0",
+    "variety":"NORMAL",
+    "scriptname":"GOLDPETAL" 
+  },
+  "Charts_Verify_ChartsIQ_From_Positions_Equity_NSE":{
+  "scriptName":"GMRINFRA",
+     "qty":"1",
+     "scriptId":"13528",
+    "tradingSym":"GMRINFRA-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  "Charts_Verify_ChartsIQ_From_OrderHistory_Equity_BSE":{
+    "scriptId":"543320",
+    "tradingSym":"ZOMATO",
+     "exchange":"BSE",
+      "quantity":"1",
+      "stoploss":"0",
+       "pLtp":"0.0",
+    "transactiontype" :"BUY",
+    "triggerprice" :"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"ZOMATO"
+    },
+    "Charts_Verify_ChartsIQ_From_Holdings":{
+   "scriptname":"IFCI"
+    },
+	"Charts_Verify_ChartsIQ_From_OptionChain":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Charts_SellOrder_Cash":{
+    "scriptName":"SOUTHBANK",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Charts_Verify_FTUX_Journey":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+  }
+}

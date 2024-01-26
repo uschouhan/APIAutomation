@@ -1,0 +1,395 @@
+{
+
+	"Orders_Verify_MarginValues_InvestmentGuide_OrderEntryPad_Equity": {
+		"scriptName": "IDFCFIRSTB",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Verify_MarginValues_InvestmentGuide_OrderEntryPad_Currency": {
+		"scriptName": "USDINR",
+		"segment": "Currency",
+		"exchange": "NSECDS",
+		"quantity": "1"
+	},
+	"Orders_Verify_MarginValues_InvestmentGuide_OrderEntryPad_Commodity": {
+		"scriptName": "CRUDEOIL",
+		"segment": "Commodity",
+		"exchange": "MCX",
+		"quantity": "1"
+	},
+	"Orders_Verify_MarginValues_InvestmentGuide_OrderEntryPad_Futures": {
+		"scriptName": "BANKNIFTY",
+		"exchange": "NSE FO",
+		"segment": "F&O",
+		"quantity": "1"
+	},
+	"Orders_Verify_MarginValues_InvestmentGuide_OrderEntryPad_Options": {
+		"scriptName": "ITC CE 438",
+		"exchange": "NSE FO",
+		"segment": "F&O",
+		"quantity": "1"
+	},
+	"Orders_Buy_Modify_OpenOrder": {
+		"tradingSym": "IFCI-EQ",
+		"scriptId": "1491",
+		"pLtp": "0.0",
+		"ordertype": "LIMIT",
+		"producttype": "DELIVERY",
+		"variety": "NORMAL",
+		"scriptname": "IFCI",
+		"Qty": "1",
+		"Scrip": "IFCI"
+	},
+	"Orders_Buy_Delivery_Margin_MarketOrder": {
+		"scriptname": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Intraday_MarketOrder": {
+		"scriptName": "EASEMYTRIP",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Intraday_DisclosedQuantity_MarketOrder": {
+		"scriptName": "MAHABANK",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Intraday_Validity_Day_MarketOrder": {
+		"scriptName": "IDBI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Buy_Intraday_Validity_IOC_LimitOrder": {
+		"scriptName": "IDBI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Buy_Intraday_Validity_Day_LimitOrder": {
+		"scriptName": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Buy_Intraday_LimitOrder": {
+		"scriptName": "GAIL",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Intraday_Validity_IOC_MarketOrder": {
+		"scriptName": "YESBANK",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Buy_Delivery_MarketOrder": {
+		"scriptName": "MAHABANK",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Delivery_Validity_IOC_MarketOrder": {
+		"scriptName": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Delivery_DisclosedQuantity_MarketOrder": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Margin_LimitOrder": {
+		"scriptName": "EASEMYTRIP",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Margin_Validity_IOC_MarketOrder": {
+		"scriptName": "EASEMYTRIP",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Margin_Validity_IOC_LimitOrder": {
+		"scriptName": "EASEMYTRIP",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Margin_DisclosedQuantity_MarketOrder": {
+		"scriptName": "EASEMYTRIP",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Position_Partially_SquareOff_Verify": {
+		"scriptname": "GTLINFRA",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "2"
+	},
+	"Orders_Buy_IntraDay_Position_Exit_Verify_History": {
+		"scriptname": "IRFC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1"
+	},
+	"Orders_Buy_Charts_Sell_OrderFlow": {
+		"scriptId": "11184",
+		"tradingSym": "IDFCFIRSTB-EQ",
+		"pLtp": "0.0",
+		"ordertype": "MARKET",
+		"producttype": "DELIVERY",
+		"variety": "NORMAL",
+		"scriptname": "IDFCFIRSTB",
+		"qty": "1",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Holdings_Buy_Wathclist_Sell_OrderFlow": {
+		"scriptId": "11184",
+		"tradingSym": "IDFCFIRSTB-EQ",
+		"pLtp": "0.0",
+		"ordertype": "MARKET",
+		"producttype": "DELIVERY",
+		"variety": "NORMAL",
+		"scriptname": "IDFCFIRSTB",
+		"qty": "1",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"OrderHistory_Reorder_Equity": {
+		"scriptId": "11184",
+		"tradingSym": "IDFCFIRSTB-EQ",
+		"pLtp": "0.0",
+		"ordertype": "MARKET",
+		"producttype": "DELIVERY",
+		"variety": "NORMAL",
+		"scriptname": "IDFCFIRSTB",
+		"qty": "1",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"BuyOrders_BestFive_OrderPad_MarketDepth_PlusMinusCTA_Verify": {
+		"scriptId": "13528",
+		"scriptId2": "533239",
+		"scriptId3": "1151",
+		"scriptId4": "253815",
+		"quantity": "1"
+	},
+	"Watchlist_BuyAndSell_Verify_MarginCheckbox_OnOrderpad": {
+		"scriptId": "1491",
+		"quantity": "1"
+	},
+	"Positions_BuyMore_Verify_MarginCheckbox_OnOrderpad": {
+		"scriptName": "GMRINFRA",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"scriptId": "13528",
+		"tradingSym": "GMRINFRA-EQ",
+		"pLtp": "0.0",
+		"ordertype": "MARKET",
+		"producttype": "DELIVERY",
+		"variety": "NORMAL"
+	},
+	"Portfolio_BuyAndSell_Verify_MarginCheckbox_OnOrderpad": {
+		"scriptname": "IFCI",
+		"quantity": "1"
+	},
+	"Settings_EnableInvestmentGuide_Watchlist_BuyAndSell_Verify_MarginCheckbox_OnOrderpad": {
+		"scriptId": "1491",
+		"quantity": "1"
+	},
+	"Orders_Buy_Nse_Verify_ASM": {
+		"scriptId": "9436",
+		"message": "Security is under Surveillance Measure",
+		"qty": "1"
+	},
+	"Orders_Buy_Nse_Verify_GSM": {
+		"scriptId": "12021",
+		"message": "Security is under Surveillance Measure",
+		"qty": "1"
+	},
+	"Orders_Buy_Bse_Verify_ASM": {
+		"scriptId": "532395",
+		"message": "Security is under Surveillance Measure",
+		"qty": "1"
+	},
+	"Orders_Buy_Bse_Verify_GSM": {
+		"scriptId": "532307",
+		"message": "Security is under Surveillance Measure",
+		"qty": "1"
+	},
+	"Orders_HomePage_InstaTrade_Nifty_PutCall": {
+		"scripname": "NIFTY",
+		"qty": "1"
+	},
+	"Orders_HomePage_InstaTrade_BankNifty_BuyCall": {
+		"scripname": "BANKNIFTY",
+		"qty": "1"
+	},
+	"Orders_HomePage_InstaTrade_AddNewScrip_Buy_Equity": {
+		"scripname": "BHEL",
+		"qty": "1"
+	},
+	"Orders_Buy_CoverOrder_EditOrder_CancelOrder_Cash": {
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1"
+	},
+	"Orders_Buy_OptionsChain_Sell_OptionChain_Currency": {
+		"scriptName": "USDINR",
+		"segment": "Currency",
+		"exchange": "NSECDS",
+		"action": "Sell",
+		"quantity": "1"
+	},
+	"Orders_BracketOrder_Sell_Cash":{
+		"qty":"1",
+		"scriptname":"IDFCFIRSTB",
+		"segment":"Cash",
+		"exchange":"NSE",
+		"action":"Sell"
+	},
+	"CoverOrder_BuyOrder_Equity_BuyMore_Cash":{
+		"scriptname":"IOC",
+		"segment":"Cash",
+		"exchange":"NSE",
+		"qty":"1",
+		"producttype":"INTRADAY"
+
+	},
+	"CoverOrder_IOC_BuyOrder_Equity_Cash":{
+		"scriptname":"SBIN",
+		"segment":"Cash",
+		"exchange":"NSE",
+		"qty":"1"
+	},
+	"Orders_Buy_OptionChain_Verify_OrderRejectedError_Commodity": {
+		"scriptName": "NATURALGAS",
+		"segment": "Commodity",
+		"exchange": "MCX",
+		"quantity": "10"
+	},
+	"Orders_Buy_OptionChain_Verify_OrderRejectedError_Derivative": {
+		"scriptName": "BANKNIFTY",
+		"segment": "F&O",
+		"exchange": "NSE FO",
+		"quantity": "10",
+		"value": "45000"
+	},
+	"Orders_Buy_OptionChain_Verify_OrderRejectedError_Currency": {
+		"scriptName": "USDINR",
+		"segment": "Currency",
+		"exchange": "NSECDS",
+		"quantity": "1000"
+	},
+	"Orders_Buy_OptionChain_Verify_OrderRejectedError_HomePage_NiftyIndex": {
+		"quantity": "25"
+	},
+	"CoverOrder_BuyOrder_Equity_ModifyStopLossOrder":{
+    "scriptname":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1"
+  
+  },
+  "CoverOrder_SellOrder_Equity_SellMore_Cash":{
+    "scriptname":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1",
+    "producttype":"INTRADAY"
+  
+  },
+   "Orders_CoverOrder_Sell_Cash":{
+    "scriptname":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+  	"qty":"1"  
+  },
+  "Orders_Buy_Delivery_From_Watchlist_SquareOff_From_Positions_With100_Quantity":{
+   "scriptName":"GTLINFRA",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"100"
+  },
+  "Orders_CoverOrder_Verify_NotAllowedMsg": {
+		"scriptName": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1"
+	},
+	"Orders_Buy_Equity_Verify_AMO_PopUpMsg":{
+	"scriptName": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1"
+	},
+	"Orders_Buy_FNO_Verify_AMO_PopUpMsg":{
+	"scriptName": "BANKNIFTY",
+		"segment": "F&O",
+		"exchange": "NSE FO",
+		"quantity": "1"
+	},
+	"Orders_HomePage_InstaTrade_Nifty_PutCall_VerifyAMO_Msg":{
+	"scripname": "NIFTY",
+		"qty": "1"
+		},
+		"Orders_Intraday_Verify_MTM_In_OrderPad_Equity": {
+		"tradingSym": "IOC-EQ",
+		"scriptId": "1624",
+		"ordertype": "MARKET",
+		"pLtp":"0.0",
+		"producttype": "INTRADAY",
+		"variety": "NORMAL",
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_MTF_Verify_Buy_Sell_OrderPadActions":{
+     "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+     "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"MARGIN",
+    "variety":"NORMAL",
+    "qty":"1000"
+  },
+  "OrderPad_Verify_LastSelected_OrderType_ByDefault":{
+	"scriptId":"11184"
+  },
+  "Orders_BuyAndSell_OrderPad_Verify_Toggle_NSE_BSE":{
+     "scriptname":"IDFCFIRSTB",
+    "quantity":"1",
+    "scriptId":"11184"
+  },
+  "OrderPad_Verify_ZeroQty_And_LCLUCLErrorMsg_Intraday_Delivery_Margin":{
+	"scripname": "IDFCFIRSTB",
+	"segment":"Cash",
+    "exchange":"NSE",
+	"qty": "1"
+		},
+	"MTF_Enhancement_Verify_OrderPad": {
+		"scriptname": "RELIANCE",
+		"scriptname2": "IDEA",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Verify_InsufficientFunds_Message_For_FnO_Currency_Commodity_Segment": {
+		"scriptname": "BANKNIFTY CE 48500",
+		"segment": "F&O",
+		"exchange": "NSE FO",
+		"quantity": "100",
+		"scriptname2": "USDINR 83",
+		"segment2": "Currency",
+		"exchange2": "NSECDS",
+		"scriptname3": "GOLDPETAL",
+		"segment3": "Commodity",
+		"exchange3": "MCX"
+	}
+}
+

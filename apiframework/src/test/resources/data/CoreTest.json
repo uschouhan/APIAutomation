@@ -1,0 +1,179 @@
+{
+	"Watchlist_Verify_MaximumFive_Added_WatchList":{
+		"watchlistName" : "AngelSparks"
+	},
+	"Watchlist_CreateEditDelete":{
+		"watchlistName":"TestWatchlist"
+	},
+	"Orders_Buy_Delivery_Margin_MarketOrder": {
+		"scriptname": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Intraday_MarketOrder": {
+		"scriptName": "SAIL",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Delivery_MarketOrder": {
+		"scriptName": "MAHABANK",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Margin_LimitOrder": {
+		"scriptName": "SAIL",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Buy_Intraday_LimitOrder": {
+		"scriptName": "GAIL",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_StoplossMarket_Intraday_Modify_AndCancel":{
+		"scriptId":"11184",
+		"tradingSym":"IDFCFIRSTB-EQ",
+		"exchange":"NSE",
+		"quantity":"1",
+		"stoploss":"1",
+		"transactiontype" :"BUY",
+		"ordertype":"STOPLOSS_MARKET",
+		"producttype":"INTRADAY",
+		"variety":"NORMAL",
+		"scriptname":"IDFCFIRSTB"
+	},
+	"Orders_StoplossLimit_Delivery_With_DisclosedQty_Equity":{
+		"basketID": "0",
+		"disclosedquantity": "1",
+		"duration": "DAY",
+		"exchange": "NSE",
+		"multiplier": "1",
+		"orderValidityDate": "",
+		"ordertag": "",
+		"ordertype": "STOPLOSS_LIMIT",
+		"precision": "2",
+		"price": "49.40",
+		"producttype": "DELIVERY",
+		"quantity": "2",
+		"squareoff": "0",
+		"stoploss": "1",
+		"strategyCode": "0",
+		"symboltoken": "11184",
+		"tickSize": "1",
+		"tradingsymbol": "IDFCFIRSTB-EQ",
+		"trailTickYesNo": "NO",
+		"trailingStopLoss": "0",
+		"transactiontype": "BUY",
+		"triggerprice": "48.80",
+		"variety": "NORMAL",
+		"scriptName":"IDFCFIRSTB"
+	},
+	"Orders_VerifySplitOrder_Details_NiftyFnO":{
+		"scriptname":"NIFTY",
+		"segment":"F&O",
+		"exchange":"NSE FO"
+
+	},
+	"Orders_VerifySplitOrder_Details_FnO":{
+		"scriptname":"TCS",
+		"segment":"F&O",
+		"exchange":"NSE FO"
+
+	},
+	"Orders_VerifySplitOrder_Details_Commodity":{
+		"scriptname":"GOLDPETAL",
+		"segment":"Commodity",
+		"exchange":"MCX"
+
+	},
+	"Orders_VerifySplitOrder_Details_Currency":{
+		"scriptname":"USDINR",
+		"segment":"Currency",
+		"exchange":"NSECDS"
+
+
+	},
+	"Watchlist_OptionChain_Buy_Sell_Equity_VerifyOrderFlow": {
+		"scriptname": "IDFCFIRSTB",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"quantity": "1",
+		"action": "Sell"
+	},
+	"Orders_Place_BasketOrder":{
+		"scriptname":"IFCI",
+		"segment":"Cash",
+		"exchange":"NSE",
+		"bsktNamee" : "BSKTLimitTest1",
+		"investmentType":"DELIVERY",
+		"BuySell":"BUY"
+	},
+	"Orders_Currency_Buy_Intraday_Market_Positions": {
+		"scriptname": "USDINR",
+		"scriptname2": "USDINR CE 82.75",
+		"segment": "Currency",
+		"exchange": "NSECDS",
+		"quantity": "1"
+	},
+	"Orders_Positions_Verify_BuyMore_OrderFlow_Commodity": {
+		"scriptname": "GOLDPETAL",
+		"Qty": "1",
+		"segment": "Commodity",
+		"exchange": "MCX",
+		"producttype": "CARRY FORWARD"
+	},
+	"Orders_Derivative_Buy_Intraday_Market_Positions": {
+		"scriptname": "BANKNIFTY",
+		"scriptname2": "BANKNIFTY CE 48000",
+		"exchange": "NSE FO",
+		"segment": "F&O",
+		"quantity": "1"
+	},
+	"Orders_Intraday_Verify_MTM_In_OrderPad_Equity": {
+		"tradingSym": "IOC-EQ",
+		"scriptId": "1624",
+		"ordertype": "MARKET",
+		"pLtp":"0.0",
+		"producttype": "INTRADAY",
+		"variety": "NORMAL",
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_Positions_OptionChain_MTM":{
+		"scriptId":"11184",
+		"tradingSym":"IDFCFIRSTB-EQ",
+		"pLtp":"0.0",
+		"ordertype":"MARKET",
+		"producttype":"DELIVERY",
+		"variety":"NORMAL",
+		"scriptname":"IDFCFIRSTB"
+	},
+	"Order_Buy_From_Holding":{
+		"scriptName":"IFCI",
+		"qty" : "1"
+	},
+	"Sell_From_Holding":{
+		"scriptname":"IFCI",
+		"Qty" : "1",
+		"scriptname2" : "IFCI",
+		"segment":"Cash",
+		"exchange":"NSE"
+
+	},
+	"Charts_Equity_Verify_Chart_Details_ChartIQ_TradingView":{
+		"scriptname":"PNBGILTS",
+		"Qty" : "1",
+		"segment":"Cash",
+		"exchange":"NSE"
+	},
+	"WatchList_Search_Verify_Relevant_Words":{
+		"ce":"BankNifty CE",
+		"ce2":"CE",
+		"pe":"BankNifty PE",
+		"pe2":"PE",
+		"expiry":"Jan",
+		"expiry2":"-Jan-24"
+	}
+}
+

@@ -1,0 +1,30 @@
+{
+    "orders": [
+        {
+            "symbolName": "ZEEL",
+            "scripExchg": "nse_cm",
+            "exchange": "NSE",
+            "exchgId": "1",
+            "transactiontype": "B",
+            "producttype": "Delivery",
+            "ordertype": "MARKET",
+            "segment":"CASHSEG",
+            "qty":1
+        },
+
+        {
+            "symbolName": "SBIN",
+            "scripExchg": "nse_cm",
+            "exchange": "NSE",
+            "exchgId": "1",
+            "transactiontype": "S",
+            "producttype": "Delivery",
+            "ordertype": "MARKET",
+            "segment":"CASHSEG",
+            "qty":1
+        }
+    ]
+
+
+
+}

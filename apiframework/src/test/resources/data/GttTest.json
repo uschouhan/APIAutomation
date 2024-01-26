@@ -1,0 +1,62 @@
+{
+
+"Spark_GTT_OrderPlacement_CarryForward_Currency":{
+"scriptname":"USDINR",
+     "Qty" : "1",
+    "segment":"Currency",
+    "exchange":"CDS",
+    "producttype":"Carry Forward",
+    "orderType":"BUY"
+    },
+    "Spark_GTT_OrderPlacement_CarryForward_Commodity":{
+    "scriptname":"GOLDPETAL",
+     "Qty" : "1",
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "producttype":"Carry Forward",
+    "orderType":"BUY"
+    },
+     "Watchlist_GTT_OrderPlacement_CarryForward_Verify_Sell":{											   
+    "scriptname":"GOLDPETAL",			 
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "qty":"1",
+    "qty2":"2",
+    "ordertype":"SELL",
+   	"producttype":"Carry Forward"
+  },
+  "GTT_Verify_OrderStatus": {
+		"scriptname": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty":"1",
+		"orderType":"BUY",
+		"producttype":"Delivery"
+	},
+ "GTT_Verify_OrderPad": {
+		"scriptname": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty":"1"
+	},
+	"GTT_Verify_Sell_OrderPad_NonPOA": {
+		"scriptname": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty":"1"
+	},
+	 "GTT_OCO_Verify_Basic_Functionality": {
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty":"1"
+	},
+	 "GTT_OCO_Buy_Place_Edit_CancelOrder": {
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty":"1",
+		"orderType":"BUY",
+		"ocoType":"OCO"
+	}
+    }

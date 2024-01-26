@@ -1,0 +1,68 @@
+{
+  "Orders_Buy_Delivery_MarketOrder": {
+    "scriptName": "MAHABANK",
+    "segment": "Cash",
+    "exchange": "NSE"
+  },
+  "Orders_Buy_Modify_OpenOrder": {
+    "tradingSym": "IFCI-EQ",
+    "scriptId": "1491",
+    "pLtp": "0.0",
+    "ordertype": "LIMIT",
+    "producttype": "DELIVERY",
+    "variety": "NORMAL",
+    "scriptname": "IFCI",
+    "Qty": "1",
+    "Scrip": "IFCI"
+  },
+  "Orders_Buy_Intraday_MarketOrder": {
+    "scriptName": "SAIL",
+    "segment": "Cash",
+    "exchange": "NSE"
+  },
+  "Orders_Positions_Verify_ClosedPositions":{
+    "scriptName":"GMRINFRA",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1",
+    "scriptId":"13528",
+    "tradingSym":"GMRINFRA-EQ",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  "Portfolio_VerifyHoldingsDetailScreen":{
+    "scriptName":"IFCI"
+  },
+  "Spark_AddEquity_Buy_Delivery_GTT_EditOrder_CancelOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"2"
+  },
+  "Orders_Place_Market_BasketOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTMARKET" ,
+    "investmentType":"DELIVERY",
+    "BuySell":"BUY"
+  },
+  "Charts_Equity_Buy_And_Sell_Squareoff":{
+    "scriptname":"PNBGILTS",
+    "Qty" : "1",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "buyAction":"Buy",
+    "sellAction":"Sell",
+    "producttype":"DELIVERY"
+  },
+  "CreateBasket_AddStock_ModifyStock":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTSTOCKMODIFY"
+  }
+}
+

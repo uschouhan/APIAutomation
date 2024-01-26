@@ -1,0 +1,265 @@
+{
+  "Watchlist_LTPBroadcast_FNO":{
+    "scriptName":"INFY",
+    "segment":"F&O",
+    "exchange": "NSE FO"
+  },
+  "Watchlist_LTPBroadcast_Cash":{
+    "scriptName":"INFY",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Watchlist_CreateEditDelete":{
+  "watchlistName":"TestWatchlist"
+  },
+  "WatchList_AddWatchList_AddStock_Place_BuyOrder_Equity":{
+
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "watchlistName" : "AngelOneList",
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+   	"qty":"1" 
+  },
+  "Watchlist_Sort_PriceChangeSorting":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"IDFCFIRSTB",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDEA",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "Watchlist_Sort_StockSorting":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"IDFCFIRSTB",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDEA",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "WatchList_FilterCTA_Filter_ByType_Equity":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"USDINR",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDFCFIRSTB"
+  },
+  "WatchList_FilterCTA_Filter_ByType_Equity_BSE":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"USDINR",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDFCFIRSTB"
+  },
+  "WatchList_FilterCTA_Filter_ByType_Currency_CDS":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"USDINR",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDFCFIRSTB"
+  },
+  "WatchList_FilterCTA_Filter_ByType_FNO_NSE":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"USDINR",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDFCFIRSTB"
+
+  },
+  "Watchlist_DeleteStock_From_Watchlist":{
+    "scriptname":"YESBANK",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "watchlistName" : "AngelSpark"
+},
+"WatchListOrders_Equity_Buy_And_Sell_Squareoff":{
+    "scriptname":"PNBGILTS",
+     "Qty" : "1",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "buyAction":"Buy",
+    "sellAction":"Sell",
+    "producttype":"INTRADAY"
+  },
+  "Watchlist_ShortSell_SquareOff_From_Charts":{
+    "scriptname":"IFCI",
+     "Qty" : "1",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "buyAction":"Buy",
+    "sellAction":"Sell",
+    "producttype":"INTRADAY"
+  },
+
+  "Watchlist_Sell_And_Squareoff_VerifyInClosedPositions":{
+  "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+	"ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+	"pLtp":"0.0",
+    "quantity":"1",
+    "transactiontype":"SELL",
+    "triggerprice":"0.0",
+    "stoploss":"0"
+  },
+  "Watchlist_SellMore_Positions_And_Squareoff_VerifyInClosedPositions":{
+  "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+	"ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+	"pLtp":"0.0",
+    "quantity":"1",
+    "transactiontype":"SELL",
+    "triggerprice":"0.0",
+    "stoploss":"0"
+  }
+  ,
+  "WatchList_BuySell_BuyMore_StoplossSell_FNO_VerifyClosedPositions":{
+   "scriptname":"BANKNIFTY",
+     "Qty" : "1",
+    "segment":"F&O",
+    "exchange":"NSE FO",
+    "producttype":"CARRY FORWARD",
+    "scriptnamePosition":"BANKNIFTY"
+  }
+  ,
+  "WatchList_BuySell_BuyMore_StoplossSell_Currency_VerifyClosedPositions":{
+   "scriptname":"USDINR",
+     "Qty" : "1",
+    "segment":"Currency",
+    "exchange":"NSECDS",
+    "producttype":"CARRYFORWARD",
+    "scriptnamePosition":"USDINR"
+  },
+  "Watchlist_ShortoverView_Longoverview_BestFive_VerifyOrderPad":{
+  "scriptname":"BANKNIFTY",
+    "segment":"F&O",
+    "exchange":"NSE FO"
+  },
+
+  "WatchList_Intraday_BuyAndSell_OpenOrder_CancelOrder_Commodity":{
+    "scriptName":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "qty" :"1"
+    },
+    "Verify_FundementalTab_ETFScrip":{
+  	"scriptId":"14428",
+  	"scriptId2":"590103",
+  	"scriptId3":"22739",
+  	"scriptId4":"590104"
+  },
+ "Watchlist_Sort_StockName_AscendingSorting":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"IDFCFIRSTB",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDEA",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "Watchlist_Sort_StockName_DescendingSorting":{
+  
+  "scriptname":"IFCI",
+  "scriptname2":"IDFCFIRSTB",
+  "scriptname3":"ZOMATO",
+  "scriptname4":"IDEA",
+    "segment":"Cash",
+    "exchange":"NSE"
+  
+  },
+  "Watchlist_ApplyFilter_RelaunchApp_And_SwitchTab_Verify_AppliedFilter":{
+  "scriptname":"IFCI",
+  "scriptname2":"GOLDPETAL",
+  "scriptname3":"USDINR",
+  "segment":"Cash",
+  "exchange":"NSE",
+  "segment2":"Commodity",
+  "exchange2":"MCX",
+  "segment3":"Currency",
+  "exchange3":"NSECDS",
+  "scriptId2":"1491"
+  
+  },
+  "VerifySGBSharesDisplayed_InGlobalSearchBar_From_Portfolio_WatchList_OrdersTab":{
+  "scriptname":"SGBD29VIII"
+  },
+  "Verify_SearchBarFunctionality_And_addToWatchListPopUp_Portfolio_HomePage_WatchList":{
+  "scriptname":"IFCI"
+  },
+  "Orders_Sell_From_Watchlist_SquareOff_From_Watchlist_Equity":{
+   "scriptName":"INFIBEAM",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1"
+  },
+  "Watchlist_Verify_MaximumFive_Added_WatchList":{
+    "watchlistName" : "AngelSparks"
+},
+"Watchlist_VerifyOptionChainTab_FNO_CURRENCY_COMMODITY":{
+"scriptname":"NIFTY",
+  "scriptname2":"GOLD",
+  "scriptname3":"USDINR",
+  "segment":"F&O",
+  "exchange":"NSE FO",
+  "segment2":"Commodity",
+  "exchange2":"MCX",
+  "segment3":"Currency",
+  "exchange3":"NSECDS",
+  "scriptId":"35079",
+  "scriptId2":"248400",
+  "scriptId3":"6321"
+},
+"WatchList_Verify_GlobalSearch_Basic_Functionality":{
+    "scriptName":"RELIANCE",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "WatchList_Verify_GlobalSearch_TopWidgets_Navigation":{
+    "Order":"Order",
+    "Positions":"Positions",
+    "Holdings":"Holdings",
+    "AddFunds":"Add fund",
+    "AddFunds2":"Add funds",
+    "IPO":"IPO",
+    "PL":"Profit and Loss",
+    "charges":"Trades and Charges",
+    "instatrade":"Insta trade";
+    "advisory":"Portfolio Advisory",
+    "statement":"Statement",
+    "statement2":"Statement/ Ledger",
+    "gtt":"GTT",
+    "alert":"Alert",
+    "topgainer":"Top Gainer",
+    "toploser":"Top Loser"
+  },
+  "WatchList_GlobalSearch_Verify_Relevant_Search":{
+    "bank":"Bank",
+   	"bank2":"Banking stocks",
+   	"medicine":"Medicine",
+   	"medicine2":"Pharmaceuticals Stock ",
+   	"maggi":"Maggi",
+   	"addmoney":"Add Money",
+   	"addmoney2":"Add funds",
+   	"faqs":"FAQ",
+   	"faqs2":"FAQ's"
+  }
+}

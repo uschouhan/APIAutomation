@@ -1,0 +1,92 @@
+{
+
+	"Orders_Buy_TrailingSL_RoboOrder":{
+    "scriptname":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1",
+    "price":"1"
+  },
+  "Orders_Sell_TrailingSL_RoboOrder":{
+    "scriptname":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1",
+    "price":"1"
+  },
+  "Orders_SellExecutedRoboOrder_VerifyExitCtaOpenOrder":{
+    "scriptName":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty":"1",
+    "price":"2"
+  },
+  "Orders_BuyExecutedRoboOrder_VerifyEditCtaOpenOrder": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"price": "2",
+		"SLTag": "SL PENDING",
+		"TargetTag": "TARGET PENDING"
+	},
+	"Orders_BuyExecutedRoboOrder_VerifyExitCTAOpenOrder": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"price": "2",
+		"SLTag": "SL PENDING",
+		"TargetTag": "TARGET PENDING"
+	},
+	
+	"Orders_BuyRoboOrder_AddMore_PositionsFlow_VerifyClosedPositions": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"price": "1",
+		"SLTag": "SL PENDING",
+		"TargetTag": "TARGET PENDING"
+	},
+	"Orders_BuyRoboOrder_VerifyDisclosedQty_Disabled": {
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_BuyRoboOrder_VerifyInPositionsAndExit": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"price": "1",
+		"SLTag": "SL PENDING",
+		"TargetTag": "TARGET PENDING"
+	},
+	"Orders_BuyRoboOrder_With_TrailingStopLoss": {
+		"scriptname": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE"
+	},
+	"Orders_RoboMainOrder_OpenOrder_Cancel": {
+		"scriptName": "IOC",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"price": "1"
+	},
+	"Orders_RoboOrder_SellMore_FromPositions_And_ClosedPositions_Verify_Robo_OrderPad": {
+		"scriptName": "GAIL",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1",
+		"action":"SELL"
+	},
+	"Orders_RoboOrder_Verify_NotAllowedMsg": {
+		"scriptName": "IFCI",
+		"segment": "Cash",
+		"exchange": "NSE",
+		"qty": "1"
+	}
+}
+

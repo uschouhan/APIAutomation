@@ -327,7 +327,7 @@ public class Helper {
 
 	        payload.put("userData", userdata);
 	        payload.put("iss","angel");
-	        Properties prop = Helper.readPropertiesFile("src/main/resources/api-data.properties");
+	        Properties prop = Helper.readPropertiesFile("src/test/resources/api-data.properties");
 			String exp = prop.getProperty("exp");
 			String iat = prop.getProperty("iat");
 	        payload.put("exp",exp);
@@ -840,7 +840,7 @@ public class Helper {
 	}
 
 	public static void updatePropertyValue(String fileName , String key ,String value) {
-		String propertyFilePath = "src/main/resources/"+fileName;
+		String propertyFilePath = "src/test/resources/"+fileName;
 		try {
 			PropertiesConfiguration conf = new PropertiesConfiguration(propertyFilePath);
 			conf.setProperty(key, value);

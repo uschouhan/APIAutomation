@@ -1,0 +1,4 @@
+scriptname,segment,ordertype,producttype
+IFCI,Equity,MARKET,DELIVERY
+BANKNIFTY,FnO,MARKET,CARRYFORWARD
+GOLDPETAL,Commodity,MARKET,CARRYFORWARD

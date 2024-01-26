@@ -6,9 +6,9 @@ import org.aeonbits.owner.Config;
 @Config.Sources({
   "system:properties",
   "system:env",
-  "file:${user.dir}/src/main/resources/api-config-prod.properties",
-  "file:${user.dir}/src/main/resources/api-config-uat.properties",
-  "file:${user.dir}/src/main/resources/api-data.properties"
+  "file:${user.dir}/src/test/resources/api-config-prod.properties",
+  "file:${user.dir}/src/test/resources/api-config-uat.properties",
+  "file:${user.dir}/src/test/resources/api-data.properties"
 })
 public interface ApiConfig extends Config {
 	

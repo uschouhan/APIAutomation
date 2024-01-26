@@ -1,0 +1,21 @@
+{
+"Home_GTT_Verify_DefaultLandingPage_DeliveryTab_Equity":{
+  "scriptId":"1491",
+  "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Home_GTT_Verify_DefaultLandingPage_CarryForwardTab_FnO":{
+  "scriptId":"51466",
+  "scriptname":"TCS",
+    "exchange":"NSE FO",
+    "segment":"F&O"
+  },
+   "BuyOrders_BestFive_OrderPad_MarketDepth_PlusMinusCTA_Verify":{
+  "scriptId":"13528",
+  "scriptId2":"533239",
+  "scriptId3":"1151",
+  "scriptId4":"253815",
+    "quantity":"1"
+  }
+}

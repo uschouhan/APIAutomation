@@ -1,0 +1,17 @@
+{
+
+"orders":[
+{
+            "symbolName": "IDEA",
+            "scripExchg": "nse_cm",
+            "exchange": "NSE",
+            "exchgId": "1",
+            "transactiontype": "S",
+            "producttype": "Delivery",
+             "ordertype": "LIMIT",
+            "segment":"CASHSEG",
+             "qty":1
+        }
+        ]
+        }
+

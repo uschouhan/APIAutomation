@@ -1,0 +1,192 @@
+{
+  "ShortOverView_Verify_OHLC_MarketDepth":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "AMO_Orders_Sell_From_Holding":{
+    "scriptname":"IFCI",
+    "qty" : "1",
+    "exchange":"NSE"
+  },
+  "ShortOverview_VerifyOptionChainDetails_FNO":{
+    "scriptname":"RELIANCE",
+    "segment":"F&O",
+    "exchange":"NSE FO"
+  },
+  "LongOverview_FundamentalTabDetails_Equity":{
+    "scriptname":"ASIANPAINT",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "AMO_Orders_Buy_LimitOrder_Cash":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "qty" : "1"
+  },
+  "AMO_Orders_Buy_From_Holding":{
+    "scriptname":"IFCI",
+    "exchange":"NSE"
+  },
+  "AMO_CancelOrder_Options":{
+   "scriptname":"BANKNIFTY",
+    "scriptname2":"BANKNIFTY CE 50000",
+    "segment":"Opt",
+    "exchange":"NSE FO"
+     },
+     "AMO_CancelOrder_Commodity":{
+    "scriptname":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX"
+   },
+   "Orders_Verify_MarginValues_InvestmentGuide_OrderEntryPad_Equity":{
+    "scriptName":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "quantity" :"1"
+  },
+  "Portfolio_Sell_From_Holdings_T2TStock":{
+    "scriptname":"ADL",
+     "qty" : "1"
+  },
+  "AMO_Buy_CarryForward_FNO":{
+    "scriptname":"BANKNIFTY",
+    "scriptname2":"BANKNIFTY CE 50000",
+    "segment":"Opt",
+    "exchange":"NSE FO",
+     "amoMsg":"Your order will be placed as an After Market Order"
+    },
+    "AMO_Verify_CloseValue_ShortOverView_WithBhavCopy_Equity":{
+    "scriptName":"AXISBANK",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Funds_Withdraw_Verify_FundWithdrawal":{
+"amount":"1.00"
+},
+"Spark_Equtiy_StockDetails_LongOverview_TechnicalTab":{
+"scriptname":"ASIANPAINT",
+"segment":"Cash",
+"exchange":"NSE"
+},
+"LongOverview_DerivativeTabDetails_LowerHalfData_FNO":{
+"scriptname":"ASIANPAINT",
+"segment":"F&O",
+"exchange":"NSE FO"
+},
+"Spark_Charts_FullScreen_LandscapeMode_EquityOptionsCE":{
+"scriptname":"ASIANPAINT"
+},
+"LongOverview_StockDetails_Equity":{
+"scriptname":"ASIANPAINT",
+"segment":"F&O",
+"exchange":"NSE FO"
+},
+"Portfolio_Holdings_Verify_AverageTradePriceDetails":{
+    "scriptname":"IFCI"
+  },
+  "Portfolio_Holdings_LongOverview_StockDetails":{
+    "scriptname":"SOUTHBANK",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"AMO"
+  },
+  "Orders_Place_Stoploss_From_CarryFwd_Positions":{
+   "scriptname":"GOLDPETAL"
+  },
+   "Spark_AddEquity_BSE_Buy_Stoploss_Cancelorder":{
+    "scriptname":"DEN",
+    "segment":"Cash",
+    "exchange": "BSE",
+    "qty":"1"
+  },
+   "Watchlist_DeleteStock_From_Watchlist":{
+    "scriptname":"TANLA",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "watchlistName" : "MyList"
+ },
+ "Spark_AddEquity_Buy_Delivery_GTT_EditOrder_CancelOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"2"
+  },
+  "Spark_AMO_Currency_CarryForward_Buy_008":{
+    "scriptname":"USDINR",
+    "scriptname2":"USDINR CE 83",
+    "segment":"Currency",
+    "exchange":"NSECDS",
+     "amoMsg":"Your order will be placed as an After Market Order"
+    },
+    "Spark_Buy_OrderCancellation_Commodity":{
+    "scriptname":"GOLD",
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "amoMsg":"Your order will be placed as an After Market Order"
+   },
+   "Spark_Delivery_CustomBuy_EditOrder":{
+    "scriptname":"IFCI",
+     "segment":"Cash",
+    "exchange": "NSE",
+    "qty" : "1",
+    "editqty" : "2",
+     "scriptId":"1491",
+    "ordertype":"LIMIT",
+    "producttype":"DELIVERY",
+     "tradingsymbol":"IFCI-EQ",
+    "variety":"AMO"
+  },
+  "Spark_Buy_OrderCancellation_10":{
+    "scriptname":"SOUTHBANK",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "amoMsg":"Your order will be placed as an After Market Order",
+     "scriptId":"5948",
+    "ordertype":"LIMIT",
+    "producttype":"DELIVERY",
+    "tradingsymbol":"SOUTHBANK-EQ",
+    "variety":"AMO"
+  },
+  "AMO_Orders_Buy_Modify_OpenOrder":{
+   "tradingSym":"IFCI-EQ",
+    "scriptId":"1491",
+    "pLtp":"0.0",
+    "ordertype":"LIMIT",
+    "producttype":"DELIVERY",
+    "variety":"AMO",
+    "scriptName":"IFCI",
+    "Qty" : "1",
+    "Disclosedqty":"2",
+    "Scrip" : "IFCI"
+  },
+  "Home_Tools_AMO_Orders_GTT_CreateModifyCancel":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"1",
+    "qty2":"2"
+  },
+  "Charts_BuyAndSell_OpenOrder_CancelOrder_Commodity":{
+   "scriptname":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "quantity" :"1"
+    },
+  "AMO_BuyMore_Exit_From_Positions_CarryForward":{
+    "scriptname":"GOLDPETAL",
+    "quantity":"1"
+  },
+  "Orders_StockSIP_With_Amount_Create_Modify_Pause_Resume_Cancel_SIPOrder": {
+		"scriptName": "GTLINFRA",
+		"status": "ACTIVE",
+		"status2": "PAUSED",
+		"status3": "CANCELLED",
+		"frequency1": "DAILY",
+		"frequency2": "WEEKLY",
+		"frequency3": "MONTHLY"
+	}
+ }

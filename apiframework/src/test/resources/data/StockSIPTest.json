@@ -1,0 +1,44 @@
+{
+	"Orders_StockSIP_With_Quantity_Create_Modify_Pause_Resume_Cancel_SIPOrder": {
+		"scriptName": "IFCI",
+		"status": "ACTIVE",
+		"status2": "PAUSED",
+		"status3": "CANCELLED",
+		"frequency1": "DAILY",
+		"frequency2": "WEEKLY",
+		"frequency3": "MONTHLY"
+	},
+	"Orders_StockSIP_With_Amount_Create_Modify_Pause_Resume_Cancel_SIPOrder": {
+		"scriptName": "GTLINFRA",
+		"status": "ACTIVE",
+		"status2": "PAUSED",
+		"status3": "CANCELLED",
+		"frequency1": "DAILY",
+		"frequency2": "WEEKLY",
+		"frequency3": "MONTHLY"
+	},
+	"Orders_StockSIP_Amount_Less_Than_LTP_VerifyErrorMsg": {
+		"scriptName": "IDFCFIRSTB"
+	},
+	"Orders_StockSIP_With_Quantity_Create_Cancel_Restart_SIPOrder": {
+		"scriptName": "IFCI",
+		"status": "ACTIVE",
+		"frequency1": "DAILY",
+		"status3": "CANCELLED"
+	},
+	"Orders_StockSIP_VerifyBroadcasting_In_SIPCreation":{
+	"scriptName": "HDFCBANK",
+		"status": "ACTIVE",
+		"frequency1": "DAILY"
+		},
+		"Orders_StockSIP_With_Quantity_Verify_ReviewOrderDetails":{
+		"scriptName": "HDFCBANK",
+		"scriptDesc":"HDFC BANK LTD",
+		"status": "ACTIVE",
+		"frequency1": "DAILY",
+		"Qty":"1",
+		"Type":"Quantity"
+		
+		}
+	
+}

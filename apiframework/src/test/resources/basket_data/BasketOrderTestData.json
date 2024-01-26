@@ -1,0 +1,18 @@
+{
+    "orders": [
+        {
+            "symbolName": "SAIL",
+            "scripExchg": "nse_cm",
+            "exchgId": "1",
+            "exchange": "NSE",
+            "transactiontype": "B",
+            "producttype": "Delivery",
+            "ordertype": "MARKET",
+            "segment":"CASHSEG",
+            "qty":1
+        }
+    ]
+
+
+
+}

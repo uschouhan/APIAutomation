@@ -1,0 +1,27 @@
+{
+
+"orders":[
+{
+            "symbolName": "IFCI",
+            "scripExchg": "nse_cm",
+            "exchange": "NSE",
+            "exchgId": "1",
+            "transactiontype": "S",
+            "producttype": "Delivery",
+             "ordertype": "LIMIT",
+            "segment":"CASHSEG",
+             "qty":1
+        },
+        {
+            "symbolName": "IFCI",
+            "scripExchg": "nse_cm",
+            "exchange": "NSE",
+            "exchgId": "1",
+            "transactiontype": "S",
+            "producttype": "Delivery",
+             "ordertype": "LIMIT",
+            "segment":"CASHSEG",
+             "qty":1
+        }
+        ]
+        }

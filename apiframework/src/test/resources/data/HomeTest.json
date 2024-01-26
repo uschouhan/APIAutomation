@@ -1,0 +1,56 @@
+{
+"HomePage_InstaTrade_BuyOrder_Equity":{
+"scriptName":"IFCI",
+"exchange":"NSE"
+},
+"HomePage_InstaTrade_SellOrder_Equity":{
+"scriptName":"IFCI",
+"exchange":"NSE"
+},
+"Home_GTT_Verify_DefaultLandingPage_DeliveryTab_Equity":{
+  "scriptId":"1491",
+  "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Home_GTT_Verify_DefaultLandingPage_CarryForwardTab_FnO":{
+  "scriptname":"INFY",
+    "exchange":"NSE FO",
+    "segment":"F&O"
+  },
+  "Home_Verify_HidingDetails_InPositions_And_Portfolio":{ 
+    "scriptName":"IFCI",
+    "scriptId":"1491",
+    "tradingSym":"IFCI-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  
+  "Alerts_Multiple_Alert_From_AlertsIcon_HomePage":{
+  "scriptName":"IFCI",
+    "secondscriptName":"ZOMATO"
+  },
+  "Buy_From_Positions_Sell_From_MarketToday":{
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"1"
+  },
+  "Buy_From_WatchList_Sell_From_MarketToday":{
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"1",
+    "qty2":"2"
+  },
+  "Homepage_ETF_Verify_OneTime_Buy_And_Sell_Flow":{
+    "buyAction":"Buy",
+    "sellAction": "Sell",
+    "qty":"1"
+  },
+  "Homepage_ETF_Verify_SIP_Buy_Flow": {
+	"status": "ACTIVE",
+	"status2": "CANCELLED",
+	"frequency": "DAILY"
+	}
+}

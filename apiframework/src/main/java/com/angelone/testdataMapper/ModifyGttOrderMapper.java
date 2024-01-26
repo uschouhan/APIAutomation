@@ -14,7 +14,7 @@ public final class ModifyGttOrderMapper {
 	@SneakyThrows
 	public static ModifyGttOrderPOJO modifyGttOrderData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/ModifyGttOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/ModifyGttOrder.json"),
 						ModifyGttOrderPOJO.class);
 
 	}
@@ -24,7 +24,7 @@ public final class ModifyGttOrderMapper {
 	public static ModifyGttOrderPOJO modifyGttOrderData(String exchange,String id,String price,
 			String qty,String symboltoken,String triggerprice,String timeperiod,String disclosedqty,String strategyCode) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/ModifyGttOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/ModifyGttOrder.json"),
 						ModifyGttOrderPOJO.class)
 				.setDisclosedqty(Integer.valueOf(disclosedqty))
 				.setExchange(exchange)
@@ -41,7 +41,7 @@ public final class ModifyGttOrderMapper {
 	public static ModifyGttOrderPOJO modifyGttOrderData(String exchange,String id,String price,
 			String qty,String symboltoken,String triggerprice) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/ModifyGttOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/ModifyGttOrder.json"),
 						ModifyGttOrderPOJO.class)
 				.setId(Integer.valueOf(id))	
 				.setExchange(exchange)

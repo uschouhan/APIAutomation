@@ -1,0 +1,331 @@
+{
+  "Watchlist_LTPBroadcast_Cash":{
+    "scriptname":"ITC",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Watchlist_LTPBroadcast_FNO":{
+    "scriptname":"ITC",
+    "segment":"FO",
+    "exchange": "NSE FO"
+  },
+  "Watchlist_LTPBroadcast_Currency":{
+    "scriptname":"USDINR",
+    "segment":"Currency",
+    "exchange":"CDS"
+  },
+  "Watchlist_LTPBroadcast_Commodity":{
+    "scriptname":"CRUDEOIL",
+    "scriptname1":"ALUMINIUM",
+    "segment":"Commodity",
+    "exchange":"MCX"
+  },
+  "Watchlist_CreateEditDelete":{
+    "watchlistName":"TestWatchlist",
+  	"renameWatchList":"reTestWatchlist"
+  },
+  "ShortOverview_VerifyOptionChainDetails_FNO":{
+    "scriptname":"RELIANCE",
+    "segment":"FO",
+    "exchange": "NSE FO"
+  },
+  "positions_verifyBuyOrder_Equity_NSE":{
+    "scriptname":"ITC",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "buy_LimitOrder_withZeroPrice_Equity_NSE":{
+    "scriptname":"ITC",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "stopLossModify":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"1"
+  },
+  "holdingScripSoldOutDetails":{
+    "scriptname":"YESBANK",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "exchange2": "BSE",
+    "qty":"1"
+  },
+  "Orders_Cancel_IntradayOrder":{
+    "scriptname":"ONGC",
+    "segment":"Cash",
+    "exchange": "BSE",
+    "qty":"1"
+  },
+  "Orders_Cancel_StopLossOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE",
+    "qty":"1"
+  },
+  "Charts_BuyOrder_Cash":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Charts_SellOrder_Cash":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Charts_BuyOrder_Currency":{
+    "ScriptName":"USDINR",
+    "exchange":"CDS",
+    "segment":"Currency",
+    "callPut" : "CE",
+    "strikePrice": "83.5",
+    "expiryDate" : "18 Nov 2022"
+  },
+  "Charts_SellOrder_Currency":{
+    "ScriptName":"USDINR",
+    "exchange":"CDS",
+    "segment":"Currency",
+    "callPut" : "CE",
+    "strikePrice": "83.5",
+    "expiryDate" : "18 Nov 2022"
+  },
+  "Charts_BuyOrder_FNO":{
+    "ScriptName":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO",
+    "callPut" : "CE",
+    "strikePrice": "30500",
+    "expiryDate" : "17 Nov 2022"
+  },
+  "charts_Sell_Fno":{
+    "ScriptName":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO",
+    "callPut" : "CE",
+     "strikePrice": "43000",
+    "expiryDate" : "24 Nov 2022"
+    },
+  "charts_Buy_Commodity":{
+    "scriptname":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX"
+  },
+  "charts_Sell_Commodity":{
+    "scriptname":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX"
+  },
+  "charts_Equity_LTP_OHLC":{
+    "scriptname":"SUNPHARMA",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "charts_Fno_LTP_OHLC":{
+    "scriptname":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO"
+  },
+  "charts_Currency_LTP_OHLC":{
+    "ScriptName":"USDINR",
+    "exchange":"CDS",
+    "segment":"Currency",
+    "callPut" : "CE",
+    "strikePrice": "82.5",
+    "expiryDate" : "18 Nov 2022"
+  },
+   "Charts_LTP_OHLC_Commodity":{
+    "scriptname":"CRUDEOIL",
+    "segment":"Commodity",
+    "exchange":"MCX"
+  },
+  "charts_FullScreen_LandscapeMode_Equity":{
+    "scriptname":"SUNPHARMA",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Orders_CoverOrder_Buy_Cash":{
+    "scriptname":"ITC",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "coverOrder_Buy_Equity_OpenOrder_Verify_Cancel":{
+    "scriptname":"WIPRO",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Spark_AddEquity_NSE_Buy_AMO_CancelOrder":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Buy_AMO_CancelOrder":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"BSE"
+  },
+  "Spark_AddDerivative_Buy_AMO_CancelOrder":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"FO",
+    "exchange":"NSE FO"
+  },
+  "Spark_AddEquity_Buy_Limit_Openorder_VerifyLTPBroadcast":{
+    "scriptname":"AXISBANK",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_NSE_Buy_Stoploss_Cancelorder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Buy_Stoploss_Cancelorder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "BSE"
+  },
+  "Spark_AddDerivative_Buy_Stoploss_Cancelorder":{
+    "scriptname":"ITC",
+    "segment":"FO",
+    "exchange": "NSE FO"
+  },
+  "Spark_AddEquity_NSE_Positions_Stoploss_Openorder_Cancel":{
+    "scriptname":"DISHTV",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Positions_Stoploss_Openorder_Cancel":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "BSE"
+  },
+  "Spark_AddDerivative_BSE_Positions_Stoploss_Openorder_Cancel":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"FO",
+    "exchange": "BSE"
+  },
+  "Spark_AddEquity_NSE_Positions_Stoploss_Openorder_VerifySLTag":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_NSE_Positions_RealtimeUpdateOfLTP":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Positions_RealtimeUpdateOfLTP":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"BSE"
+  },
+  "Spark_AddDerivative_Positions_RealtimeUpdateOfLTP":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"FO",
+    "exchange":"NSE FO"
+  },
+  "Spark_AddEquity_NSE_Positions_Conversion_Margin_To_Delivery":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Positions_Conversion_Margin_To_Delivery":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "BSE"
+  },
+  "Spark_AddEquity_NSE_Positions_Conversion_Intraday_To_Delivery":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Positions_Conversion_Intraday_To_Delivery":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "BSE"
+  },
+  "Spark_AddEquity_NSE_Positions_Conversion_Intraday_To_Margin":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "Spark_AddEquity_BSE_Positions_Conversion_Intraday_To_Margin":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange": "BSE"
+  },
+  "Buy_From_Holding":{
+    "scriptname":"IFCI",
+    "Qty" : "1",
+    "Disclosedqty":"2",
+    "Zero" : "0",
+    "Scrip" : "IFCI"
+  },
+  "Buy_From_Holding_For_FnO":{
+    "scriptname":"TCS",
+    "Qty" : "1",
+    "Disclosedqty":"2",
+    "Zero" : "0",
+    "Scrip" : "TCS"
+  },
+  "Buy_From_Holding_For_Currency":{
+    "scriptname":"USDINR",
+    "Qty" :  "1",
+    "Disclosedqty":"2",
+    "Zero" : "0",
+    "Scrip" : "USDINR"
+  },
+  "Buy_From_Holding_For_Commodity":{
+    "scriptname":"GOLD",
+    "Qty" :  "1",
+    "Disclosedqty":"2",
+    "Zero" : "0",
+    "Scrip" : "GOLD"
+  },
+  "Sell_From_Holding":{
+    "scriptname":"IFCI",
+    "Qty" : "1",
+    "Disclosedqty":"2",
+    "Scrip" : "IFCI"
+  },
+  "Sell_Page_ErrorMsg":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "Qty" : "1"
+  },
+  "Sell_Page_ErrorMsg_BSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"BSE",
+    "Qty" : "1"
+  },
+  "Spark_Margin_CustomBuy_04":{
+    "scripname":"IFCI",
+    "sector":"Cash",
+    "segment": "NSE"
+  },
+  "Spark_Intraday_CustomSell_02":{
+    "scripname":"IFCI",
+    "sector":"Cash",
+    "segment": "NSE"
+  },
+  "bracketOrder_Buy_Equity":{
+    "scriptname":"WIPRO",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+    "bracketOrder_Buy_Fno":{
+    "ScriptName":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO",
+    "callPut" : "CE",
+     "expiryDate" : "24 Nov 2022",
+    "strikePrice": "43000"
+
+  },
+  "Funds_Withdraw_Verify_FundWithdrawal":{
+    "amount":"50.00"
+  }
+
+}

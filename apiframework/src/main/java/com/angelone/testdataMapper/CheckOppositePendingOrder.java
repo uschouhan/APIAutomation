@@ -14,7 +14,7 @@ public final class CheckOppositePendingOrder {
 	@SneakyThrows
 	public static CheckOppositePendingOrderPOJO getOppositePendingOrderData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/checkOppositePendingOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/checkOppositePendingOrder.json"),
 						CheckOppositePendingOrderPOJO.class);
 
 	}
@@ -23,7 +23,7 @@ public final class CheckOppositePendingOrder {
 	@SneakyThrows
 	public static CheckOppositePendingOrderPOJO getOppositePendingOrderData(String stockxchangecode,String symboltoken, String productType,String transactionType,String qty ) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/checkOppositePendingOrder.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/checkOppositePendingOrder.json"),
 						CheckOppositePendingOrderPOJO.class)
 				.setExchange(stockxchangecode)
 		.setSymbolToken(symboltoken)

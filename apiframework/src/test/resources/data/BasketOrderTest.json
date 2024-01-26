@@ -1,0 +1,331 @@
+{
+	"Orders_Positions_RealtimeUpdateOfLTP_Equity_NSE": {
+		"scriptId": "11184",
+		"tradingSym": "IDFCFIRSTB-EQ",
+		"segment": "Cash",
+		"pLtp": "0.0",
+		"ordertype": "MARKET",
+		"producttype": "DELIVERY",
+		"variety": "NORMAL",
+		"scriptname": "IDFCFIRSTB",
+		"exchange": "NSE",
+		"qty": "1"
+	},
+	 "CreateBasket_DeleteBasket":{
+    "scriptname":"ZEEL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTTestAutomate"
+  },
+   "CreateBasket_CloneBasket_Verify_DuplicateName":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTFIRST",   
+    "bsktNameNew" : "BSKTSECONDNEW"
+    
+  },
+ "Orders_Place_BasketOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTLimitTest1",
+    "investmentType":"DELIVERY",
+    "BuySell":"BUY"  
+  },
+  "Orders_Place_Market_BasketOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTMARKET" ,
+    "investmentType":"DELIVERY",
+    "BuySell":"BUY"
+  },
+  "Orders_Place_Limit_FNO_BasketOrder":{
+    "bsktNamee" : "BSKTFNO",
+    "scriptname":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO",
+    "callPut" : "CE",
+    "strikePrice": "49000",
+    "expiryDate" : "27 Jul 2023"
+},
+ "Orders_Place_Buy_Sell_Limit_FNO_BasketOrder":{
+    "bsktNamee" : "BSKTFNOBS",
+    "scriptname":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO",
+    "callPut" : "CE",
+    "strikePrice": "49000",
+    "expiryDate" : "27 Jul 2023"
+},
+"Orders_Place_Limit_Sell_BasketOrder":{
+    "scriptname":"IDEA",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTSELLLimit",
+    "investmentType":"DELIVERY",
+    "BuySell":"SELL" 
+  },
+  "CreateBasket_AddStock_DeleteStock":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTSTOCKDEL"  
+  },
+  "CreateBasket_AddStock_CloneStock":{
+    "scriptname":"IOC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTSTOCkCLONE"  
+  },
+  "CreateBasket_AddStock_ModifyStock":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTSTOCKMODIFY"  
+  },
+  
+  "CreateBasket_Add_Stocks_From_MultipleSegments":{
+    "exchangeE":"NSE",
+    "exchangeF":"NFO",
+    "exchangeC":"CDS",
+    "exchangeCom":"MCX",
+    "basketName":"BSKTSEGMENTS"
+   
+},
+"WatchList_ShortoverView_AddToBasket_CreateNewBasket":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"11184",
+    "bsktNamee" : "BSKTSHORT"  
+  },
+  "WatchList_LongView_AddToBasket_CreateNewBasket":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"2963",
+    "bsktNamee" : "BSKTLONG"  
+  },
+  "CreateBasket_Add_Stocks_VerifyMarginValue":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTMARGIN"  
+  },
+   "CreateBasket_AddStocks_VerifyCount":{
+    "scriptname":"ZEEL",
+    "scriptnamee":"SBI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTCOUNT"  
+    
+  },
+  "CreateBasket_OrderPad_Verify_AddFundCTA":{
+    "scriptname":"MRF",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTADDFUND" 
+    
+  },
+  "CreateBasket_Add_Stocks_VerifyBroadcasting":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTLTP"  
+  },
+  "RenameBasket_DeleteBasket":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTTestRENAME",       
+    "bsktNameNew" : "BSKTTestRENAME2"
+    
+  },
+   "WatchList_StockDetails_AddToExitingBasket":{
+    "scriptname":"GAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"2963",
+     "bsktNamee" : "BSKTLONGEXIST"  ,
+     "scriptname2":"SAIL"
+    
+  },
+   "WatchList_ShortoverView_AddToExitingBasket":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+     "scriptId":"2963",
+     "bsktNamee" : "BSKTSHORTEXIST" 
+    
+  },
+  "CreateBasket_Add_FNO_Buy_Sell_VerifyMarginValue":{
+    "scriptname":"BANKNIFTY",
+    "segment":"FO",
+    "exchange":"NSE FO",
+    "bsktNamee" : "BSKTMARGINFNO"  
+  },
+    "CreateBasket_Add_Options_Buy_Sell_VerifyMarginValue":{
+    "bsktNamee" : "BSKTFNO",
+    "scriptname":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"FO",
+    "callPut" : "CE",
+    "strikePrice": "49000",
+    "expiryDate" : "28 Sep 2023"
+},
+ "CreateBasket_Add_Equity_Buy_Sell_VerifyMarginValue":{
+    "scriptname":"ITC",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTEQ"
+   
+  },
+  "CreateBasket_Add_MultipleSegments_VerifyMarginValue":{
+    "bsktNamee" : "BSKTSEGMARGIN",
+    "scriptname":"BANKNIFTY",
+    "exchange":"NSE FO",
+    "segment":"F&O",
+    "callPut" : "CE",
+    "strikePrice": "49000",
+    "expiryDate" : "27 Jul 2023",
+    
+    "scriptnameE":"RELIANCE",
+    "segmentE":"Cash",
+    "exchangeE":"NSE",
+    "exchangeF":"NFO",
+    "exchangeB":"BSE",
+    
+    "scriptnameC":"USDINR",
+    "segmentC":"Currency",
+    "exchangeC":"NSECDS"
+    
+    
+   
+},
+  
+  "Orders_Place_Buy_Sell_Limit_Equity_BasketOrder":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTEQBS",
+      "investmentType":"DELIVERY",
+    "BuySell":"BUY" ,
+    "BuySell2":"SELL" 
+   
+  },
+  "Orders_Place_Buy_Sell_Limit_Commodity_BasketOrder":{
+    "scriptname":"GOLDPETAL",
+    "segment":"Commodity",
+    "exchange":"MCX",
+    "bsktNamee" : "BSKTCOMMOBS"
+   
+  },
+  
+  "Orders_Place_Buy_Sell_Limit_Currency_BasketOrder":{
+     "scriptname":"USDINR",
+    "segment":"Currency",
+    "exchange":"NSECDS",
+    "bsktNamee" : "BSKTCURRENBS",
+    "callPut" : "CE",
+    "strikePrice": "82.75",
+    "expiryDate" : "27 Jul 2023"
+    
+   
+  },
+  
+    "CreateBasket_VerifyBasket_Count":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTCOUNTT"
+   
+  },
+ "Orders_Place_Two_Buy_Limit_Equity_Verify_Separate_OpenOrder_BasketOrder":{
+    "scriptname":"GAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTEQTWO"
+   
+  },
+  "Orders_Place_Market_BasketOrder_NSE_BSE_Verify_SeperateLegs_InOpenOrders_Postions":{
+    "scriptname":"SOUTHBANK",
+    "exchange":"NSE",
+    "exchange2":"BSE",
+    "bsktNamee" : "BSKTMARKET2LEGS" ,
+    "investmentType":"DELIVERY",
+    "BuySell":"BUY"
+  },
+    "Add_Basket_From_MarketToday_Portfolio_GlobalSearch_OrderHistory_Positions":{
+    "bsktNamee" : "MARKETTODAYSTOCK" ,
+    "qty":"1",
+    "scriptName":"IFCI",
+    "bsktNamee2" : "PORTFOLIOSTOCK" ,
+    "scriptName2":"IDEA",
+  	"segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee3" : "GLOBALSEARCHSTOCK" ,
+    "bsktNamee4" : "ORDERHISTORYSTOCK" ,
+    "bsktNamee5":"POSITIONSSTOCK",
+    "scriptName3":"GTLINFRA",
+    "scriptId":"13745",
+    "scriptId2":"14366",
+    "tradingSym":"GTLINFRA-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL"
+  },
+  
+  "Orders_Place_Limit_SplitBasketOrder_Commodity":{
+  "scriptname":"GOLDPETAL",
+    "bsktNamee" : "BSKTSplitCommodity" ,
+    "investmentType":"CF",
+    "BuySell":"BUY",
+    "exchange":"MCX",
+    "segment":"Commodity"
+  
+},
+   "Add_Basket_Verify_Charges_And_Fields":{
+    "bsktNamee" : "CHARGESANDFIELDS" 
+  },
+  "PlaceBasket_VerifyBroadcasting":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "BSKTLTPPlacedOrder"  
+  },
+  "Create_Basket_Add20Stocks_Verify_MaximumAdded_Stocks":{
+    "scriptname":"GTLINFRA",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "bsktNamee" : "20BasketTest",
+    "scriptId":"13745",
+    "tradingSym":"GTLINFRA-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL" 
+  },
+  "Create_50Basket_Verify_MaximumBaskets":{
+    "scriptname":"GTLINFRA",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "scriptId":"13745",
+    "tradingSym":"GTLINFRA-EQ",
+    "pLtp":"0.0",
+   	"ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL" 
+  },
+  "Orders_Place_LimitFNO_BasketOrder":{
+    "scriptname":"BANKNIFTY",
+    "segment":"F&O",
+    "exchange":"NSE FO",
+    "bsktNamee" : "BSKTFNOMARKET" ,
+    "investmentType":"CF",
+    "BuySell":"BUY"
+  }
+  
+}

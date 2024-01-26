@@ -1,0 +1,181 @@
+{ 
+  "OrderPad_Verify_Charges_Delivery_Buy_Cash_NSE":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE",
+    "txnType":"BUY",
+    "productType":"DELIVERY"
+  },
+  "OrderPad_Verify_Charges_Delivery_Buy_Cash_BSE":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"BSE"
+  },
+   "OrderPad_Verify_Charges_Intraday_Buy_Cash_NSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "OrderPad_Verify_Charges_Intraday_Sell_Cash_NSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "OrderPad_Verify_Charges_Intraday_Buy_Cash_BSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"BSE"
+  },
+   "OrderPad_Verify_Charges_Intraday_Sell_Cash_BSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"BSE"
+  },
+  "OrderPad_Verify_Charges_Holdings_Sell_Cash_NSE":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "OrderPad_Verify_Charges_Holdings_Sell_Cash_BSE":{
+    "scriptname":"SAIL",
+    "segment":"Cash",
+    "exchange":"BSE"
+  },
+   "OrderPad_Verify_Charges_Intraday_Buy_Future_NFO":{
+    "scriptname":"BANKNIFTY",
+    "segment":"FO",
+    "exchange":"NSE FO"
+  },
+  "OrderPad_Verify_Charges_Intraday_Buy_Option_NFO":{
+    "ScriptName":"BANKNIFTY",
+     "exchange":"NSE FO",
+    "segment":"FO",
+	"callPut" : "CE",
+	"strikePrice": "40400",
+	"expiryDate" : "19 Jan 2023"
+	
+  },
+  "OrderPad_Verify_Charges_CarryForward_Buy_Future_NFO":{
+    "scriptname":"BANKNIFTY",
+    "segment":"FO",
+    "exchange":"NSE FO"
+  },
+   "OrderPad_Verify_Charges_Intraday_Buy_Currency_CDS":{
+    "scriptname":"USDINR",
+    "segment":"Currency",
+    "exchange":"NSECDS"
+  },
+   
+    "OrderPad_Verify_Charges_Intraday_Buy_Commodity_MCX":{
+    "scriptname":"CRUDEOIL",
+    "segment":"Commodity",
+    "exchange":"MCX"
+  },
+   "Positions_Verify_Charges_Exit_Intraday_Buy_Cash_NSE":{
+	 "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"IDFCFIRSTB"
+  
+  
+},
+"Positions_Verify_Charges_Exit_Intraday_Buy_Cash_BSE":{
+	 "scriptId":"500113",
+    "tradingSym":"SAIL",
+     "exchange":"BSE",
+      "quantity":"2",
+      "stoploss":"0",
+       "pLtp":"0.0",
+    "transactiontype" :"BUY",
+    "triggerprice" :"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"SAIL",
+   "transactiontypee" :"SELL"
+    },
+"Positions_Verify_Charges_Exit_Delivery_Buy_Cash_NSE":{
+	 "scriptId":"13528",
+    "tradingSym":"GMRINFRA-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"DELIVERY",
+    "variety":"NORMAL",
+   "scriptname":"GMRINFRA"
+   
+    },
+"Positions_Verify_Charges_Exit_Delivery_Buy_Cash_BSE":{
+   
+    "scriptId":"55597",
+    "tradingSym":"BANKNIFTY25JAN2346000CE",
+   "exchange":"NFO",
+      "quantity":"1",
+      "stoploss":"0",
+       "pLtp":"0.0",
+    "transactiontype" :"BUY",
+    "triggerprice" :"0.0",
+    "ordertype":"LIMIT",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+    "scriptname":"BANKNIFTY",
+    "segment": "nse_fo"
+   
+   
+   
+    },
+
+"Positions_Verify_Charges_Exit_ClosedPositions_Intraday_Buy_Cash_NSE":{
+	 "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"IDFCFIRSTB",
+   "qty":"1"  
+  },
+  "OrderHistory_Verify_Charges_Exit_ReOrder_Intraday_Buy_Cash_NSE":{
+	 "scriptId":"11184",
+    "tradingSym":"IDFCFIRSTB-EQ",
+    "pLtp":"0.0",
+   "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+   "scriptname":"IDFCFIRSTB",
+   "qty":"1"  
+  },
+  "CoverOrder_Verify_Charges_Buy_Cash_NSE":{
+    "scriptname":"SBIN",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "BracketOrder_Verify_Charges_Buy_Cash_NSE":{
+    "scriptname":"SBIN",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "StopLoss_Verify_Charges_Buy_Cash_NSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+   "StopLoss_Verify_Charges_Sell_Cash_NSE":{
+    "scriptname":"IFCI",
+    "segment":"Cash",
+    "exchange":"NSE"
+  },
+  "Positions_Verify_Charges_Conversion_IntraDay_to_Delivery_Buy_Cash_NSE":{
+	  "tradingSym":"IFCI-EQ",
+     "scriptId":"1491",
+    "pLtp":"0.0",
+    "ordertype":"MARKET",
+    "producttype":"INTRADAY",
+    "variety":"NORMAL",
+    "scriptName":"IFCI",
+    "Qty" : "1"
+ 
+}
+}

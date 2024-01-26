@@ -1,0 +1,50 @@
+{
+
+  "orders": [
+    {
+      "symbolName": "BANKNIFTY",
+      "scripExchg": "nse_fo",
+      "exchange": "NFO",
+      "exchgId": "1",
+      "transactiontype": "B",
+      "producttype": "Carry Forward",
+      "ordertype": "MARKET",
+      "segment":"DERIVATIVESSEG",
+      "qty":1
+    },
+    {
+      "symbolName": "GOLDPETAL",
+      "scripExchg": "mcx_fo",
+      "exchange": "MCX",
+      "exchgId": "1",
+      "transactiontype": "S",
+      "producttype": "Carry Forward",
+      "ordertype": "MARKET",
+      "segment":"COMDTYSEG",
+      "qty":1
+    },
+    {
+      "symbolName": "USDINR",
+      "scripExchg": "cde_fo",
+      "exchange": "CDS",
+      "exchgId": "1",
+      "transactiontype": "S",
+      "producttype": "Carry Forward",
+      "ordertype": "MARKET",
+      "segment":"CURNCYSEG",
+      "qty":1
+    }
+  ,{
+      "symbolName": "SBIN",
+      "scripExchg": "nse_cm",
+      "exchange": "NSE",
+      "exchgId": "1",
+      "transactiontype": "S",
+      "producttype": "Delivery",
+      "ordertype": "MARKET",
+      "segment":"CASHSEG",
+      "qty":1
+    }
+  ]
+}
+

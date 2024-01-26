@@ -1,0 +1,24 @@
+{
+  "ShortOverView_Verify_OHLC_MarketDepth":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE"
+  },
+  "ShortOverView_Verify_Redirection_AllCTAs":{
+    "scriptname":"IDFCFIRSTB",
+    "segment":"Cash",
+    "exchange": "NSE",
+     "scriptname2":"TCS",
+    "segment2":"F&O",
+    "exchange2": "NSE FO",
+    "scriptname3":"USDINR",
+    "segment3":"Currency",
+    "exchange3":"NSECDS",
+     "scriptname4":"GOLD",
+    "segment4":"Commodity",
+    "exchange4":"MCX"
+  },
+  "ShortOverView_Verify_BestFiveSelection_LimitUpdation_InOrderpad":{
+   "scriptId":"11184"
+  }
+ }

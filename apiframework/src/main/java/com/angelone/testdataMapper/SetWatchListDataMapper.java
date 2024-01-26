@@ -13,7 +13,7 @@ public final class SetWatchListDataMapper {
 	@SneakyThrows
 	public static SetWatchListPOJO getWatchListData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/setWatchlist.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/setWatchlist.json"),
 						SetWatchListPOJO.class);
 
 	}
@@ -21,7 +21,7 @@ public final class SetWatchListDataMapper {
 	@SneakyThrows
 	public static SetWatchListPOJO getWatchListData(Integer version,String watchlistData) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/setWatchlist.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/setWatchlist.json"),
 						SetWatchListPOJO.class)
 				.setVersion(version)
 				.setWatchlistData(watchlistData);

@@ -1,0 +1,17 @@
+{
+"orders":
+[
+
+{   "symbolName": "GOLDPETAL",
+      "scripExchg": "mcx_fo",
+      "exchange": "MCX",
+      "exchgId": "5",
+      "transactiontype": "B",
+      "producttype": "Carry Forward",
+      "ordertype": "MARKET",
+      "segment":"COMDTYSEG",
+      "qty":10001
+  } 
+  ]
+  
+  }

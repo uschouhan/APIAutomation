@@ -14,7 +14,7 @@ public final class FundWithdrawalDataMapper {
 	@SneakyThrows
 	public static FundWithdrawalPOJO getFundData() {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/fundWithdraw.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/fundWithdraw.json"),
 						FundWithdrawalPOJO.class);
 
 	}
@@ -22,7 +22,7 @@ public final class FundWithdrawalDataMapper {
 	@SneakyThrows
 	public static FundWithdrawalPOJO getFundData(String name, String value) {
 		return new ObjectMapper()
-				.readValue(new File(System.getProperty("user.dir") + "/src/main/resources/requests/fundWithdraw.json"),
+				.readValue(new File(System.getProperty("user.dir") + "/src/test/resources/requests/fundWithdraw.json"),
 						FundWithdrawalPOJO.class)
 				.setName(name)
 				.setValue(value);
