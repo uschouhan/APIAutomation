@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,9 +53,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import com.angelone.api.pojo.UserDataJWT_POJO;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.InvalidKeyException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -276,34 +274,7 @@ public class Helper {
 
 	}
 
-	public String genJTWToken(UserDataJWT_POJO data, String secret) {
-		// String secret = "db3a62b2-45f6-4b6c-a74b-80ce27491bb7";
-		String jwtToken = "";
-		try {
-			SecretKeySpec hmacKey = new SecretKeySpec(secret.getBytes("UTF-8"), SignatureAlgorithm.HS256.getJcaName());
-			Instant now = Instant.now();
-			long futureTime = now.plus(365l, ChronoUnit.DAYS).toEpochMilli();
-			long pastTime = now.minus(1l, ChronoUnit.DAYS).toEpochMilli();
-			System.out.println("exp time = " + futureTime);
-			System.out.println("iat time = " + pastTime);
-			// UserDataJWT data = new UserDataJWT();
-			Map<String, Object> userData = new HashMap<>();
-			userData.put("userData", data);
-			jwtToken = Jwts.builder().addClaims(userData).claim("iss", "angel").claim("exp", futureTime)
-					.claim("iat", pastTime).setSubject("JWT key").setId(UUID.randomUUID().toString())
-					.setIssuedAt(Date.from(now)).setExpiration(Date.from(now.plus(2l, ChronoUnit.DAYS)))
-					.signWith(hmacKey).compact();
-		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		System.out.println("JWT token === > " + jwtToken);
-		return jwtToken;
-	}
 
 	@SneakyThrows
 	 public String genJTWTokenUAT(String UserID,String secret){
@@ -414,7 +385,7 @@ public class Helper {
 	            byte[] signedBytes = sha512Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8));
 
 	            return encode(signedBytes);
-	        } catch (NoSuchAlgorithmException | InvalidKeyException | java.security.InvalidKeyException ex) {
+	        } catch (NoSuchAlgorithmException | java.security.InvalidKeyException ex) {
 	            return null;
 	        }
 	    }

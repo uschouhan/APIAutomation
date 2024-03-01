@@ -1,12 +1,12 @@
 package com.angelone.tests.orderapi;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
+import com.angelone.api.BaseClass;
+import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
+import com.angelone.api.pojo.OrdersDetailsData;
+import com.angelone.config.factory.ApiConfigFactory;
+import com.angelone.reports.ExtentLogger;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONArray;
@@ -14,16 +14,12 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.angelone.api.BaseClass;
-import com.angelone.api.pojo.GetOrdersDetailsResponsePOJO;
-import com.angelone.api.pojo.OrdersDetailsData;
-import com.angelone.api.utility.Helper;
-import com.angelone.config.factory.ApiConfigFactory;
-import com.angelone.reports.ExtentLogger;
-import com.epam.reportportal.utils.TestCaseIdUtils;
-
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ApiSyntheticMonitoring extends BaseClass {
 	private static final List<String> BUILDUPS = new ArrayList<>(
@@ -1042,7 +1038,7 @@ public class ApiSyntheticMonitoring extends BaseClass {
 		Assertions.assertThat(ifscCode).as("ifscCode is null").isNotBlank().isNotEmpty().isNotNull();
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testSetWatchlist() throws Exception {
 		String jsonFilePath = "requests/setWatchlistData.json";
 		String scriptId = "10666";

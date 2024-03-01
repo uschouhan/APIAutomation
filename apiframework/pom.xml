@@ -13,7 +13,7 @@
 		<appium.java.version>7.6.0</appium.java.version>
 		<extentreport.version>5.0.8</extentreport.version>
 		<restassured.version>5.2.0</restassured.version>
-		<jackson.version>2.14.1</jackson.version>
+		<jackson.version>2.14.2</jackson.version>
 		<assertjcore.version>3.21.0</assertjcore.version>
 		<lombok.version>1.18.20</lombok.version>
 		<noexception.version>1.6.2</noexception.version>
@@ -111,18 +111,6 @@
 			<version>31.0.1-jre</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.epam.reportportal</groupId>
-			<artifactId>agent-java-testng</artifactId>
-			<version>5.1.3</version>
-		</dependency>
-		<!-- TODO Leave only one dependency, depends on what logger you use: -->
-		<dependency>
-			<groupId>com.epam.reportportal</groupId>
-			<artifactId>logger-java-logback</artifactId>
-			<version>5.1.1</version>
-		</dependency>
-		
 
 		<dependency>
 			<groupId>javax.activation</groupId>
@@ -135,24 +123,6 @@
 			<version>1.6.2</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
-			<scope>runtime</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>com.auth0</groupId>
