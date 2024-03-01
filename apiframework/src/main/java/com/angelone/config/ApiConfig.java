@@ -17,6 +17,8 @@ public interface ApiConfig extends Config {
 
   @Key("${environment}.BASE_URL")
   String apiBaseUrl();
+  @Key("${environment}.LOGIN_BASE_URL")
+  String loginBaseUrl();
 
   @Key("${environment}.TOKEN_ENDPOINT")
   String tokenEndpoint();
