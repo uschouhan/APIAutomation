@@ -24,7 +24,7 @@ public class BaseClass {
 
 	@Parameters({ "UserCredentials" })
 	@BeforeTest
-	public void Setup(@Optional("9741636854:upendra101087@gmail.com:lfixpzyvcbpoixrm:U50049267:2222:552724")String userDetails) {
+	public void Setup(@Optional("9741636854:upendra101087@gmail.com:mwpggunescpvhvrm:U50049267:2222:552724")String userDetails) {
 		baseAPI = new BaseTestApi();
 		// Generate User Mpin Token
 		baseAPI.generateUserToken(userDetails);
