@@ -24,13 +24,13 @@ public class BaseClass {
 
 	@Parameters({ "UserCredentials" })
 	@BeforeTest
-	public void Setup(@Optional("9741636854:upendra101087@gmail.com:lfixpzyvcbpoixrm:U50049267:2222:552724")String userDetails) {
+	public void Setup(@Optional("9741636854:upendra101087@gmail.com:mwpggunescpvhvrm:U50049267:2222:552724")String userDetails) {
 		baseAPI = new BaseTestApi();
 		// Generate User Mpin Token
 		baseAPI.generateUserToken(userDetails);
 		// Generate NonTraded Access Token
 		//baseAPI.getNonTradingAccessToken(userDetails);
-		baseAPI.generateNTTTokenNew(userDetails);
+		baseAPI.getNonTradingAccessTokenWithoutOtp(userDetails);
 		//baseAPI.refreshToken(userDetails);
 		//ExtentReport.initReports();
 		//List<String> collect = Stream.of(userDetails.split(":")).map(String::trim).collect(Collectors.toList());

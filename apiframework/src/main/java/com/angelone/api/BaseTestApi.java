@@ -374,6 +374,8 @@ public class BaseTestApi {
 		}
 	}
 
+
+
 	public void generateUserToken(String userCredentials, String secret) {
 		userDetails = userCredentials;
 		secretKey = secret;
